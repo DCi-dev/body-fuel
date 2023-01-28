@@ -85,6 +85,15 @@ model Recipe {
   fat           Float?
   instructions  String[]
   reviews       Review[]
+  categories   Category[]
+  favorite      Boolean?
+  shared        Boolean?
+}
+
+model Category {
+  id       String @id @default(cuid())
+  name     String
+  recipes  Recipe[]
 }
 
 model Review {
