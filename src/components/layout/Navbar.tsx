@@ -184,7 +184,7 @@ export default function Navbar() {
               </div>
               <div className="-mr-2 flex sm:hidden">
                 {/* Mobile menu button */}
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-zinc-400 hover:bg-zinc-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button className="hover-text-black inline-flex items-center justify-center rounded-md p-2 text-zinc-600 hover:bg-zinc-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
