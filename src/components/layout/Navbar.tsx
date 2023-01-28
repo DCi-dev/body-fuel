@@ -91,8 +91,8 @@ export default function Navbar() {
                       <span
                         className={`${
                           theme == "light"
-                            ? "translate-x-6 bg-zinc-800"
-                            : "translate-x-1 bg-zinc-200"
+                            ? "translate-x-1 bg-zinc-600"
+                            : "translate-x-6 bg-zinc-400"
                         } inline-block h-4 w-4 transform rounded-full bg-white transition`}
                       />
                     </Switch>
