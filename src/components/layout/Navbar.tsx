@@ -38,7 +38,7 @@ export default function Navbar() {
   return (
     <Disclosure
       as="nav"
-      className="fixed w-screen bg-gray-200 dark:bg-gray-800"
+      className="fixed w-screen bg-zinc-200 dark:bg-zinc-800"
       ref={navRef}
     >
       {({ open }) => (
@@ -84,15 +84,15 @@ export default function Navbar() {
                         setTheme(theme === "light" ? "dark" : "light")
                       }
                       className={`${
-                        theme == "light" ? "bg-gray-400" : "bg-gray-700"
+                        theme == "light" ? "bg-zinc-400" : "bg-zinc-700"
                       } relative inline-flex h-6 w-11 items-center rounded-full`}
                     >
                       <span className="sr-only">Theme mode</span>
                       <span
                         className={`${
                           theme == "light"
-                            ? "translate-x-6 bg-gray-800"
-                            : "translate-x-1 bg-gray-200"
+                            ? "translate-x-6 bg-zinc-800"
+                            : "translate-x-1 bg-zinc-200"
                         } inline-block h-4 w-4 transform rounded-full bg-white transition`}
                       />
                     </Switch>
@@ -100,7 +100,7 @@ export default function Navbar() {
                   {/* Profile dropdown */}
                   <Menu as="div" className="relative ml-3">
                     <div>
-                      <Menu.Button className="flex rounded-full bg-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 dark:bg-gray-800">
+                      <Menu.Button className="flex rounded-full bg-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-zinc-800 dark:bg-zinc-800">
                         <span className="sr-only">Open user menu</span>
                         {sessionData && (
                           <Image
@@ -129,7 +129,7 @@ export default function Navbar() {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-100 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-700">
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-zinc-100 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-zinc-700">
                         {sessionData && (
                           <>
                             <Menu.Item>
@@ -137,8 +137,8 @@ export default function Navbar() {
                                 <Link
                                   href="#"
                                   className={classNames(
-                                    active ? "bg-white dark:bg-gray-600" : "",
-                                    "block px-4 py-2 text-sm text-gray-900 dark:text-gray-100"
+                                    active ? "bg-white dark:bg-zinc-600" : "",
+                                    "block px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100"
                                   )}
                                 >
                                   Your recipes
@@ -149,8 +149,8 @@ export default function Navbar() {
                               {({ active }) => (
                                 <div
                                   className={classNames(
-                                    active ? "bg-white dark:bg-gray-600" : "",
-                                    "block cursor-pointer px-4 py-2 text-sm text-gray-900 dark:text-gray-100"
+                                    active ? "bg-white dark:bg-zinc-600" : "",
+                                    "block cursor-pointer px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100"
                                   )}
                                   onClick={() => signOut()}
                                 >
@@ -166,8 +166,8 @@ export default function Navbar() {
                               {({ active }) => (
                                 <div
                                   className={classNames(
-                                    active ? "bg-white dark:bg-gray-600" : "",
-                                    "block cursor-pointer px-4 py-2 text-sm text-gray-900 dark:text-gray-100"
+                                    active ? "bg-white dark:bg-zinc-600" : "",
+                                    "block cursor-pointer px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100"
                                   )}
                                   onClick={() => signIn()}
                                 >
@@ -184,7 +184,7 @@ export default function Navbar() {
               </div>
               <div className="-mr-2 flex sm:hidden">
                 {/* Mobile menu button */}
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-zinc-400 hover:bg-zinc-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -196,7 +196,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          <Disclosure.Panel className="border-t border-gray-300 dark:border-gray-700 sm:hidden">
+          <Disclosure.Panel className="border-t border-zinc-300 dark:border-zinc-700 sm:hidden">
             <div className="space-y-1 px-2 pt-2 pb-3">
               {navigationRoutes.map((link, index) => (
                 <MobileItem
@@ -207,7 +207,7 @@ export default function Navbar() {
                 />
               ))}
             </div>
-            <div className="border-t border-gray-300 pt-4 pb-3 dark:border-gray-700">
+            <div className="border-t border-zinc-300 pt-4 pb-3 dark:border-zinc-700">
               <div className="flex items-center px-5">
                 {sessionData && (
                   <>
@@ -224,7 +224,7 @@ export default function Navbar() {
                       <div className="text-base font-medium text-white">
                         {sessionData?.user?.name as string}
                       </div>
-                      <div className="text-sm font-medium text-gray-400">
+                      <div className="text-sm font-medium text-zinc-400">
                         {sessionData?.user?.email as string}
                       </div>
                     </div>
@@ -234,7 +234,7 @@ export default function Navbar() {
                   <>
                     <Disclosure.Button
                       as="button"
-                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-black dark:text-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                      className="block rounded-md px-3 py-2 text-base font-medium text-zinc-600 hover:bg-zinc-100 hover:text-black dark:text-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white"
                       onClick={() => signIn()}
                     >
                       Sign in
@@ -245,15 +245,15 @@ export default function Navbar() {
                   checked={theme === "light"}
                   onClick={() => setTheme(theme === "light" ? "dark" : "light")}
                   className={`${
-                    theme == "light" ? "bg-gray-400" : "bg-gray-700"
+                    theme == "light" ? "bg-zinc-400" : "bg-zinc-700"
                   } relative ml-auto inline-flex h-6 w-11 items-center rounded-full`}
                 >
                   <span className="sr-only">Theme mode</span>
                   <span
                     className={`${
                       theme == "light"
-                        ? "translate-x-6 bg-gray-800"
-                        : "translate-x-1 bg-gray-200"
+                        ? "translate-x-6 bg-zinc-800"
+                        : "translate-x-1 bg-zinc-200"
                     } inline-block h-4 w-4 transform rounded-full bg-white transition`}
                   />
                 </Switch>
@@ -264,13 +264,13 @@ export default function Navbar() {
                     <Disclosure.Button
                       as={Link}
                       href="#"
-                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-black dark:text-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                      className="block rounded-md px-3 py-2 text-base font-medium text-zinc-600 hover:bg-zinc-100 hover:text-black dark:text-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white"
                     >
                       Your recipes
                     </Disclosure.Button>
                     <Disclosure.Button
                       as="button"
-                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-black dark:text-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+                      className="block rounded-md px-3 py-2 text-base font-medium text-zinc-600 hover:bg-zinc-100 hover:text-black dark:text-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white"
                       onClick={() => signOut()}
                     >
                       Sign out
@@ -302,8 +302,8 @@ function NavItem({
       passHref
       className={`${
         isActive
-          ? " bg-gray-300 text-black dark:bg-gray-900  dark:text-white"
-          : "text-gray-700 hover:bg-gray-100 hover:text-black dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
+          ? " bg-zinc-300 text-black dark:bg-zinc-900  dark:text-white"
+          : "text-zinc-700 hover:bg-zinc-100 hover:text-black dark:text-zinc-300 dark:hover:bg-zinc-700 dark:hover:text-white"
       } rounded-md py-2 px-3  text-sm  font-medium`}
     >
       <span className="capitalize">{text}</span>
@@ -328,8 +328,8 @@ function MobileItem({
       passHref
       className={`${
         isActive
-          ? " bg-gray-300 text-black dark:bg-gray-900  dark:text-white"
-          : "text-gray-700 hover:bg-gray-100 hover:text-black dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
+          ? " bg-zinc-300 text-black dark:bg-zinc-900  dark:text-white"
+          : "text-zinc-700 hover:bg-zinc-100 hover:text-black dark:text-zinc-300 dark:hover:bg-zinc-700 dark:hover:text-white"
       } block rounded-md py-2 px-3  text-base  font-medium`}
     >
       <span className="capitalize">{text}</span>
