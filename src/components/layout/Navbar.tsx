@@ -152,38 +152,23 @@ export default function Navbar() {
                                 </Link>
                               )}
                             </Menu.Item>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <div
-                                  className={classNames(
-                                    active ? "bg-white dark:bg-zinc-600" : "",
-                                    "block cursor-pointer px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100"
-                                  )}
-                                  onClick={() => signOut()}
-                                >
-                                  Sign out
-                                </div>
-                              )}
-                            </Menu.Item>
                           </>
                         )}
-                        {!sessionData && (
-                          <>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <div
-                                  className={classNames(
-                                    active ? "bg-white dark:bg-zinc-600" : "",
-                                    "block cursor-pointer px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100"
-                                  )}
-                                  onClick={() => signIn()}
-                                >
-                                  Sign in
-                                </div>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <div
+                              className={classNames(
+                                active ? "bg-white dark:bg-zinc-600" : "",
+                                "block cursor-pointer px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100"
                               )}
-                            </Menu.Item>
-                          </>
-                        )}
+                              onClick={
+                                sessionData ? () => signOut() : () => signIn()
+                              }
+                            >
+                              {sessionData ? "Sign out" : "Sign in"}
+                            </div>
+                          )}
+                        </Menu.Item>
                       </Menu.Items>
                     </Transition>
                   </Menu>
