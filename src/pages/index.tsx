@@ -1,4 +1,5 @@
 import HomeHero from "@/components/home/Hero";
+import LogoClouds from "@/components/home/LogoClouds";
 import { type NextPage } from "next";
 import Head from "next/head";
 
@@ -11,6 +12,7 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <HomeHero />
+        <LogoClouds />
       </main>
     </>
   );
