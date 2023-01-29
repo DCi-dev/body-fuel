@@ -14,5 +14,12 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  images: {
+    domains: [
+      "avatars.githubusercontent.com",
+      "cdn.discordapp.com",
+      "lh3.googleusercontent.com",
+    ],
+  },
 };
 export default config;
