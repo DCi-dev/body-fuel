@@ -109,17 +109,16 @@ export default function Navbar() {
                     <div>
                       <Menu.Button className="flex rounded-full bg-zinc-200 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-zinc-800 dark:bg-zinc-800">
                         <span className="sr-only">Open user menu</span>
-                        {sessionData && (
+                        {sessionData ? (
                           <Image
-                            src={userProfileImageUrl}
+                            src={userProfileImageUrl || "/no-user-image.jpg"}
                             className="h-8 w-8 rounded-full"
                             aria-hidden="true"
                             alt="profile image"
                             width={30}
                             height={30}
                           />
-                        )}
-                        {!sessionData && (
+                        ) : (
                           <UserCircleIcon
                             className="h-8 w-8 rounded-full"
                             aria-hidden="true"
@@ -205,9 +204,9 @@ export default function Navbar() {
                   <>
                     <div className="flex-shrink-0">
                       <Image
-                        src={userProfileImageUrl}
+                        src={userProfileImageUrl || "/no-user-image.jpg"}
                         className="h-10 w-10 rounded-full"
-                        alt=""
+                        alt="profile image"
                         width={40}
                         height={40}
                       />
