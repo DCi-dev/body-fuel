@@ -1,12 +1,14 @@
 import { signIn } from "next-auth/react";
+import Image from "next/image";
 
 export default function HomeHero() {
   return (
     <div className="min-h-screen bg-zinc-100 dark:bg-zinc-900">
       <div className="overflow-hidden pt-8 sm:pt-12 lg:relative lg:py-48">
-        <div className="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:mt-6 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-24 lg:px-8">
-          <div className="mt-20">
-            <div className="mt-6 sm:max-w-xl">
+        <div className="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:mt-0 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-24 lg:px-8">
+          <div>
+            <div className="mt-12 sm:max-w-xl">
+              <Image src="/logo.svg" width={125} height={125} alt="logo" />
               <h1 className="text-3xl font-bold tracking-tight text-yellow-500 sm:text-4xl">
                 Welcome to Body Fuel!
               </h1>
@@ -21,7 +23,7 @@ export default function HomeHero() {
                 your wellness journey today!
               </p>
             </div>
-            <div className="mt-12 sm:flex sm:w-full sm:max-w-lg">
+            <div className="mt-6 sm:flex sm:w-full sm:max-w-lg">
               <div className="mt-4 sm:mt-0 ">
                 <button
                   onClick={() => signIn()}
@@ -36,7 +38,7 @@ export default function HomeHero() {
 
         <div className="sm:mx-auto sm:max-w-3xl sm:px-6">
           <div className="py-12 sm:relative sm:mt-12 sm:py-16 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-            <div className="hidden sm:block lg:mt-6">
+            <div className="hidden sm:block lg:mt-0">
               <div className="absolute inset-y-0 left-1/2 w-screen rounded-l-3xl bg-zinc-50 dark:bg-zinc-700 lg:left-80 lg:right-0 lg:w-full" />
               <svg
                 className="absolute top-8 right-1/2 -mr-3 lg:left-0 lg:m-0"
