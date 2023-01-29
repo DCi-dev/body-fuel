@@ -6,6 +6,8 @@ import Image from "next/image";
 import { Disclosure, Menu, Switch, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
+  MoonIcon,
+  SunIcon,
   UserCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
@@ -38,7 +40,7 @@ export default function Navbar() {
   return (
     <Disclosure
       as="nav"
-      className="fixed w-screen bg-zinc-200 dark:bg-zinc-800"
+      className="fixed z-50 w-screen bg-zinc-200 dark:bg-zinc-800"
       ref={navRef}
     >
       {({ open }) => (
@@ -88,13 +90,18 @@ export default function Navbar() {
                       } relative inline-flex h-6 w-11 items-center rounded-full`}
                     >
                       <span className="sr-only">Theme mode</span>
-                      <span
-                        className={`${
-                          theme == "light"
-                            ? "translate-x-1 bg-zinc-600"
-                            : "translate-x-6 bg-zinc-400"
-                        } inline-block h-4 w-4 transform rounded-full bg-white transition`}
-                      />
+                      {theme == "light" && (
+                        <span className="inline-block h-4 w-4 translate-x-1 transform rounded-full bg-zinc-600">
+                          <span className="sr-only">Dark mode</span>
+                          <MoonIcon className="transform rounded-full bg-zinc-200 text-zinc-900 transition" />
+                        </span>
+                      )}
+                      {theme == "dark" && (
+                        <span className="inline-block h-4 w-4 translate-x-6 transform rounded-full bg-zinc-400">
+                          <span className="sr-only">Light mode</span>
+                          <SunIcon className="transform rounded-full bg-zinc-800 text-yellow-500 transition" />
+                        </span>
+                      )}
                     </Switch>
                   </div>
                   {/* Profile dropdown */}
@@ -249,13 +256,18 @@ export default function Navbar() {
                   } relative ml-auto inline-flex h-6 w-11 items-center rounded-full`}
                 >
                   <span className="sr-only">Theme mode</span>
-                  <span
-                    className={`${
-                      theme == "light"
-                        ? "translate-x-1 bg-zinc-600"
-                        : "translate-x-6 bg-zinc-400"
-                    } inline-block h-4 w-4 transform rounded-full bg-white transition`}
-                  />
+                  {theme == "light" && (
+                    <span className="inline-block h-4 w-4 translate-x-1 transform rounded-full bg-zinc-600">
+                      <span className="sr-only">Dark mode</span>
+                      <MoonIcon className="transform rounded-full bg-zinc-200 text-zinc-900 transition" />
+                    </span>
+                  )}
+                  {theme == "dark" && (
+                    <span className="inline-block h-4 w-4 translate-x-6 transform rounded-full bg-zinc-400">
+                      <span className="sr-only">Light mode</span>
+                      <SunIcon className="transform rounded-full bg-zinc-800 text-yellow-500 transition" />
+                    </span>
+                  )}
                 </Switch>
               </div>
               <div className="mt-3 space-y-1 px-2">
