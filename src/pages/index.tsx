@@ -1,3 +1,5 @@
+import CTA from "@/components/home/CTA";
+import Feature from "@/components/home/Feature";
 import HomeHero from "@/components/home/Hero";
 import LogoClouds from "@/components/home/LogoClouds";
 import { type NextPage } from "next";
@@ -13,6 +15,8 @@ const Home: NextPage = () => {
       <main>
         <HomeHero />
         <LogoClouds />
+        <Feature />
+        <CTA />
       </main>
     </>
   );

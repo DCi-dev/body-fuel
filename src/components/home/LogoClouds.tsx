@@ -2,7 +2,7 @@ export default function LogoClouds() {
   return (
     <section className="bg-zinc-100 dark:bg-zinc-900">
       <div className="mx-auto max-w-screen-xl py-8 px-4 lg:py-16">
-        <h2 className="mb-8 text-center text-3xl font-extrabold leading-tight tracking-tight text-zinc-900 dark:text-zinc-100 md:text-4xl lg:mb-16">
+        <h2 className="mb-8 text-center text-3xl font-extrabold leading-tight tracking-tight text-zinc-600 dark:text-zinc-400 md:text-4xl lg:mb-16">
           You might have seen us in
         </h2>
         <div className="grid grid-cols-2 gap-8 text-zinc-500 dark:text-zinc-400 sm:gap-12 md:grid-cols-3 lg:grid-cols-6">
