@@ -1,3 +1,5 @@
+import { signIn } from "next-auth/react";
+
 export default function CTA() {
   return (
     <div className="bg-yellow-500">
