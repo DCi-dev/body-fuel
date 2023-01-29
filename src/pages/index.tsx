@@ -1,5 +1,6 @@
 import CTA from "@/components/home/CTA";
 import Feature from "@/components/home/Feature";
+import FeaturedRecipes from "@/components/home/FeaturedRecipes";
 import HomeHero from "@/components/home/Hero";
 import LogoClouds from "@/components/home/LogoClouds";
 import Testimonials from "@/components/home/Testimonials";
@@ -18,6 +19,7 @@ const Home: NextPage = () => {
         <LogoClouds />
         <Feature />
         <Testimonials />
+        <FeaturedRecipes />
         <CTA />
       </main>
     </>
