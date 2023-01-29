@@ -2,6 +2,7 @@ import CTA from "@/components/home/CTA";
 import Feature from "@/components/home/Feature";
 import HomeHero from "@/components/home/Hero";
 import LogoClouds from "@/components/home/LogoClouds";
+import Testimonials from "@/components/home/Testimonials";
 import { type NextPage } from "next";
 import Head from "next/head";
 
@@ -16,6 +17,7 @@ const Home: NextPage = () => {
         <HomeHero />
         <LogoClouds />
         <Feature />
+        <Testimonials />
         <CTA />
       </main>
     </>
