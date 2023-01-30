@@ -23,6 +23,7 @@
     "@trpc/next": "^10.8.1",
     "@trpc/react-query": "^10.8.1",
     "@trpc/server": "^10.8.1",
+    "aws-sdk": "^2.1304.0",
     "next": "13.1.2",
     "next-auth": "^4.18.7",
     "next-themes": "^0.2.1",

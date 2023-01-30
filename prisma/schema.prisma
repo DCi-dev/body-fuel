@@ -85,15 +85,18 @@ model Recipe {
   fat           Float?
   instructions  String[]
   reviews       Review[]
-  categories   Category[]
+  categories    Category[]
   favorite      Boolean?
   shared        Boolean?
+  prepTime      Int?
+  cookTime      Int?
+  difficulty    String?
 }
 
 model Category {
-  id       String @id @default(cuid())
-  name     String
-  recipes  Recipe[]
+  id      String   @id @default(cuid())
+  name    String   @unique // change
+  recipes Recipe[]
 }
 
 model Review {
@@ -105,4 +108,3 @@ model Review {
   stars    Int
   comments String
 }
-
