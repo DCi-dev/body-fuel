@@ -121,9 +121,9 @@ export default function CreateRecipeForm() {
                 <div className="mt-1 flex rounded-md shadow-sm">
                   <input
                     type="number"
-                    {...methods.register("servings")}
+                    name="servings"
                     className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    placeholder="Parmesan Crusted Chicken"
+                    defaultValue={1}
                   />
                 </div>
               </div>
@@ -208,7 +208,7 @@ export default function CreateRecipeForm() {
                         <input
                           className="sr-only"
                           type="file"
-                          {...methods.register("image")}
+                          name="image"
                           onChange={handleImageChange}
                         />
                       </label>
@@ -233,7 +233,7 @@ export default function CreateRecipeForm() {
                         <label className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500">
                           <span>Upload a image</span>
                           <input
-                            {...methods.register("image")}
+                            name="image"
                             type="file"
                             className="sr-only"
                             onChange={handleImageChange}
@@ -268,7 +268,10 @@ export default function CreateRecipeForm() {
               <IngredientInput
                 key={field.id}
                 update={
-                  update as (index: number, value: typeof recipeSchema) => void
+                  update as unknown as (
+                    index: number,
+                    value: typeof recipeSchema
+                  ) => void
                 }
                 index={index}
                 remove={remove as (index: number) => void}
@@ -287,7 +290,6 @@ export default function CreateRecipeForm() {
                     fat: 0,
                   });
                 }}
-                type="submit"
                 className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Add ingredient
@@ -304,12 +306,10 @@ export default function CreateRecipeForm() {
         >
           Cancel
         </button>
-        <button
+        <input
           type="submit"
           className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        >
-          Save
-        </button>
+        />
       </div>
     </form>
   );
