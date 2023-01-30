@@ -61,7 +61,7 @@ model VerificationToken {
 model Ingredient {
   id            String @id @default(cuid())
   name          String
-  quantity      Int
+  quantity      Float
   Recipe        Recipe @relation(fields: [recipeId], references: [id])
   recipeId      String
   calories      Float?
@@ -95,7 +95,7 @@ model Recipe {
 
 model Category {
   id      String   @id @default(cuid())
-  name    String   @unique // change
+  name    String   @unique
   recipes Recipe[]
 }
 
