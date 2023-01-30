@@ -6,6 +6,7 @@ interface ChildProps {
   value: any;
   remove: (index: number) => void;
   update: (index: number, value: typeof recipeSchema) => void;
+  register: any;
 }
 
 export const IngredientInput = ({
@@ -13,11 +14,8 @@ export const IngredientInput = ({
   value,
   remove,
   update,
+  register,
 }: ChildProps) => {
-  const { register } = useForm({
-    defaultValues: value,
-  });
-
   return (
     <div>
       <div className="mt-5 mb-6 md:col-span-2 md:mt-0">
