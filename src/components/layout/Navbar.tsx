@@ -90,18 +90,13 @@ export default function Navbar() {
                       } relative inline-flex h-6 w-11 items-center rounded-full`}
                     >
                       <span className="sr-only">Theme mode</span>
-                      {theme == "light" && (
-                        <span className="inline-block h-4 w-4 translate-x-1 transform rounded-full bg-zinc-600">
-                          <span className="sr-only">Dark mode</span>
-                          <MoonIcon className="transform rounded-full bg-zinc-200 text-zinc-900 transition" />
-                        </span>
-                      )}
-                      {theme == "dark" && (
-                        <span className="inline-block h-4 w-4 translate-x-6 transform rounded-full bg-zinc-400">
-                          <span className="sr-only">Light mode</span>
-                          <SunIcon className="transform rounded-full bg-zinc-800 text-yellow-500 transition" />
-                        </span>
-                      )}
+                      <span
+                        className={`${
+                          theme == "light"
+                            ? "translate-x-1 bg-zinc-100"
+                            : "translate-x-6 bg-zinc-400"
+                        } inline-block h-4 w-4 transform rounded-full transition`}
+                      />
                     </Switch>
                   </div>
                   {/* Profile dropdown */}
@@ -240,18 +235,13 @@ export default function Navbar() {
                   } relative ml-auto inline-flex h-6 w-11 items-center rounded-full`}
                 >
                   <span className="sr-only">Theme mode</span>
-                  {theme == "light" && (
-                    <span className="inline-block h-4 w-4 translate-x-1 transform rounded-full bg-zinc-600">
-                      <span className="sr-only">Dark mode</span>
-                      <MoonIcon className="transform rounded-full bg-zinc-200 text-zinc-900 transition" />
-                    </span>
-                  )}
-                  {theme == "dark" && (
-                    <span className="inline-block h-4 w-4 translate-x-6 transform rounded-full bg-zinc-400">
-                      <span className="sr-only">Light mode</span>
-                      <SunIcon className="transform rounded-full bg-zinc-800 text-yellow-500 transition" />
-                    </span>
-                  )}
+                  <span
+                    className={`${
+                      theme == "light"
+                        ? "translate-x-1 bg-zinc-100"
+                        : "translate-x-6 bg-zinc-400"
+                    } inline-block h-4 w-4 transform rounded-full transition`}
+                  />
                 </Switch>
               </div>
               <div className="mt-3 space-y-1 px-2">
