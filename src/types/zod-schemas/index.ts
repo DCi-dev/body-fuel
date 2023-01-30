@@ -19,7 +19,7 @@ export const recipeSchema = z.object({
   favorite: z.boolean().optional(),
   shared: z.boolean().optional(),
   category: z.string(),
-  prepTime: z.number().optional(),
-  cookTime: z.number().optional(),
+  prepTime: z.string().optional(),
+  cookTime: z.string().optional(),
   difficulty: z.string().optional(),
 });

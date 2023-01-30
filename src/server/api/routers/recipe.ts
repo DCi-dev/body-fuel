@@ -170,7 +170,7 @@ export const recipeRouter = createTRPCRouter({
       return recipes;
     }),
   getRecipesByPrepTime: publicProcedure
-    .input(z.number())
+    .input(z.string())
     .query(async ({ input, ctx }) => {
       const recipes = await ctx.prisma.recipe.findMany({
         where: {
@@ -183,7 +183,7 @@ export const recipeRouter = createTRPCRouter({
       return recipes;
     }),
   getRecipesByCookTime: publicProcedure
-    .input(z.number())
+    .input(z.string())
     .query(async ({ input, ctx }) => {
       const recipes = await ctx.prisma.recipe.findMany({
         where: {

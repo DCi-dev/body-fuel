@@ -67,17 +67,99 @@ export default function CreateRecipeForm() {
           </div>
           <div className="mt-5 space-y-6 md:col-span-2 md:mt-0">
             <div className="grid grid-cols-3 gap-6">
-              <div className="col-span-3 sm:col-span-2">
+              <div className="col-span-3 sm:col-span-1">
                 <label className="block text-sm font-medium text-zinc-700">
                   Recipe Name
                 </label>
                 <div className="mt-1 flex rounded-md shadow-sm">
                   <input
                     type="text"
-                    name="recipe-name"
-                    id="recipe-name"
+                    {...methods.register("name")}
                     className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     placeholder="Parmesan Crusted Chicken"
+                  />
+                </div>
+              </div>
+              <div className="col-span-3 sm:col-span-1">
+                <label className="block text-sm font-medium text-zinc-700">
+                  Category
+                </label>
+                <div className="mt-1 flex rounded-md shadow-sm">
+                  <input
+                    type="text"
+                    {...methods.register("category")}
+                    className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    placeholder="Breakfast"
+                  />
+                </div>
+              </div>
+              <div className="col-span-3 sm:col-span-1">
+                <div className="flex justify-between">
+                  <label className="block text-sm font-medium text-zinc-700">
+                    Difficulty
+                  </label>
+                  <span className="text-sm text-gray-500" id="email-optional">
+                    Optional
+                  </span>
+                </div>
+                <div className="mt-1 flex rounded-md shadow-sm">
+                  <input
+                    type="text"
+                    {...methods.register("difficulty")}
+                    className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    placeholder="Breakfast"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-6">
+              <div className="col-span-3 sm:col-span-1">
+                <label className="block text-sm font-medium text-zinc-700">
+                  Number of servings
+                </label>
+                <div className="mt-1 flex rounded-md shadow-sm">
+                  <input
+                    type="number"
+                    {...methods.register("servings")}
+                    className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    placeholder="Parmesan Crusted Chicken"
+                  />
+                </div>
+              </div>
+              <div className="col-span-3 sm:col-span-1">
+                <div className="flex justify-between">
+                  <label className="block text-sm font-medium text-zinc-700">
+                    Prep time
+                  </label>
+                  <span className="text-sm text-gray-500" id="email-optional">
+                    Optional
+                  </span>
+                </div>
+                <div className="mt-1 flex rounded-md shadow-sm">
+                  <input
+                    type="text"
+                    {...methods.register("prepTime")}
+                    className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    placeholder="12 minutes"
+                  />
+                </div>
+              </div>
+              <div className="col-span-3 sm:col-span-1">
+                <div className="flex justify-between">
+                  <label className="block text-sm font-medium text-zinc-700">
+                    Cook time
+                  </label>
+                  <span className="text-sm text-gray-500" id="email-optional">
+                    Optional
+                  </span>
+                </div>
+                <div className="mt-1 flex rounded-md shadow-sm">
+                  <input
+                    type="text"
+                    {...methods.register("cookTime")}
+                    className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    placeholder="half an hour"
                   />
                 </div>
               </div>
@@ -90,7 +172,7 @@ export default function CreateRecipeForm() {
               <div className="mt-1">
                 <textarea
                   id="description"
-                  name="description"
+                  {...methods.register("description")}
                   rows={3}
                   className="block w-full rounded-md border-zinc-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                   placeholder="This is a simple and crispy oven baked chicken."
@@ -100,19 +182,6 @@ export default function CreateRecipeForm() {
               <p className="mt-2 text-sm text-zinc-500">
                 Brief description for your recipe.
               </p>
-            </div>
-
-            <div className="mt-1 flex items-center space-x-5">
-              <label className="block text-sm font-medium text-zinc-700">
-                Number of servings
-              </label>
-              <input
-                type="number"
-                name="servings"
-                defaultValue={1}
-                className="block w-12 rounded-none rounded-r-md border-zinc-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                placeholder="1"
-              />
             </div>
 
             <div>
@@ -139,7 +208,7 @@ export default function CreateRecipeForm() {
                         <input
                           className="sr-only"
                           type="file"
-                          name="image"
+                          {...methods.register("image")}
                           onChange={handleImageChange}
                         />
                       </label>
@@ -164,8 +233,7 @@ export default function CreateRecipeForm() {
                         <label className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500">
                           <span>Upload a image</span>
                           <input
-                            id="image"
-                            name="image"
+                            {...methods.register("image")}
                             type="file"
                             className="sr-only"
                             onChange={handleImageChange}
