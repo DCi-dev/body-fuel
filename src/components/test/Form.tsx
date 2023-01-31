@@ -1,7 +1,7 @@
 import { recipeSchema } from "@/types/zod-schemas";
 import { api } from "@/utils/api";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChangeEvent } from "react";
+import type { ChangeEvent } from "react";
 import type { UseFormProps } from "react-hook-form";
 import { useFieldArray, useForm } from "react-hook-form";
 import type { z } from "zod";
@@ -24,113 +24,122 @@ export default function Form() {
     schema: recipeSchema,
   });
 
-  const ingredientArray = useFieldArray({
-    control: methods.control, // control props comes from useForm (optional: if you are using FormContext)
+  const { register, handleSubmit, control, setValue, getValues, errors } =
+    methods;
+
+  const {
+    fields: ingredientFields,
+    append: ingredientAppend,
+    remove: ingredientRemove,
+  } = useFieldArray({
+    control: control, // control props comes from useForm (optional: if you are using FormContext)
     name: "ingredients", // unique name for your Field Array
   });
-  const instructionArray = useFieldArray({
-    control: methods.control, // control props comes from useForm (optional: if you are using FormContext)
-    name: "instruction", // unique name for your Field Array
+
+  const {
+    fields: instructionsFields,
+    append: instructionsAppend,
+    remove: instructionsRemove,
+  } = useFieldArray({
+    control: control, // control props comes from useForm (optional: if you are using FormContext)
+    name: "instructions", // unique name for your Field Array
   });
 
   const createRecipe = api.recipe.createRecipe.useMutation();
 
-  const onSubmit = async (data, e) => {
-    createRecipe.mutate(data);
-    console.log(data, e);
+  const onSubmit = async (data) => {
+    console.log(data);
+
+    await createRecipe.mutateAsync(data);
+    console.log(data);
   };
   const onError = (errors, e) => console.log(errors, e);
   return (
-    <form onSubmit={methods.handleSubmit(onSubmit, onError)}>
+    <form onSubmit={handleSubmit(onSubmit, onError)}>
       <div>
-        <input type="text" {...methods.register("name")} />
+        <input type="text" {...register("name")} />
       </div>
       <div>
-        <input type="text" {...methods.register("description")} />
+        <input type="text" {...register("description")} />
       </div>
       <div>
-        <input type="text" {...methods.register("category")} />
+        <input type="text" {...register("category")} />
       </div>
       <div>
-        <input type="file" {...methods.register("image")} />
+        <input type="file" {...register("image")} />
       </div>
       <div>
-        <input type="text" {...methods.register("difficulty")} />
+        <input type="text" {...register("difficulty")} />
       </div>
       <div>
-        <input type="text" {...methods.register("prepTime")} />
+        <input type="text" {...register("prepTime")} />
       </div>
       <div>
-        <input type="text" {...methods.register("cookTime")} />
+        <input type="text" {...register("cookTime")} />
       </div>
       <div>
         <input
           type="number"
           onChange={(e) => {
-            methods.setValue("servings", parseInt(e.target.value));
+            setValue("servings", parseInt(e.target.value));
           }}
         />
       </div>
 
-      {ingredientArray.fields.map((field, index) => (
-        <>
-          <div key={field.id}>
-            <input
-              type="text"
-              {...methods.register(`ingredients.${index}.name`)}
-            />
-            <input
-              type="number"
-              onChange={(e) => {
-                methods.setValue(
-                  `ingredients.${index}.quantity`,
-                  parseInt(e.target.value)
-                );
-              }}
-            />
-            <input
-              type="number"
-              onChange={(e) => {
-                methods.setValue(
-                  `ingredients.${index}.calories`,
-                  parseInt(e.target.value)
-                );
-              }}
-            />
-            <input
-              type="number"
-              onChange={(e) => {
-                methods.setValue(
-                  `ingredients.${index}.protein`,
-                  parseInt(e.target.value)
-                );
-              }}
-            />
-            <input
-              type="number"
-              onChange={(e) => {
-                methods.setValue(
-                  `ingredients.${index}.carbohydrates`,
-                  parseInt(e.target.value)
-                );
-              }}
-            />
-            <input
-              type="number"
-              onChange={(e) => {
-                methods.setValue(
-                  `ingredients.${index}.fat`,
-                  parseInt(e.target.value)
-                );
-              }}
-            />
-          </div>
-        </>
+      {ingredientFields.map((field, index) => (
+        <div key={field.id}>
+          <input type="text" {...register(`ingredients.${index}.name`)} />
+          <input
+            type="number"
+            onChange={(e) => {
+              setValue(
+                `ingredients.${index}.quantity`,
+                parseInt(e.target.value)
+              );
+            }}
+          />
+          <input
+            type="number"
+            onChange={(e) => {
+              setValue(
+                `ingredients.${index}.calories`,
+                parseInt(e.target.value)
+              );
+            }}
+          />
+          <input
+            type="number"
+            onChange={(e) => {
+              setValue(
+                `ingredients.${index}.protein`,
+                parseInt(e.target.value)
+              );
+            }}
+          />
+          <input
+            type="number"
+            onChange={(e) => {
+              setValue(
+                `ingredients.${index}.carbohydrates`,
+                parseInt(e.target.value)
+              );
+            }}
+          />
+          <input
+            type="number"
+            onChange={(e) => {
+              setValue(`ingredients.${index}.fat`, parseInt(e.target.value));
+            }}
+          />
+          <button type="button" onClick={() => ingredientRemove(index)}>
+            Delete
+          </button>
+        </div>
       ))}
       <button
         type="button"
         onClick={() => {
-          ingredientArray.append({
+          ingredientAppend({
             name: "",
             quantity: 0,
             calories: 0,
@@ -142,30 +151,24 @@ export default function Form() {
       >
         append
       </button>
-      {instructionArray.fields.map((field, index) => (
-        <input
-          type="text"
-          key={field.id}
-          {...methods.register(`instructions.${index}`)}
-        />
-      ))}
-      <button
-        type="button"
-        onClick={() => {
-          instructionArray.append({
-            name: "",
-            quantity: 0,
-            calories: 0,
-            protein: 0,
-            carbohydrates: 0,
-            fat: 0,
-          });
-        }}
-      >
-        append
-      </button>
-      <input type="checkbox" {...methods.register("favorite")} />
-      <input type="checkbox" {...methods.register("shared")} />
+      <div>
+        {instructionsFields.map((item, index) => {
+          return (
+            <div key={item.id}>
+              <input type="text" {...register(`instructions.${index}.text`)} />
+              <button type="button" onClick={() => instructionsRemove(index)}>
+                Delete
+              </button>
+            </div>
+          );
+        })}
+        <button type="button" onClick={() => instructionsAppend()}>
+          Add
+        </button>
+      </div>
+
+      <input type="checkbox" {...register("favorite")} />
+      <input type="checkbox" {...register("shared")} />
 
       <button type="submit">Submit</button>
     </form>

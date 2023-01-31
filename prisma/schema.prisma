@@ -70,20 +70,26 @@ model Ingredient {
   fat           Float?
 }
 
+model Instructions {
+  id       String @id @default(cuid())
+  recipeId String
+  Recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  text     String
+}
+
 model Recipe {
-  id            String       @id @default(cuid())
+  id            String         @id @default(cuid())
   name          String
   description   String
   servings      Int
   image         String?
   ingredients   Ingredient[]
-  user          User         @relation(fields: [userId], references: [id])
+  user          User           @relation(fields: [userId], references: [id])
   userId        String
   calories      Float?
   protein       Float?
   carbohydrates Float?
   fat           Float?
-  instructions  String[]
   reviews       Review[]
   categories    Category[]
   favorite      Boolean?
@@ -91,6 +97,7 @@ model Recipe {
   prepTime      String?
   cookTime      String?
   difficulty    String?
+  instructions  Instructions[]
 }
 
 model Category {

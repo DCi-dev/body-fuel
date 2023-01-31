@@ -15,7 +15,11 @@ export const recipeSchema = z.object({
       fat: z.number().optional(),
     })
   ),
-  instructions: z.array(z.string()),
+  instructions: z.array(
+    z.object({
+      text: z.string(),
+    })
+  ),
   favorite: z.boolean().optional(),
   shared: z.boolean().optional(),
   category: z.string(),

@@ -21,6 +21,7 @@ export const recipeRouter = createTRPCRouter({
       }
 
       try {
+        console.log(input?.image);
         // first image from the input = imageKey
         const imageKey = `${userId}-${input?.image?.name}`;
 
@@ -69,7 +70,11 @@ export const recipeRouter = createTRPCRouter({
               (acc, ingredient) => acc + ingredient?.fat,
               0
             ),
-            instructions: input.instructions,
+            instructions: {
+              create: input.instructions.map((instruction) => ({
+                text: instruction.text,
+              })),
+            },
             favorite: input.favorite,
             shared: input.shared,
             categories: {
