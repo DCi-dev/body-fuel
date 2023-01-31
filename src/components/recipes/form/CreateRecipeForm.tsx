@@ -22,17 +22,6 @@ function useZodForm<TSchema extends z.ZodType>(
 }
 
 export default function CreateRecipeForm() {
-  const methods = useZodForm({
-    schema: recipeSchema,
-  });
-
-  const { fields, append, remove, update } = useFieldArray({
-    control: methods.control, // control props comes from useForm (optional: if you are using FormContext)
-    name: "ingredients", // unique name for your Field Array
-  });
-
-  const createRecipe = api.recipe.createRecipe.useMutation();
-
   // Image
   const [image, setImage] = useState<File | null>(null);
 
@@ -49,10 +38,9 @@ export default function CreateRecipeForm() {
     e.preventDefault();
   };
 
-  const onSubmit = (data) => console.log(data);
+ 
 
   return (
-    <FormProvider {...methods}>
       <form className="space-y-6" onSubmit={methods.handleSubmit(onSubmit)}>
         <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:p-6">
           <div className="md:grid md:grid-cols-3 md:gap-6">
@@ -310,6 +298,5 @@ export default function CreateRecipeForm() {
           />
         </div>
       </form>
-    </FormProvider>
   );
 }

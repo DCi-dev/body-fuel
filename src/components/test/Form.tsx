@@ -1,7 +1,8 @@
 import { recipeSchema } from "@/types/zod-schemas";
 import { api } from "@/utils/api";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { ChangeEvent } from "react";
+import { Recipe } from "@prisma/client";
+import type { PresignedPost } from "aws-sdk/clients/s3";
 import type { UseFormProps } from "react-hook-form";
 import { useFieldArray, useForm } from "react-hook-form";
 import type { z } from "zod";
@@ -19,13 +20,14 @@ function useZodForm<TSchema extends z.ZodType>(
   return form;
 }
 
+type RecipeData = z.infer<typeof recipeSchema>;
+
 export default function Form() {
   const methods = useZodForm({
     schema: recipeSchema,
   });
 
-  const { register, handleSubmit, control, setValue, getValues, errors } =
-    methods;
+  const { register, handleSubmit, control, setValue } = methods;
 
   const {
     fields: ingredientFields,
@@ -50,8 +52,49 @@ export default function Form() {
   const onSubmit = async (data) => {
     console.log(data);
 
-    await createRecipe.mutateAsync(data);
-    console.log(data);
+    const file = data.image[0];
+
+    const res = {
+      name: data.name,
+      description: data.description,
+      category: data.category,
+      image: data.image[0].name,
+      difficulty: data.difficulty,
+      prepTime: data.prepTime,
+      cookTime: data.cookTime,
+      servings: data.servings,
+      ingredients: data.ingredients,
+      instructions: data.instructions,
+      favorite: data.favorite,
+      shared: data.shared,
+    };
+
+    const { presignedUrl }: { presignedUrl: PresignedPost } =
+      await createRecipe.mutateAsync(res);
+
+    const { url, fields } = presignedUrl;
+
+
+     const imgData = {
+       ...fields,
+       "Content-Type": file.type,
+       file,
+     };
+
+     const formData = new FormData();
+
+     for (const name in imgData) {
+       formData.append(name, imgData[name]);
+     }
+
+     await fetch(url, {
+       method: "POST",
+       body: formData,
+     });
+
+
+    // await createRecipe.mutateAsync(res);
+    console.log(res);
   };
   const onError = (errors, e) => console.log(errors, e);
   return (

@@ -7,6 +7,7 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 const s3 = new AWS.S3();
 
 const BUCKET_NAME = env.AWS_BUCKET_NAME;
+const REGION = env.AWS_REGION;
 const UPLOADING_TIME_LIMIT = 30;
 const UPLOAD_MAX_FILE_SIZE = 1000000;
 
@@ -21,28 +22,12 @@ export const recipeRouter = createTRPCRouter({
       }
 
       try {
-        console.log(input?.image);
-        // first image from the input = imageKey
-        const imageKey = `${userId}-${input?.image?.name}`;
-
-        const presignedUrl = s3.createPresignedPost({
-          Bucket: BUCKET_NAME,
-          Fields: {
-            key: imageKey,
-          },
-          Expires: UPLOADING_TIME_LIMIT,
-          Conditions: [
-            ["content-length-range", 0, UPLOAD_MAX_FILE_SIZE],
-            ["starts-with", "$Content-Type", "image/"],
-          ],
-        });
-
         const recipe = await ctx.prisma.recipe.create({
           data: {
             name: input.name,
             description: input.description,
             servings: input.servings,
-            image: `https://${BUCKET_NAME}.s3.amazonaws.com/${imageKey}`,
+            image: "",
             ingredients: {
               create: input.ingredients.map((ingredient) => ({
                 name: ingredient.name,
@@ -93,6 +78,28 @@ export const recipeRouter = createTRPCRouter({
                 id: userId,
               },
             },
+          },
+        });
+
+        const presignedUrl = s3.createPresignedPost({
+          Bucket: BUCKET_NAME,
+          Fields: {
+            key: `${userId}/${recipe.id}`,
+          },
+          Expires: UPLOADING_TIME_LIMIT,
+          Conditions: [
+            ["content-length-range", 0, UPLOAD_MAX_FILE_SIZE],
+            ["starts-with", "$Content-Type", "image/"],
+          ],
+        });
+
+        // update image field with the presigned url
+        await ctx.prisma.recipe.update({
+          where: {
+            id: recipe.id,
+          },
+          data: {
+            image: `https://${BUCKET_NAME}.${REGION}.s3.amazonaws.com/${userId}/${recipe.id}`,
           },
         });
 
