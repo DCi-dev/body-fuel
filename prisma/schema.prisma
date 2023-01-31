@@ -62,7 +62,7 @@ model Ingredient {
   id            String @id @default(cuid())
   name          String
   quantity      Float
-  Recipe        Recipe @relation(fields: [recipeId], references: [id])
+  Recipe        Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
   recipeId      String
   calories      Float?
   protein       Float?

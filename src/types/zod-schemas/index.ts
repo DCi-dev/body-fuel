@@ -4,7 +4,7 @@ export const recipeSchema = z.object({
   name: z.string(),
   description: z.string(),
   servings: z.number(),
-  image: z.string(),
+  image: z.custom<File>(),
   ingredients: z.array(
     z.object({
       name: z.string(),

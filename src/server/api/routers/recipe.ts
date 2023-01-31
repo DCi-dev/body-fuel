@@ -20,61 +20,84 @@ export const recipeRouter = createTRPCRouter({
         throw new Error("Not authenticated");
       }
 
-      const recipe = await ctx.prisma.recipe.create({
-        data: {
-          name: input.name,
-          description: input.description,
-          servings: input.servings,
-          image: input.image,
-          ingredients: {
-            create: input.ingredients.map((ingredient) => ({
-              name: ingredient.name,
-              quantity: ingredient.quantity,
-              calories: ingredient.calories,
-              protein: ingredient.protein,
-              carbohydrates: ingredient.carbohydrates,
-              fat: ingredient.fat,
-            })),
+      try {
+        // first image from the input = imageKey
+        const imageKey = `${userId}-${input?.image?.name}`;
+
+        const presignedUrl = s3.createPresignedPost({
+          Bucket: BUCKET_NAME,
+          Fields: {
+            key: imageKey,
           },
-          instructions: input.instructions,
-          favorite: input.favorite,
-          shared: input.shared,
-          categories: {
-            connectOrCreate: {
-              where: {
-                name: input.category,
+          Expires: UPLOADING_TIME_LIMIT,
+          Conditions: [
+            ["content-length-range", 0, UPLOAD_MAX_FILE_SIZE],
+            ["starts-with", "$Content-Type", "image/"],
+          ],
+        });
+
+        const recipe = await ctx.prisma.recipe.create({
+          data: {
+            name: input.name,
+            description: input.description,
+            servings: input.servings,
+            image: `https://${BUCKET_NAME}.s3.amazonaws.com/${imageKey}`,
+            ingredients: {
+              create: input.ingredients.map((ingredient) => ({
+                name: ingredient.name,
+                quantity: ingredient.quantity,
+                calories: ingredient.calories,
+                protein: ingredient.protein,
+                carbohydrates: ingredient.carbohydrates,
+                fat: ingredient.fat,
+              })),
+            },
+            // Add the total calories based on the ingredients calories field
+            calories: input.ingredients.reduce(
+              (acc, ingredient) => acc + ingredient?.calories,
+              0
+            ),
+            protein: input.ingredients.reduce(
+              (acc, ingredient) => acc + ingredient?.protein,
+              0
+            ),
+            carbohydrates: input.ingredients.reduce(
+              (acc, ingredient) => acc + ingredient?.carbohydrates,
+              0
+            ),
+            fat: input.ingredients.reduce(
+              (acc, ingredient) => acc + ingredient?.fat,
+              0
+            ),
+            instructions: input.instructions,
+            favorite: input.favorite,
+            shared: input.shared,
+            categories: {
+              connectOrCreate: {
+                where: {
+                  name: input.category,
+                },
+                create: { name: input.category },
               },
-              create: { name: input.category },
+            },
+            prepTime: input.prepTime,
+            cookTime: input.cookTime,
+            difficulty: input.difficulty,
+            user: {
+              connect: {
+                id: userId,
+              },
             },
           },
-          prepTime: input.prepTime,
-          cookTime: input.cookTime,
-          difficulty: input.difficulty,
-          user: {
-            connect: {
-              id: userId,
-            },
-          },
-        },
-      });
+        });
 
-      // Upload image to S3 using a presigned URL
-      const presignedUrl = s3.createPresignedPost({
-        Bucket: BUCKET_NAME,
-        Fields: {
-          key: `${recipe.id}/${input.image}`,
-        },
-        Expires: UPLOADING_TIME_LIMIT,
-        Conditions: [
-          ["content-length-range", 0, UPLOAD_MAX_FILE_SIZE],
-          ["starts-with", "$Content-Type", "image/"],
-        ],
-      });
-
-      return {
-        presignedUrl,
-        recipe,
-      };
+        return {
+          presignedUrl,
+          recipe,
+        };
+      } catch (error) {
+        console.log(error);
+      }
     }),
 
   getRecipes: publicProcedure.query(async ({ ctx }) => {
