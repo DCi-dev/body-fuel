@@ -60,7 +60,6 @@ export const recipeRouter = createTRPCRouter({
                 text: instruction.text,
               })),
             },
-            favorite: input.favorite,
             shared: input.shared,
             categories: {
               connectOrCreate: {

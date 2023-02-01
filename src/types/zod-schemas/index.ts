@@ -20,7 +20,6 @@ export const recipeSchema = z.object({
       text: z.string(),
     })
   ),
-  favorite: z.boolean().optional(),
   shared: z.boolean().optional(),
   category: z.string(),
   prepTime: z.string().optional(),

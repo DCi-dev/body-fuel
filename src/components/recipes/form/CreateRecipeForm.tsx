@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useState } from "react";
 import type { SubmitHandler, UseFormProps } from "react-hook-form";
 import { useFieldArray, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import type { z } from "zod";
 
 function useZodForm<TSchema extends z.ZodType>(
@@ -69,6 +70,7 @@ export default function CreateRecipeForm() {
   const createRecipe = api.recipe.createRecipe.useMutation();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    toast.loading("Waiting...");
     const file = image;
 
     const res = {
@@ -82,7 +84,6 @@ export default function CreateRecipeForm() {
       servings: data.servings,
       ingredients: data.ingredients,
       instructions: data.instructions,
-      favorite: data.favorite,
       shared: data.shared,
     };
 
@@ -110,11 +111,13 @@ export default function CreateRecipeForm() {
         body: formData,
       });
     }
+    toast.dismiss();
+    toast.success("Recipe created!");
   };
   const onError = (errors: any, e: any) => console.log(errors, e);
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit(onSubmit, onError)}>
+    <form className="space-y-6 px-3" onSubmit={handleSubmit(onSubmit, onError)}>
       <div className="bg-zinc-100 px-4 py-5 shadow dark:bg-zinc-900 sm:rounded-lg sm:p-6">
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="md:col-span-1">
@@ -341,7 +344,7 @@ export default function CreateRecipeForm() {
                 <div className="grid grid-cols-6 gap-6">
                   <div className="col-span-3 sm:col-span-2">
                     <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                      Ingredient name
+                      Unit of measure - Ingredient name
                     </label>
                     <input
                       type="text"
@@ -576,11 +579,28 @@ export default function CreateRecipeForm() {
         </div>
       </div>
       {/* Instructions END */}
+
       <div className="flex justify-end">
-        <span>Favorite?</span>
-        <input type="checkbox" {...register("favorite")} />
-        <span>Share?</span>
-        <input type="checkbox" {...register("shared")} />
+        <legend className="sr-only">Share</legend>
+        <div className="relative flex items-start">
+          <div className="flex h-5 items-center">
+            <input
+              type="checkbox"
+              {...register("shared")}
+              className="h-4 w-4 rounded border-zinc-300 text-yellow-600 focus:ring-yellow-500 dark:border-zinc-700"
+            />
+          </div>
+          <div className="ml-3 text-sm">
+            <span className="font-medium text-zinc-700 dark:text-zinc-300">
+              Share
+            </span>
+            <p className="text-zinc-700 dark:text-zinc-300">
+              Share this recipe with other users.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="flex justify-end pb-6">
         <button
           type="button"
           className="rounded-md border border-zinc-300 bg-white py-2 px-4 text-sm font-medium text-zinc-700 shadow-sm hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
