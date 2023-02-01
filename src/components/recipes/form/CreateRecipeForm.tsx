@@ -115,50 +115,53 @@ export default function CreateRecipeForm() {
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit(onSubmit, onError)}>
-      <div className="bg-zinc-100 px-4 py-5 shadow sm:rounded-lg sm:p-6">
+      <div className="bg-zinc-100 px-4 py-5 shadow dark:bg-zinc-900 sm:rounded-lg sm:p-6">
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="md:col-span-1">
-            <h3 className="text-lg font-medium leading-6 text-zinc-900">
+            <h3 className="text-lg font-medium leading-6 text-zinc-900 dark:text-zinc-100">
               RecipeDetails
             </h3>
-            <p className="mt-1 text-sm text-zinc-500">
+            <p className="mt-1 text-sm text-zinc-700 dark:text-zinc-300">
               General details about your recipe.
             </p>
           </div>
           <div className="mt-5 space-y-6 md:col-span-2 md:mt-0">
             <div className="grid grid-cols-3 gap-6">
               <div className="col-span-3 sm:col-span-1">
-                <label className="block text-sm font-medium text-zinc-700">
+                <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
                   Recipe Name
                 </label>
                 <div className="mt-1 flex rounded-md shadow-sm">
                   <input
                     type="text"
                     {...register("name")}
-                    className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 pl-1 focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
                     placeholder="Parmesan Crusted Chicken"
                   />
                 </div>
               </div>
               <div className="col-span-3 sm:col-span-1">
-                <label className="block text-sm font-medium text-zinc-700">
+                <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
                   Category
                 </label>
                 <div className="mt-1 flex rounded-md shadow-sm">
                   <input
                     type="text"
                     {...register("category")}
-                    className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 pl-1 focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
                     placeholder="Breakfast"
                   />
                 </div>
               </div>
               <div className="col-span-3 sm:col-span-1">
                 <div className="flex justify-between">
-                  <label className="block text-sm font-medium text-zinc-700">
+                  <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
                     Difficulty
                   </label>
-                  <span className="text-sm text-gray-500" id="email-optional">
+                  <span
+                    className="text-sm text-zinc-600 dark:text-zinc-400"
+                    id="difficulty-optional"
+                  >
                     Optional
                   </span>
                 </div>
@@ -166,8 +169,8 @@ export default function CreateRecipeForm() {
                   <input
                     type="text"
                     {...register("difficulty")}
-                    className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    placeholder="Breakfast"
+                    className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 pl-1 focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
+                    placeholder="Easy"
                   />
                 </div>
               </div>
@@ -175,7 +178,7 @@ export default function CreateRecipeForm() {
 
             <div className="grid grid-cols-3 gap-6">
               <div className="col-span-3 sm:col-span-1">
-                <label className="block text-sm font-medium text-zinc-700">
+                <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
                   Number of servings
                 </label>
                 <div className="mt-1 flex rounded-md shadow-sm">
@@ -184,16 +187,19 @@ export default function CreateRecipeForm() {
                     onChange={(e) => {
                       setValue("servings", parseInt(e.target.value));
                     }}
-                    className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 pl-1 focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
                   />
                 </div>
               </div>
               <div className="col-span-3 sm:col-span-1">
                 <div className="flex justify-between">
-                  <label className="block text-sm font-medium text-zinc-700">
+                  <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
                     Prep time
                   </label>
-                  <span className="text-sm text-gray-500" id="email-optional">
+                  <span
+                    className="text-sm text-zinc-600 dark:text-zinc-400"
+                    id="prepTime-optional"
+                  >
                     Optional
                   </span>
                 </div>
@@ -201,17 +207,20 @@ export default function CreateRecipeForm() {
                   <input
                     type="text"
                     {...register("prepTime")}
-                    className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 pl-1 focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
                     placeholder="12 minutes"
                   />
                 </div>
               </div>
               <div className="col-span-3 sm:col-span-1">
                 <div className="flex justify-between">
-                  <label className="block text-sm font-medium text-zinc-700">
+                  <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
                     Cook time
                   </label>
-                  <span className="text-sm text-gray-500" id="email-optional">
+                  <span
+                    className="text-sm text-zinc-600 dark:text-zinc-400"
+                    id="email-optional"
+                  >
                     Optional
                   </span>
                 </div>
@@ -219,7 +228,7 @@ export default function CreateRecipeForm() {
                   <input
                     type="text"
                     {...register("cookTime")}
-                    className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="block w-full flex-1 rounded-none rounded-r-md border-zinc-300 pl-1 focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
                     placeholder="half an hour"
                   />
                 </div>
@@ -227,7 +236,7 @@ export default function CreateRecipeForm() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-zinc-700">
+              <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
                 Description
               </label>
               <div className="mt-1">
@@ -235,28 +244,28 @@ export default function CreateRecipeForm() {
                   id="description"
                   {...register("description")}
                   rows={3}
-                  className="block w-full rounded-md border-zinc-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="block w-full rounded-md border-zinc-300 p-1 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
                   placeholder="This is a simple and crispy oven baked chicken."
                   defaultValue={""}
                 />
               </div>
-              <p className="mt-2 text-sm text-zinc-500">
+              <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
                 Brief description for your recipe.
               </p>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-zinc-700">
+              <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
                 Recipe Image
               </label>
               <div
-                className="mt-1 flex justify-center rounded-md border-2 border-dashed border-zinc-300 px-6 pt-5 pb-6"
+                className="mt-1 flex justify-center rounded-md border-2 border-dashed border-zinc-300 px-6 pt-5 pb-6 dark:border-zinc-700"
                 onDrop={handleDrop}
                 onDragOver={handleDragOver}
               >
                 <div className="space-y-1 overflow-hidden text-center">
                   {image ? (
-                    <div className="grid items-center justify-center md:grid-cols-2">
+                    <div className="grid items-center justify-between md:grid-cols-2">
                       <Image
                         src={URL.createObjectURL(image)}
                         alt="Preview"
@@ -264,7 +273,7 @@ export default function CreateRecipeForm() {
                         height={500}
                         className="max-h-52 w-auto"
                       />
-                      <label className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500">
+                      <label className="relative mt-6 cursor-pointer rounded-md bg-zinc-200 font-medium text-yellow-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-yellow-500 focus-within:ring-offset-2 hover:text-yellow-500 dark:bg-zinc-800 md:mt-0 md:ml-6">
                         <span>Change image</span>
                         <input
                           className="sr-only"
@@ -278,7 +287,7 @@ export default function CreateRecipeForm() {
                   ) : (
                     <>
                       <svg
-                        className="mx-auto h-12 w-12 text-zinc-400"
+                        className="mx-auto h-12 w-12 text-zinc-600 dark:text-zinc-400"
                         stroke="currentColor"
                         fill="none"
                         viewBox="0 0 48 48"
@@ -291,8 +300,8 @@ export default function CreateRecipeForm() {
                           strokeLinejoin="round"
                         />
                       </svg>
-                      <div className="flex text-sm text-zinc-600">
-                        <label className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500">
+                      <div className="flex text-sm text-zinc-600 dark:text-zinc-400">
+                        <label className="relative cursor-pointer rounded-md bg-zinc-200 px-2 font-medium text-yellow-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-yellow-500 focus-within:ring-offset-2 hover:text-yellow-500 dark:bg-zinc-800">
                           <span>Upload a image</span>
                           <input
                             name="image"
@@ -304,7 +313,7 @@ export default function CreateRecipeForm() {
                         </label>
                         <p className="pl-1">or drag and drop</p>
                       </div>
-                      <p className="text-xs text-zinc-500">
+                      <p className="text-xs text-zinc-600 dark:text-zinc-400">
                         PNG, JPG, GIF up to 10MB
                       </p>
                     </>
@@ -316,13 +325,13 @@ export default function CreateRecipeForm() {
         </div>
       </div>
 
-      <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:p-6">
+      <div className="bg-zinc-100 px-4 py-5 shadow dark:bg-zinc-900 sm:rounded-lg sm:p-6">
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="md:col-span-1">
-            <h3 className="text-lg font-medium leading-6 text-zinc-900">
+            <h3 className="text-lg font-medium leading-6 text-zinc-900 dark:text-zinc-100">
               Ingredients
             </h3>
-            <p className="mt-1 text-sm text-zinc-500">
+            <p className="mt-1 text-sm text-zinc-700 dark:text-zinc-300">
               What ingredients do you need for this recipe?
             </p>
           </div>
@@ -331,24 +340,24 @@ export default function CreateRecipeForm() {
               <div key={field.id} className="mt-5 mb-6 md:col-span-2 md:mt-0">
                 <div className="grid grid-cols-6 gap-6">
                   <div className="col-span-3 sm:col-span-2">
-                    <label className="block text-sm font-medium text-zinc-700">
+                    <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
                       Ingredient name
                     </label>
                     <input
                       type="text"
                       {...register(`ingredients.${index}.name`)}
                       placeholder="Eggs, flour, etc."
-                      className="mt-1 block w-full rounded-md border-zinc-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full rounded-md border-zinc-300 pl-2 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
                     />
                   </div>
 
                   <div className="col-span-3 sm:col-span-2">
                     <div className="flex justify-between">
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
                         Quantity
                       </label>
                       <span
-                        className="text-sm text-gray-500"
+                        className="text-sm text-zinc-600 dark:text-zinc-400"
                         id="email-optional"
                       >
                         grams, ml, etc.
@@ -364,7 +373,7 @@ export default function CreateRecipeForm() {
                             parseInt(e.target.value)
                           );
                         }}
-                        className="block w-full appearance-none rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="block w-full appearance-none rounded-md border-zinc-300 pl-2 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
                         placeholder="1.1"
                       />
                     </div>
@@ -372,11 +381,11 @@ export default function CreateRecipeForm() {
 
                   <div className="col-span-3 sm:col-span-2">
                     <div className="flex justify-between">
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
                         Calories
                       </label>
                       <span
-                        className="text-sm text-gray-500"
+                        className="text-sm text-zinc-600 dark:text-zinc-400"
                         id="email-optional"
                       >
                         Optional
@@ -391,7 +400,7 @@ export default function CreateRecipeForm() {
                             parseInt(e.target.value)
                           );
                         }}
-                        className="block w-full appearance-none rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="block w-full appearance-none rounded-md border-zinc-300 pl-2 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
                         placeholder="100"
                         aria-describedby="optional"
                       />
@@ -400,11 +409,11 @@ export default function CreateRecipeForm() {
 
                   <div className="col-span-3 sm:col-span-2">
                     <div className="flex justify-between">
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
                         Protein
                       </label>
                       <span
-                        className="text-sm text-gray-500"
+                        className="text-sm text-zinc-600 dark:text-zinc-400"
                         id="email-optional"
                       >
                         Optional
@@ -419,7 +428,7 @@ export default function CreateRecipeForm() {
                             parseInt(e.target.value)
                           );
                         }}
-                        className="block w-full appearance-none rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="block w-full appearance-none rounded-md border-zinc-300 pl-2 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
                         placeholder="100"
                         aria-describedby="optional"
                       />
@@ -428,11 +437,11 @@ export default function CreateRecipeForm() {
 
                   <div className="col-span-3 sm:col-span-2">
                     <div className="flex justify-between">
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
                         Carbohydrates
                       </label>
                       <span
-                        className="text-sm text-gray-500"
+                        className="text-sm text-zinc-600 dark:text-zinc-400"
                         id="email-optional"
                       >
                         Optional
@@ -447,7 +456,7 @@ export default function CreateRecipeForm() {
                             parseInt(e.target.value)
                           );
                         }}
-                        className="block w-full appearance-none rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="block w-full appearance-none rounded-md border-zinc-300 pl-2 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
                         placeholder="100"
                         aria-describedby="optional"
                       />
@@ -456,11 +465,11 @@ export default function CreateRecipeForm() {
 
                   <div className="col-span-3 sm:col-span-2">
                     <div className="flex justify-between">
-                      <label className="block text-sm font-medium text-gray-700">
+                      <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
                         Fat
                       </label>
                       <span
-                        className="text-sm text-gray-500"
+                        className="text-sm text-zinc-600 dark:text-zinc-400"
                         id="email-optional"
                       >
                         Optional
@@ -475,7 +484,7 @@ export default function CreateRecipeForm() {
                             parseInt(e.target.value)
                           );
                         }}
-                        className="block w-full appearance-none rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="block w-full appearance-none rounded-md border-zinc-300 pl-2 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
                         placeholder="100"
                         aria-describedby="optional"
                       />
@@ -485,7 +494,7 @@ export default function CreateRecipeForm() {
                 <button
                   type="button"
                   onClick={() => ingredientRemove(index)}
-                  className="mt-6 rounded-md border border-zinc-300 bg-white py-2 px-4 text-sm font-medium text-zinc-700 shadow-sm hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="mt-6 rounded-md border border-zinc-300 bg-white py-2 px-4 text-sm font-medium text-zinc-700 shadow-sm hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
                 >
                   Remove
                 </button>
@@ -504,7 +513,7 @@ export default function CreateRecipeForm() {
                     fat: 0,
                   });
                 }}
-                className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-yellow-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
               >
                 Add ingredient
               </button>
@@ -513,13 +522,13 @@ export default function CreateRecipeForm() {
         </div>
       </div>
       {/* Instructions START */}
-      <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:p-6">
+      <div className="bg-zinc-100 px-4 py-5 shadow dark:bg-zinc-900 sm:rounded-lg sm:p-6">
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="md:col-span-1">
-            <h3 className="text-lg font-medium leading-6 text-zinc-900">
+            <h3 className="text-lg font-medium leading-6 text-zinc-900 dark:text-zinc-100">
               Instructions
             </h3>
-            <p className="mt-1 text-sm text-zinc-500">
+            <p className="mt-1 text-sm text-zinc-700 dark:text-zinc-300">
               What are the steps to make this recipe?
             </p>
           </div>
@@ -527,14 +536,14 @@ export default function CreateRecipeForm() {
             {instructionsFields.map((field, index) => (
               <div key={field.id}>
                 <div>
-                  <label className="block text-sm font-medium text-zinc-700">
+                  <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
                     Instruction
                   </label>
                   <div className="mt-1">
                     <textarea
                       {...register(`instructions.${index}.text`)}
                       rows={2}
-                      className="block w-full rounded-md border-zinc-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="block w-full rounded-md border-zinc-300 pl-2 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
                       placeholder="This is a simple and crispy oven baked chicken."
                       defaultValue={""}
                     />
@@ -544,7 +553,7 @@ export default function CreateRecipeForm() {
                 <button
                   type="button"
                   onClick={() => instructionsRemove(index)}
-                  className="mt-6 rounded-md border border-zinc-300 bg-white py-2 px-4 text-sm font-medium text-zinc-700 shadow-sm hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="mt-6 rounded-md border border-zinc-300 bg-white py-2 px-4 text-sm font-medium text-zinc-700 shadow-sm hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
                 >
                   Remove
                 </button>
@@ -558,7 +567,7 @@ export default function CreateRecipeForm() {
                     text: "",
                   });
                 }}
-                className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-yellow-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
               >
                 Add instruction
               </button>
@@ -574,13 +583,13 @@ export default function CreateRecipeForm() {
         <input type="checkbox" {...register("shared")} />
         <button
           type="button"
-          className="rounded-md border border-zinc-300 bg-white py-2 px-4 text-sm font-medium text-zinc-700 shadow-sm hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          className="rounded-md border border-zinc-300 bg-white py-2 px-4 text-sm font-medium text-zinc-700 shadow-sm hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
         >
           Cancel
         </button>
         <input
           type="submit"
-          className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-yellow-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
         />
       </div>
     </form>
