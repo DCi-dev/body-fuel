@@ -134,17 +134,88 @@ export const recipeRouter = createTRPCRouter({
             id: recipe.id,
           },
           data: {
-            image: `https://${BUCKET_NAME}.${REGION}.s3.amazonaws.com/${userId}/${recipe.id}`,
+            image: `https://${BUCKET_NAME}.s3.${REGION},amazonaws.com/${userId}/${recipe.id}`,
           },
         });
+        //body-fuel.s3.eu-central-1.amazonaws.com/cldm1gcu8001jvh7chk8h6nhs/cldm2c92z0000vhuwm8ih3osw
 
-        return {
+        https: return {
           presignedUrl,
           recipe,
         };
       } catch (error) {
         console.log(error);
       }
+    }),
+
+  getLimitedRecipes: publicProcedure
+    .input(
+      z.object({
+        limit: z.number().min(1).max(100),
+        cursor: z.string().nullish(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      const limit = input.limit ?? 50;
+      const { cursor } = input;
+
+      const recipes = await ctx.prisma.recipe.findMany({
+        take: limit + 1,
+        where: {
+          shared: true,
+        },
+        cursor: cursor ? { id: cursor } : undefined,
+        orderBy: {
+          id: "asc",
+        },
+      });
+      let nextCursor: typeof cursor | undefined = undefined;
+      if (recipes.length > limit) {
+        const nextItem = recipes.pop();
+        nextCursor = nextItem?.id;
+      }
+
+      const recipesWithDetails = await Promise.all(
+        recipes.map(async (recipe) => {
+          const ingredients = await ctx.prisma.ingredient.findMany({
+            where: {
+              recipeId: recipe.id,
+            },
+          });
+
+          const instructions = await ctx.prisma.instructions.findMany({
+            where: {
+              recipeId: recipe.id,
+            },
+          });
+
+          const category = await ctx.prisma.category.findMany({
+            where: {
+              recipes: {
+                some: {
+                  id: recipe.id,
+                },
+              },
+            },
+          });
+
+          const user = await ctx.prisma.user.findUnique({
+            where: {
+              id: recipe.userId,
+            },
+          });
+
+          return {
+            ...recipe,
+            ingredients,
+            instructions,
+            category,
+            user,
+          };
+        })
+      );
+
+      return { recipesWithDetails, nextCursor };
     }),
 
   getRecipes: publicProcedure.query(async ({ ctx }) => {
@@ -178,10 +249,17 @@ export const recipeRouter = createTRPCRouter({
           },
         });
 
+        const user = await ctx.prisma.user.findUnique({
+          where: {
+            id: recipe.userId,
+          },
+        });
+
         return {
           ...recipe,
           ingredients,
           category,
+          user,
           instructions,
         };
       })
