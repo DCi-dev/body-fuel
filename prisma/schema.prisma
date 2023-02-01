@@ -81,6 +81,7 @@ model Instructions {
 model Recipe {
   id              String            @id @default(cuid())
   name            String
+  slug            String            @unique
   description     String
   servings        Int
   image           String?

@@ -75,6 +75,10 @@ export default function CreateRecipeForm() {
 
     const res = {
       name: data.name,
+      slug: data.name
+        .toLowerCase()
+        .replace(/[^a-z0-9 ]/g, "")
+        .replace(/\s+/g, "-"),
       description: data.description,
       category: data.category,
       image: image ? image : data.image,

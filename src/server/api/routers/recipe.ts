@@ -22,9 +22,35 @@ export const recipeRouter = createTRPCRouter({
       }
 
       try {
+        // check if the recipe slug already exists
+        const existingRecipe = await ctx.prisma.recipe.findUnique({
+          where: {
+            slug: input.slug,
+          },
+        });
+
+        let counter = 1;
+
+        while (existingRecipe) {
+          const newSlug = `${input.slug as string}-${counter}`;
+          const newRecipe = await ctx.prisma.recipe.findUnique({
+            where: {
+              slug: newSlug,
+            },
+          });
+
+          if (!newRecipe) {
+            input.slug = newSlug;
+            break;
+          }
+
+          counter++;
+        }
+
         const recipe = await ctx.prisma.recipe.create({
           data: {
             name: input.name,
+            slug: input.slug || "",
             description: input.description,
             servings: input.servings,
             image: "",
@@ -40,19 +66,29 @@ export const recipeRouter = createTRPCRouter({
             },
             // Add the total calories based on the ingredients calories field
             calories: input.ingredients.reduce(
-              (acc, ingredient) => acc + ingredient?.calories,
+              (acc: number, ingredient) =>
+                ingredient?.calories !== undefined
+                  ? acc + ingredient.calories
+                  : acc,
               0
             ),
             protein: input.ingredients.reduce(
-              (acc, ingredient) => acc + ingredient?.protein,
+              (acc: number, ingredient) =>
+                ingredient?.protein !== undefined
+                  ? acc + ingredient.protein
+                  : acc,
               0
             ),
             carbohydrates: input.ingredients.reduce(
-              (acc, ingredient) => acc + ingredient?.carbohydrates,
+              (acc: number, ingredient) =>
+                ingredient?.carbohydrates !== undefined
+                  ? acc + ingredient.carbohydrates
+                  : acc,
               0
             ),
             fat: input.ingredients.reduce(
-              (acc, ingredient) => acc + ingredient?.fat,
+              (acc: number, ingredient) =>
+                ingredient?.fat !== undefined ? acc + ingredient.fat : acc,
               0
             ),
             instructions: {
@@ -117,8 +153,41 @@ export const recipeRouter = createTRPCRouter({
         shared: true,
       },
     });
+    // get all the recipes details from the database - shared recipes only
+    const recipesWithDetails = await Promise.all(
+      recipes.map(async (recipe) => {
+        const ingredients = await ctx.prisma.ingredient.findMany({
+          where: {
+            recipeId: recipe.id,
+          },
+        });
 
-    return recipes;
+        const instructions = await ctx.prisma.instructions.findMany({
+          where: {
+            recipeId: recipe.id,
+          },
+        });
+
+        const category = await ctx.prisma.category.findMany({
+          where: {
+            recipes: {
+              some: {
+                id: recipe.id,
+              },
+            },
+          },
+        });
+
+        return {
+          ...recipe,
+          ingredients,
+          category,
+          instructions,
+        };
+      })
+    );
+
+    return recipesWithDetails;
   }),
   getUserRecipes: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx.session?.user?.id;
@@ -237,28 +306,6 @@ export const recipeRouter = createTRPCRouter({
           servings: {
             lte: input,
           },
-        },
-      });
-
-      return recipes;
-    }),
-  getRecipesByFavorite: publicProcedure
-    .input(z.boolean())
-    .query(async ({ input, ctx }) => {
-      const recipes = await ctx.prisma.recipe.findMany({
-        where: {
-          favorite: input,
-        },
-      });
-
-      return recipes;
-    }),
-  getRecipesByShared: publicProcedure
-    .input(z.boolean())
-    .query(async ({ input, ctx }) => {
-      const recipes = await ctx.prisma.recipe.findMany({
-        where: {
-          shared: input,
         },
       });
 

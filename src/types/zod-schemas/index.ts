@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const recipeSchema = z.object({
   name: z.string(),
+  slug: z.string().optional(),
   description: z.string(),
   servings: z.number(),
   image: z.custom<File>(),
