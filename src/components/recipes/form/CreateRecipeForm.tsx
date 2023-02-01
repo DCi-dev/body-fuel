@@ -1,12 +1,12 @@
 import { recipeSchema } from "@/types/zod-schemas";
 import { api } from "@/utils/api";
 import { zodResolver } from "@hookform/resolvers/zod";
+import type { PresignedPost } from "aws-sdk/clients/s3";
 import Image from "next/image";
 import { useState } from "react";
-import type { Control, UseFormProps } from "react-hook-form";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import type { SubmitHandler, UseFormProps } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import type { z } from "zod";
-import { IngredientInput } from "./input/Ingredient";
 
 function useZodForm<TSchema extends z.ZodType>(
   props: Omit<UseFormProps<TSchema["_input"]>, "resolver"> & {
@@ -20,6 +20,8 @@ function useZodForm<TSchema extends z.ZodType>(
 
   return form;
 }
+
+type FormValues = z.infer<typeof recipeSchema>;
 
 export default function CreateRecipeForm() {
   // Image
@@ -66,14 +68,14 @@ export default function CreateRecipeForm() {
 
   const createRecipe = api.recipe.createRecipe.useMutation();
 
-  const onSubmit = async (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const file = image;
 
     const res = {
       name: data.name,
       description: data.description,
       category: data.category,
-      image: image,
+      image: image ? image : data.image,
       difficulty: data.difficulty,
       prepTime: data.prepTime,
       cookTime: data.cookTime,
@@ -84,39 +86,44 @@ export default function CreateRecipeForm() {
       shared: data.shared,
     };
 
-    const { presignedUrl }: { presignedUrl: PresignedPost } =
-      await createRecipe.mutateAsync(res);
+    const result = await createRecipe.mutateAsync(res);
+    if (result) {
+      const { presignedUrl }: { presignedUrl: PresignedPost } = result;
 
-    const { url, fields } = presignedUrl;
+      const { url, fields } = presignedUrl;
 
-    const imgData = {
-      ...fields,
-      "Content-Type": file.type,
-      file,
-    };
+      const imgData = {
+        ...fields,
+        "Content-Type": file?.type,
+        file,
+      };
 
-    const formData = new FormData();
+      const formData = new FormData();
 
-    for (const name in imgData) {
-      formData.append(name, imgData[name]);
+      for (const name in imgData) {
+        const key: string = name;
+        formData.append(name, imgData[key]);
+      }
+
+      await fetch(url, {
+        method: "POST",
+        body: formData,
+      });
     }
-
-    await fetch(url, {
-      method: "POST",
-      body: formData,
-    });
   };
-  const onError = (errors, e) => console.log(errors, e);
+  const onError = (errors: any, e: any) => console.log(errors, e);
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit(onSubmit, onError)}>
-      <div className="bg-white px-4 py-5 shadow sm:rounded-lg sm:p-6">
+      <div className="bg-zinc-100 px-4 py-5 shadow sm:rounded-lg sm:p-6">
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="md:col-span-1">
             <h3 className="text-lg font-medium leading-6 text-zinc-900">
               RecipeDetails
             </h3>
-            <p className="mt-1 text-sm text-zinc-500">WW</p>
+            <p className="mt-1 text-sm text-zinc-500">
+              General details about your recipe.
+            </p>
           </div>
           <div className="mt-5 space-y-6 md:col-span-2 md:mt-0">
             <div className="grid grid-cols-3 gap-6">
