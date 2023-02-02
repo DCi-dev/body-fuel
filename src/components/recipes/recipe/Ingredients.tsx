@@ -9,9 +9,9 @@ export default function Ingredients({
     <div className="bg-zinc-100 px-4 pt-6 dark:bg-zinc-900 sm:px-6  lg:px-8">
       <div className="sm:flex sm:items-center lg:mx-auto lg:max-w-7xl">
         <div className="sm:flex-auto">
-          <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-4xl">
             Ingredients
-          </h1>
+          </h2>
           <p className="my-3 text-xl text-zinc-700 dark:text-zinc-300 sm:mt-4">
             Here are the ingredients you need to make this recipe.
           </p>
