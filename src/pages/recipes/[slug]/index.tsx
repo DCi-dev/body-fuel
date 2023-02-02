@@ -1,7 +1,7 @@
 import RecipePageHero from "@/components/recipes/recipe/Hero";
 import Ingredients from "@/components/recipes/recipe/Ingredients";
 import Instructions from "@/components/recipes/recipe/Instructions";
-import type { Ingredient } from "@/types";
+import type { Ingredient, Instruction } from "@/types";
 import { api } from "@/utils/api";
 import type { GetServerSideProps } from "next";
 import Head from "next/head";
@@ -14,7 +14,6 @@ const Recipe = ({ slug }: Props) => {
   const { data, isLoading } = api.recipe.getRecipe.useQuery(slug);
 
   const recipe = data;
-  console.log(data);
 
   if (isLoading) {
     return (
@@ -62,8 +61,10 @@ const Recipe = ({ slug }: Props) => {
           cookTime={recipe?.cookTime as string}
           difficulty={recipe?.difficulty as string}
         />
-        <Ingredients ingredients={recipe?.ingredients as unknown as Ingredient[]} />
-        <Instructions instructions={recipe?.instructions} />
+        <Ingredients
+          ingredients={recipe?.ingredients as unknown as Ingredient[]}
+        />
+        <Instructions instructions={recipe?.instructions as Instruction[]} />
       </main>
     </>
   );

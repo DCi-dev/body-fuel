@@ -1,12 +1,6 @@
-interface Props {
-  instructions: {
-    id: string;
-    text: string;
-    recipeId: string;
-  }[];
-}
+import type { Instruction } from "@/types";
 
-export default function Instructions({ instructions }: Props) {
+export default function Instructions({ instructions }: { instructions: Instruction[] }) {
   return (
     <div className="bg-zinc-100 py-12 px-4 dark:bg-zinc-900">
       <div className="flow-root lg:mx-auto lg:max-w-7xl">

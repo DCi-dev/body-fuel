@@ -7,3 +7,9 @@ export interface Ingredient {
     fat: number;
     carbohydrates: number;
 }
+
+export interface Instruction {
+    id: string;
+    recipeId: string;
+    text: string;
+}

@@ -84,6 +84,7 @@ export default function RecipePageHero({
                 alt={name}
                 width={522}
                 height={296}
+                style={{ width: "auto", height: "auto" }}
                 priority
               />
             </div>
