@@ -55,6 +55,7 @@ export default function Navbar() {
                     alt="Body Fuel"
                     width={32}
                     height={32}
+                    priority
                   />
                   <Image
                     className="hidden h-8 w-auto lg:block"
@@ -62,6 +63,7 @@ export default function Navbar() {
                     alt="Body Fuel"
                     width={32}
                     height={32}
+                    priority
                   />
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
