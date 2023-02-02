@@ -1,4 +1,6 @@
 import RecipePageHero from "@/components/recipes/recipe/Hero";
+import Ingredients from "@/components/recipes/recipe/Ingredients";
+import type { Ingredient } from "@/types";
 import { api } from "@/utils/api";
 import type { GetServerSideProps } from "next";
 import Head from "next/head";
@@ -59,6 +61,7 @@ const Recipe = ({ slug }: Props) => {
           cookTime={recipe?.cookTime as string}
           difficulty={recipe?.difficulty as string}
         />
+        <Ingredients ingredients={recipe?.ingredients as unknown as Ingredient[]} />
       </main>
     </>
   );
