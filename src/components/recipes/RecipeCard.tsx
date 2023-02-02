@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface RecipeCardProps {
   name: string;
   description: string;
@@ -23,14 +25,20 @@ export default function RecipeCard({
       className="flex flex-col overflow-hidden rounded-lg shadow-lg"
     >
       <div className="flex-shrink-0">
-        <img className="h-48 w-full object-cover" src={imageSrc} alt={name} />
+        <Image
+          className="h-48 w-full object-cover"
+          src={imageSrc}
+          alt={name}
+          width={393}
+          height={192}
+        />
       </div>
       <div className="flex flex-1 flex-col justify-between bg-zinc-100 p-6 dark:bg-zinc-700">
         <div className="flex-1">
           <div className="text-lg font-medium text-yellow-600 dark:text-yellow-400">
             <p className="hover:underline">{category}</p>
           </div>
-          <a href={slug} className="mt-2 block">
+          <a href={`/recipes/${slug}`} className="mt-2 block">
             <p className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">
               {name}
             </p>
@@ -43,7 +51,13 @@ export default function RecipeCard({
           <div className="flex-shrink-0">
             <div>
               <span className="sr-only">{userName}</span>
-              <img className="h-10 w-10 rounded-full" src={userImage} alt="" />
+              <Image
+                className="h-10 w-10 rounded-full"
+                src={userImage}
+                alt={userName}
+                width={40}
+                height={40}
+              />
             </div>
           </div>
           <div className="ml-3">
