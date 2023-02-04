@@ -130,8 +130,12 @@ const Recipe = ({ slug }: Props) => {
           <h2 className="mb-4 text-3xl font-bold text-zinc-900 dark:text-zinc-100 lg:text-4xl">
             Reviews
           </h2>
-          {sessionData?.user && (
+          {sessionData?.user ? (
             <LeaveAReview recipeId={recipe?.id} refetch={refetch} />
+          ) : (
+            <p className="text-xl font-bold text-zinc-700 dark:text-zinc-300 lg:text-2xl">
+              Please sign in to leave a review
+            </p>
           )}
           <Reviews reviews={recipe?.reviewWithUserDetails} />
         </div>
