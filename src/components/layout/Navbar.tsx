@@ -209,10 +209,10 @@ export default function Navbar() {
                       />
                     </div>
                     <div className="ml-3">
-                      <div className="text-base font-medium text-white">
+                      <div className="text-base font-medium text-zinc-900 dark:text-zinc-100">
                         {sessionData?.user?.name as string}
                       </div>
-                      <div className="text-sm font-medium text-zinc-400">
+                      <div className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
                         {sessionData?.user?.email as string}
                       </div>
                     </div>

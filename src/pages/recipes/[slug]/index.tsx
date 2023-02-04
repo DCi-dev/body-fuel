@@ -2,7 +2,8 @@ import RecipePageHero from "@/components/recipes/recipe/Hero";
 import Ingredients from "@/components/recipes/recipe/Ingredients";
 import Instructions from "@/components/recipes/recipe/Instructions";
 import LeaveAReview from "@/components/recipes/recipe/LeaveAReview";
-import type { Ingredient, Instruction } from "@/types";
+import Reviews from "@/components/recipes/recipe/Reviews";
+import type { Ingredient, Instruction, Review } from "@/types";
 import { api } from "@/utils/api";
 import type { GetServerSideProps } from "next";
 import Head from "next/head";
@@ -13,6 +14,7 @@ interface Props {
 }
 
 interface Recipe {
+  reviewWithUserDetails: Review[];
   id: string;
   name: string;
   description: string;
@@ -37,7 +39,7 @@ interface Recipe {
 }
 
 const Recipe = ({ slug }: Props) => {
-  const { data, isLoading } = api.recipe.getRecipe.useQuery(slug);
+  const { data, isLoading, refetch } = api.recipe.getRecipe.useQuery(slug);
 
   const recipe = data as unknown as Recipe;
 
@@ -60,6 +62,13 @@ const Recipe = ({ slug }: Props) => {
   const carbs = Math.round(
     (recipe?.carbohydrates / recipe?.servings) * selectedServings
   );
+
+  // Calculate the average stars for the recipe reviews
+  const averageStars =
+    recipe?.reviewWithUserDetails.reduce((acc, curr) => acc + curr.stars, 0) /
+    recipe?.reviewWithUserDetails.length;
+
+    
 
   if (isLoading) {
     return (
@@ -108,6 +117,7 @@ const Recipe = ({ slug }: Props) => {
           prepTime={recipe?.prepTime}
           cookTime={recipe?.cookTime}
           difficulty={recipe?.difficulty}
+          averageStars={averageStars}
         />
         <Ingredients
           ingredients={recipe?.ingredients}
@@ -115,7 +125,13 @@ const Recipe = ({ slug }: Props) => {
           selectedServings={selectedServings}
         />
         <Instructions instructions={recipe?.instructions} />
-        <LeaveAReview recipeId={recipe?.id} />
+        <div className="bg-zinc-100 pb-16 text-center dark:bg-zinc-900">
+          <h2 className="mb-4 text-3xl font-bold text-zinc-900 dark:text-zinc-100 lg:text-4xl">
+            Reviews
+          </h2>
+          <LeaveAReview recipeId={recipe?.id} refetch={refetch} />
+          <Reviews reviews={recipe?.reviewWithUserDetails} />
+        </div>
       </main>
     </>
   );

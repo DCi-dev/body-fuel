@@ -3,9 +3,14 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   HeartIcon,
+  StarIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(" ");
+}
 
 interface Props {
   id: string;
@@ -24,6 +29,7 @@ interface Props {
   prepTime: string;
   cookTime: string;
   difficulty: string;
+  averageStars: number;
 }
 
 export default function RecipePageHero({
@@ -43,6 +49,7 @@ export default function RecipePageHero({
   prepTime,
   cookTime,
   difficulty,
+  averageStars,
 }: Props) {
   const favoriteRecipe = api.user.getFavoriteRecipes.useQuery();
   const addToFavorites = api.user.addRecipeToFavorites.useMutation();
@@ -147,6 +154,28 @@ export default function RecipePageHero({
             <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-4xl">
               {name}
             </h1>
+
+            {/* Stars */}
+            <div className="mt-4 flex flex-row items-center justify-start">
+              {Array.from({ length: 5 }, (_, i) => (
+                <StarIcon
+                  aria-hidden="true"
+                  key={i}
+                  className={classNames(
+                    "h-5 w-5",
+                    i < averageStars
+                      ? "fill-yellow-500 stroke-none"
+                      : "stroke-current text-zinc-400"
+                  )}
+                />
+              ))}
+              <span className="sr-only">{averageStars} out of 5 stars</span>
+              <p className="pl-2">
+                {averageStars
+                  ? averageStars
+                  : "Be the first one to leave a review"}
+              </p>
+            </div>
 
             <div className="mt-6 space-y-6 text-zinc-700 dark:text-zinc-300">
               <p className="text-lg">{description}</p>

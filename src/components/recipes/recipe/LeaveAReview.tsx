@@ -32,7 +32,13 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function LeaveAReview({ recipeId }: { recipeId: string }) {
+export default function LeaveAReview({
+  recipeId,
+  refetch,
+}: {
+  recipeId: string;
+  refetch: () => void;
+}) {
   const { data: sessionData } = useSession();
 
   const userImg = sessionData?.user?.image;
@@ -59,6 +65,7 @@ export default function LeaveAReview({ recipeId }: { recipeId: string }) {
       toast.success("Review created successfully");
       setMessage("");
       setSelectedStar(stars[1]);
+      refetch();
     } catch (error: unknown) {
       toast.dismiss();
       toast.error(error.message as string);
@@ -70,10 +77,7 @@ export default function LeaveAReview({ recipeId }: { recipeId: string }) {
       <div className="flex-shrink-0">
         <Image
           className="inline-block h-10 w-10 rounded-full"
-          src={
-            userImg ||
-            "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
-          }
+          src={userImg || "/no-user-image.jpg"}
           alt=""
           width={40}
           height={40}
