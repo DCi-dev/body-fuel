@@ -1,6 +1,7 @@
 import RecipePageHero from "@/components/recipes/recipe/Hero";
 import Ingredients from "@/components/recipes/recipe/Ingredients";
 import Instructions from "@/components/recipes/recipe/Instructions";
+import LeaveAReview from "@/components/recipes/recipe/LeaveAReview";
 import type { Ingredient, Instruction } from "@/types";
 import { api } from "@/utils/api";
 import type { GetServerSideProps } from "next";
@@ -39,6 +40,8 @@ const Recipe = ({ slug }: Props) => {
   const { data, isLoading } = api.recipe.getRecipe.useQuery(slug);
 
   const recipe = data as unknown as Recipe;
+
+  console.log(recipe);
 
   const [selectedServings, setSelectedServings] = useState<number>(0);
 
@@ -112,6 +115,7 @@ const Recipe = ({ slug }: Props) => {
           selectedServings={selectedServings}
         />
         <Instructions instructions={recipe?.instructions} />
+        <LeaveAReview recipeId={recipe?.id} />
       </main>
     </>
   );

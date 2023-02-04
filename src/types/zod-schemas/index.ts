@@ -27,3 +27,9 @@ export const recipeSchema = z.object({
   cookTime: z.string().optional(),
   difficulty: z.string().optional(),
 });
+
+export const reviewSchema = z.object({
+  recipeId: z.string(),
+  stars: z.number(),
+  comments: z.string(),
+});

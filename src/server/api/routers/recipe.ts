@@ -236,7 +236,7 @@ export const recipeRouter = createTRPCRouter({
         orderBy: {
           FavoriteRecipes: {
             _count: "desc",
-          }
+          },
         },
         cursor: cursor ? { id: cursor } : undefined,
       });
@@ -399,13 +399,28 @@ export const recipeRouter = createTRPCRouter({
       },
     });
 
+    const reviewWithUserDetails = await Promise.all(
+      reviews.map(async (review) => {
+        const reviewUser = await ctx.prisma.user.findUnique({
+          where: {
+            id: review.userId,
+          },
+        });
+
+        return {
+          ...review,
+          user: reviewUser,
+        };
+      })
+    );
+
     return {
       ...recipe,
       ingredients,
       category,
       user,
       instructions,
-      reviews,
+      reviewWithUserDetails,
     };
   }),
 
