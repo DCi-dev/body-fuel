@@ -155,28 +155,42 @@ export default function RecipePageHero({
               {name}
             </h1>
 
-            {/* Stars */}
-            <div className="mt-4 flex flex-row items-center justify-start">
-              {Array.from({ length: 5 }, (_, i) => (
-                <StarIcon
-                  aria-hidden="true"
-                  key={i}
-                  className={classNames(
-                    "h-5 w-5",
-                    i < averageStars
-                      ? "fill-yellow-500 stroke-none"
-                      : "stroke-current text-zinc-400"
-                  )}
-                />
-              ))}
-              <span className="sr-only">{averageStars} out of 5 stars</span>
-              <p className="pl-2">
-                {averageStars
-                  ? averageStars
-                  : "Be the first one to leave a review"}
-              </p>
+            <div className="mt-2 grid grid-cols-2">
+              {/* Stars */}
+              <div className="flex flex-row items-center justify-start">
+                {Array.from({ length: 5 }, (_, i) => (
+                  <StarIcon
+                    aria-hidden="true"
+                    key={i}
+                    className={classNames(
+                      "h-6 w-6",
+                      i < averageStars
+                        ? "fill-yellow-500 stroke-none"
+                        : "stroke-current text-zinc-400"
+                    )}
+                  />
+                ))}
+                <span className="sr-only">{averageStars} out of 5 stars</span>
+                <p className="pl-2 text-lg">
+                  {averageStars
+                    ? averageStars
+                    : "Be the first one to leave a review"}
+                </p>
+              </div>
+              {/* Favorite Button */}
+              <button
+                className="flex flex-row items-center justify-start gap-2 rounded-full p-2"
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                onClick={handleClick}
+              >
+                <HeartIcon className={favoriteClass} />{" "}
+                <span>
+                  {!isFavoriteRecipe
+                    ? "Add to favorites"
+                    : "Remove from favorites"}
+                </span>
+              </button>
             </div>
-
             <div className="mt-6 space-y-6 text-zinc-700 dark:text-zinc-300">
               <p className="text-lg">{description}</p>
             </div>
@@ -200,18 +214,6 @@ export default function RecipePageHero({
               </p>
             </div>
           </div>
-
-          {/* Favorite Button */}
-          <button
-            className="mt-6 flex flex-row items-center justify-start gap-2 rounded-full p-2"
-            // eslint-disable-next-line @typescript-eslint/no-misused-promises
-            onClick={handleClick}
-          >
-            <HeartIcon className={favoriteClass} />{" "}
-            <span>
-              {!isFavoriteRecipe ? "Add to favorites" : "Remove from favorites"}
-            </span>
-          </button>
 
           <div className="mt-10">
             <dl className="grid grid-cols-2 gap-x-4 gap-y-8">
