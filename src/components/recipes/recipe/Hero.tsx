@@ -1,7 +1,14 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { api } from "@/utils/api";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  HeartIcon,
+} from "@heroicons/react/24/outline";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 interface Props {
+  id: string;
   name: string;
   description: string;
   category?: string;
@@ -20,6 +27,7 @@ interface Props {
 }
 
 export default function RecipePageHero({
+  id,
   name,
   description,
   category,
@@ -36,6 +44,43 @@ export default function RecipePageHero({
   cookTime,
   difficulty,
 }: Props) {
+  const favoriteRecipe = api.user.getFavoriteRecipes.useQuery();
+  const addToFavorites = api.user.addRecipeToFavorites.useMutation();
+  const removeFromFavorites = api.user.removeRecipeFromFavorites.useMutation();
+
+  const [isFavoriteRecipe, setIsFavoriteRecipe] = useState<boolean>(false);
+
+  const favoriteClass = `h-8 w-8 fill-current ${
+    isFavoriteRecipe ? "text-yellow-500" : "text-neutral-500"
+  }`;
+
+  useEffect(() => {
+    if (favoriteRecipe.data) {
+      const recipe = favoriteRecipe.data.find((recipe) => recipe.id === id);
+      if (recipe) {
+        setIsFavoriteRecipe(true);
+      }
+    }
+  }, [favoriteRecipe.data, id]);
+
+  const handleAddToFavorites = async () => {
+    await addToFavorites.mutateAsync(id);
+    setIsFavoriteRecipe(true);
+  };
+
+  const handleRemoveFromFavorites = async () => {
+    await removeFromFavorites.mutateAsync(id);
+    setIsFavoriteRecipe(false);
+  };
+
+  const handleClick = async () => {
+    if (isFavoriteRecipe) {
+      await handleRemoveFromFavorites();
+    } else {
+      await handleAddToFavorites();
+    }
+  };
+
   return (
     <div className="relative bg-zinc-100 pt-2 pb-16 dark:bg-zinc-900 sm:pb-24">
       <div className="lg:mx-auto lg:grid lg:max-w-7xl lg:grid-cols-2 lg:items-start lg:gap-24 lg:px-8">
@@ -102,6 +147,7 @@ export default function RecipePageHero({
             <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-4xl">
               {name}
             </h1>
+
             <div className="mt-6 space-y-6 text-zinc-700 dark:text-zinc-300">
               <p className="text-lg">{description}</p>
             </div>
@@ -125,6 +171,19 @@ export default function RecipePageHero({
               </p>
             </div>
           </div>
+
+          {/* Favorite Button */}
+          <button
+            className="mt-6 flex flex-row items-center justify-start gap-2 rounded-full p-2"
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            onClick={handleClick}
+          >
+            <HeartIcon className={favoriteClass} />{" "}
+            <span>
+              {!isFavoriteRecipe ? "Add to favorites" : "Remove from favorites"}
+            </span>
+          </button>
+
           <div className="mt-10">
             <dl className="grid grid-cols-2 gap-x-4 gap-y-8">
               <div className="border-t-2 border-zinc-200 pt-6 dark:border-zinc-800">

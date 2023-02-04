@@ -12,6 +12,7 @@ interface Props {
 }
 
 interface Recipe {
+  id: string;
   name: string;
   description: string;
   category: {
@@ -88,6 +89,7 @@ const Recipe = ({ slug }: Props) => {
       </Head>
       <main className="mt-16">
         <RecipePageHero
+          id={recipe?.id}
           name={recipe?.name}
           description={recipe?.description}
           category={recipe?.category[0]?.name}
