@@ -155,9 +155,9 @@ export default function RecipePageHero({
               {name}
             </h1>
 
-            <div className="mt-2 grid grid-cols-2">
+            <div className="mt-2 grid grid-cols-3">
               {/* Stars */}
-              <div className="flex flex-row items-center justify-start">
+              <div className="col-span-2 flex flex-row items-center justify-start">
                 {Array.from({ length: 5 }, (_, i) => (
                   <StarIcon
                     aria-hidden="true"
@@ -179,7 +179,7 @@ export default function RecipePageHero({
               </div>
               {/* Favorite Button */}
               <button
-                className="flex flex-row items-center justify-start gap-2 rounded-full p-2"
+                className="col-span-1 flex flex-row items-center justify-start gap-2 rounded-full p-2"
                 // eslint-disable-next-line @typescript-eslint/no-misused-promises
                 onClick={handleClick}
               >

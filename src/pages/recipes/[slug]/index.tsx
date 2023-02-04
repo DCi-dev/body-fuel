@@ -6,6 +6,7 @@ import Reviews from "@/components/recipes/recipe/Reviews";
 import type { Ingredient, Instruction, Review } from "@/types";
 import { api } from "@/utils/api";
 import type { GetServerSideProps } from "next";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 
@@ -39,6 +40,8 @@ interface Recipe {
 }
 
 const Recipe = ({ slug }: Props) => {
+  const { data: sessionData } = useSession();
+
   const { data, isLoading, refetch } = api.recipe.getRecipe.useQuery(slug);
 
   const recipe = data as unknown as Recipe;
@@ -67,8 +70,6 @@ const Recipe = ({ slug }: Props) => {
   const averageStars =
     recipe?.reviewWithUserDetails.reduce((acc, curr) => acc + curr.stars, 0) /
     recipe?.reviewWithUserDetails.length;
-
-    
 
   if (isLoading) {
     return (
@@ -129,7 +130,9 @@ const Recipe = ({ slug }: Props) => {
           <h2 className="mb-4 text-3xl font-bold text-zinc-900 dark:text-zinc-100 lg:text-4xl">
             Reviews
           </h2>
-          <LeaveAReview recipeId={recipe?.id} refetch={refetch} />
+          {sessionData?.user && (
+            <LeaveAReview recipeId={recipe?.id} refetch={refetch} />
+          )}
           <Reviews reviews={recipe?.reviewWithUserDetails} />
         </div>
       </main>
