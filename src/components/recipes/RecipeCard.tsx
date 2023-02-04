@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 interface RecipeCardProps {
   name: string;
@@ -38,14 +39,14 @@ export default function RecipeCard({
           <div className="text-lg font-medium text-yellow-600 dark:text-yellow-400">
             <p className="hover:underline">{category}</p>
           </div>
-          <a href={`/recipes/${slug}`} className="mt-2 block">
+          <Link href={`/recipes/${slug}`} className="mt-2 block">
             <p className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">
               {name}
             </p>
             <p className="mt-3 text-base text-zinc-700 dark:text-zinc-300">
               {description}
             </p>
-          </a>
+          </Link>
         </div>
         <div className="mt-6 flex items-center">
           <div className="flex-shrink-0">

@@ -2,9 +2,37 @@ import type { Ingredient } from "@/types";
 
 export default function Ingredients({
   ingredients,
+  originalServings,
+  selectedServings,
 }: {
   ingredients: Ingredient[];
+  originalServings: number;
+  selectedServings: number;
 }) {
+  // Calculate the nutrition facts for the selected servings for each ingredient
+  const updatedIngredients = ingredients.map((ingredient) => {
+    const quantity =
+      (ingredient.quantity / originalServings) * selectedServings;
+    const calories =
+      (ingredient.calories / originalServings) * selectedServings;
+
+    const protein = (ingredient.protein / originalServings) * selectedServings;
+
+    const fat = (ingredient.fat / originalServings) * selectedServings;
+
+    const carbs =
+      (ingredient.carbohydrates / originalServings) * selectedServings;
+
+    return {
+      ...ingredient,
+      quantity,
+      calories,
+      protein,
+      fat,
+      carbs,
+    };
+  });
+
   return (
     <div className="bg-zinc-100 px-4 pt-6 dark:bg-zinc-900 sm:px-6  lg:px-8">
       <div className="sm:flex sm:items-center lg:mx-auto lg:max-w-7xl">
@@ -57,7 +85,7 @@ export default function Ingredients({
                   </tr>
                 </thead>
                 <tbody className="bg-white dark:bg-zinc-700">
-                  {ingredients.map((ingredient, index) => (
+                  {updatedIngredients.map((ingredient, index) => (
                     <tr
                       key={ingredient.id}
                       className={
@@ -76,9 +104,7 @@ export default function Ingredients({
                         {ingredient.protein ? ingredient.protein : "*"}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-zinc-600 dark:text-zinc-300">
-                        {ingredient.carbohydrates
-                          ? ingredient.carbohydrates
-                          : "*"}
+                        {ingredient.carbs ? ingredient.carbs : "*"}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-zinc-600 dark:text-zinc-300">
                         {ingredient.fat ? ingredient.fat : "*"}

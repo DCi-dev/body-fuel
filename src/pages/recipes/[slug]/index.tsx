@@ -5,15 +5,57 @@ import type { Ingredient, Instruction } from "@/types";
 import { api } from "@/utils/api";
 import type { GetServerSideProps } from "next";
 import Head from "next/head";
+import { useEffect, useState } from "react";
 
 interface Props {
   slug: string;
 }
 
+interface Recipe {
+  name: string;
+  description: string;
+  category: {
+    name: string;
+  }[];
+  image: string;
+  user: {
+    name: string;
+    image: string;
+  };
+  calories: number;
+  protein: number;
+  fat: number;
+  carbohydrates: number;
+  servings: number;
+  prepTime: string;
+  cookTime: string;
+  difficulty: string;
+  ingredients: Ingredient[];
+  instructions: Instruction[];
+}
+
 const Recipe = ({ slug }: Props) => {
   const { data, isLoading } = api.recipe.getRecipe.useQuery(slug);
 
-  const recipe = data;
+  const recipe = data as unknown as Recipe;
+
+  const [selectedServings, setSelectedServings] = useState<number>(0);
+
+  useEffect(() => {
+    setSelectedServings(recipe?.servings);
+  }, [recipe?.servings]);
+
+  // Calculate the nutrition facts for the selected servings
+  const calories = Math.round(
+    (recipe?.calories / recipe?.servings) * selectedServings
+  );
+  const protein = Math.round(
+    (recipe?.protein / recipe?.servings) * selectedServings
+  );
+  const fat = Math.round((recipe?.fat / recipe?.servings) * selectedServings);
+  const carbs = Math.round(
+    (recipe?.carbohydrates / recipe?.servings) * selectedServings
+  );
 
   if (isLoading) {
     return (
@@ -46,25 +88,28 @@ const Recipe = ({ slug }: Props) => {
       </Head>
       <main className="mt-16">
         <RecipePageHero
-          name={recipe?.name as string}
-          description={recipe?.description as string}
-          category={recipe?.category[0]?.name as string}
-          imageSrc={recipe?.image as string}
-          userName={recipe?.user?.name as string}
-          userImage={recipe?.user?.image as string}
-          calories={recipe?.calories as number}
-          protein={recipe?.protein as number}
-          fat={recipe?.fat as number}
-          carbs={recipe?.carbohydrates as number}
-          servings={recipe?.servings as number}
-          prepTime={recipe?.prepTime as string}
-          cookTime={recipe?.cookTime as string}
-          difficulty={recipe?.difficulty as string}
+          name={recipe?.name}
+          description={recipe?.description}
+          category={recipe?.category[0]?.name}
+          imageSrc={recipe?.image}
+          userName={recipe?.user?.name}
+          userImage={recipe?.user?.image}
+          calories={calories}
+          protein={protein}
+          fat={fat}
+          carbs={carbs}
+          servings={selectedServings}
+          setServings={setSelectedServings}
+          prepTime={recipe?.prepTime}
+          cookTime={recipe?.cookTime}
+          difficulty={recipe?.difficulty}
         />
         <Ingredients
-          ingredients={recipe?.ingredients as unknown as Ingredient[]}
+          ingredients={recipe?.ingredients}
+          originalServings={recipe?.servings}
+          selectedServings={selectedServings}
         />
-        <Instructions instructions={recipe?.instructions as Instruction[]} />
+        <Instructions instructions={recipe?.instructions} />
       </main>
     </>
   );

@@ -401,6 +401,7 @@ export default function CreateRecipeForm() {
                     <div className="mt-1">
                       <input
                         type="number"
+                        step={0.1}
                         onChange={(e) => {
                           setValue(
                             `ingredients.${index}.calories`,
@@ -429,6 +430,7 @@ export default function CreateRecipeForm() {
                     <div className="mt-1">
                       <input
                         type="number"
+                        step={0.1}
                         onChange={(e) => {
                           setValue(
                             `ingredients.${index}.protein`,
@@ -457,6 +459,7 @@ export default function CreateRecipeForm() {
                     <div className="mt-1">
                       <input
                         type="number"
+                        step={0.1}
                         onChange={(e) => {
                           setValue(
                             `ingredients.${index}.carbohydrates`,
@@ -485,6 +488,7 @@ export default function CreateRecipeForm() {
                     <div className="mt-1">
                       <input
                         type="number"
+                        step={0.1}
                         onChange={(e) => {
                           setValue(
                             `ingredients.${index}.fat`,

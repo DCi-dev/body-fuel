@@ -1,9 +1,10 @@
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 
 interface Props {
   name: string;
   description: string;
-  category: string;
+  category?: string;
   imageSrc: string;
   userName: string;
   userImage: string;
@@ -12,6 +13,7 @@ interface Props {
   fat: number;
   carbs: number;
   servings: number;
+  setServings: (value: number) => void;
   prepTime: string;
   cookTime: string;
   difficulty: string;
@@ -29,6 +31,7 @@ export default function RecipePageHero({
   fat,
   carbs,
   servings,
+  setServings,
   prepTime,
   cookTime,
   difficulty,
@@ -84,7 +87,6 @@ export default function RecipePageHero({
                 alt={name}
                 width={522}
                 height={296}
-                style={{ width: "auto", height: "auto" }}
                 priority
               />
             </div>
@@ -138,7 +140,23 @@ export default function RecipePageHero({
                   Number of servings
                 </dt>
                 <dd className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-                  {servings}
+                  <button
+                    type="button"
+                    onClick={() => setServings(servings - 1)}
+                    className="relative inline-flex items-center rounded-l-md border border-yellow-400 bg-yellow-500 px-1 py-1 text-sm font-medium text-zinc-100 hover:bg-zinc-50 hover:text-zinc-900 focus:z-10 focus:border-yellow-500 focus:outline-none focus:ring-1 focus:ring-yellow-500"
+                  >
+                    <span className="sr-only">Less</span>
+                    <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+                  </button>
+                  <span className="mx-4">{servings}</span>
+                  <button
+                    type="button"
+                    onClick={() => setServings(servings + 1)}
+                    className="relative -ml-px inline-flex items-center rounded-r-md border border-yellow-400 bg-yellow-500 px-1 py-1 text-sm font-medium text-zinc-100 hover:bg-zinc-50 hover:text-zinc-900 focus:z-10 focus:border-yellow-500 focus:outline-none focus:ring-1 focus:ring-yellow-500"
+                  >
+                    <span className="sr-only">More</span>
+                    <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                  </button>
                 </dd>
               </div>
               <div className="border-t-2 border-zinc-200 pt-6 dark:border-zinc-800">
