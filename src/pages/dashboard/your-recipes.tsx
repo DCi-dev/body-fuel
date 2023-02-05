@@ -20,10 +20,10 @@ export default function YourRecipes() {
             </p>
           </div>
         </div>
-        <div className="mt-8 flex  flex-col">
+        <div className="mt-8 flex flex-col">
           <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 md:overflow-x-visible lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-              <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:overflow-visible md:rounded-lg">
+              <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:overflow-visible">
                 <table className="min-w-full divide-y divide-zinc-100 dark:divide-zinc-900">
                   <thead className="bg-zinc-300 dark:bg-zinc-800">
                     <tr>
