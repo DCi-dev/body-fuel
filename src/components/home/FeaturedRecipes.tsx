@@ -5,8 +5,6 @@ export default function FeaturedRecipes() {
   const { data, isLoading } =
     api.recipe.getLimitedFavoritedRecipes.useInfiniteQuery({ limit: 3 });
 
-  console.log(data);
-
   const recipesFilter = data?.pages[0]?.recipesWithDetails;
 
   return (
@@ -38,7 +36,7 @@ export default function FeaturedRecipes() {
               />
             ))
           ) : (
-            <div className="flex h-full w-full items-center justify-center">
+            <div className="col-span-3 flex h-full w-full items-center justify-center">
               <svg
                 aria-hidden="true"
                 className="mr-2 h-8 w-8 animate-spin fill-yellow-500 text-zinc-200 dark:text-zinc-600"
