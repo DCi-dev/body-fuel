@@ -138,13 +138,39 @@ export default function Navbar() {
                             <Menu.Item>
                               {({ active }) => (
                                 <Link
-                                  href="#"
+                                  href="/dashboard"
+                                  className={classNames(
+                                    active ? "bg-white dark:bg-zinc-600" : "",
+                                    "block px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100"
+                                  )}
+                                >
+                                  Dashboard
+                                </Link>
+                              )}
+                            </Menu.Item>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link
+                                  href="/dashboard/your-recipes"
                                   className={classNames(
                                     active ? "bg-white dark:bg-zinc-600" : "",
                                     "block px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100"
                                   )}
                                 >
                                   Your recipes
+                                </Link>
+                              )}
+                            </Menu.Item>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link
+                                  href="/dashboard/create-recipe"
+                                  className={classNames(
+                                    active ? "bg-white dark:bg-zinc-600" : "",
+                                    "block px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100"
+                                  )}
+                                >
+                                  Create a recipe
                                 </Link>
                               )}
                             </Menu.Item>
@@ -251,10 +277,25 @@ export default function Navbar() {
                   <>
                     <Disclosure.Button
                       as={Link}
-                      href="#"
+                      href="/dashboard"
+                      className="block rounded-md px-3 py-2 text-base font-medium text-zinc-600 hover:bg-zinc-100 hover:text-black dark:text-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white"
+                    >
+                      Dashboard
+                    </Disclosure.Button>
+
+                    <Disclosure.Button
+                      as={Link}
+                      href="/dashboard/your-recipes"
                       className="block rounded-md px-3 py-2 text-base font-medium text-zinc-600 hover:bg-zinc-100 hover:text-black dark:text-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white"
                     >
                       Your recipes
+                    </Disclosure.Button>
+                    <Disclosure.Button
+                      as={Link}
+                      href="/dashboard/create-recipe"
+                      className="block rounded-md px-3 py-2 text-base font-medium text-zinc-600 hover:bg-zinc-100 hover:text-black dark:text-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white"
+                    >
+                      Create a recipe
                     </Disclosure.Button>
                     <Disclosure.Button
                       as="button"
