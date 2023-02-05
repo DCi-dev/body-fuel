@@ -14,6 +14,37 @@ export interface Instruction {
   text: string;
 }
 
+export interface Category {
+  id: string;
+  name: string;
+}
+
+export interface RecipeType {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  servings: number;
+  image: string;
+  ingredients?: Ingredient[];
+  instructions?: Instruction[];
+  shared: boolean;
+  category: Category[];
+  prepTime: string;
+  cookTime: string;
+  difficulty: string;
+  calories: number;
+  protein: number;
+  fat: number;
+  carbohydrates: number;
+  user: {
+    id: string;
+    name: string;
+    image: string;
+  };
+  userId: string;
+}
+
 export interface Review {
   id: string;
   recipeId: string;
@@ -23,6 +54,6 @@ export interface Review {
     id: string;
     name: string;
     image: string;
-  }
+  };
   userId: string;
 }

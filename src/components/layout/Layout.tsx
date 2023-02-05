@@ -14,7 +14,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Head>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex min-h-screen flex-col justify-start">
+      <div className="flex min-h-screen flex-col justify-start bg-zinc-100 dark:bg-zinc-900">
         <header>
           <Navbar />
         </header>

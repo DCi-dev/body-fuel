@@ -351,7 +351,34 @@ export const recipeRouter = createTRPCRouter({
       },
     });
 
-    return recipes;
+    // get all the recipes details from the database
+    const recipesWithDetails = await Promise.all(
+      recipes.map(async (recipe) => {
+        const category = await ctx.prisma.category.findMany({
+          where: {
+            recipes: {
+              some: {
+                id: recipe.id,
+              },
+            },
+          },
+        });
+
+        const user = await ctx.prisma.user.findUnique({
+          where: {
+            id: recipe.userId,
+          },
+        });
+
+        return {
+          ...recipe,
+          category,
+          user,
+        };
+      })
+    );
+
+    return recipesWithDetails;
   }),
   getRecipe: publicProcedure.input(z.string()).query(async ({ input, ctx }) => {
     const recipe = await ctx.prisma.recipe.findUnique({
@@ -432,15 +459,31 @@ export const recipeRouter = createTRPCRouter({
       if (!userId) {
         throw new Error("Not authenticated");
       }
-
-      const recipe = await ctx.prisma.recipe.delete({
+      // check if the recipe belongs to the user
+      const recipe = await ctx.prisma.recipe.findUnique({
         where: {
           id: input,
         },
       });
 
-      return recipe;
+      if (!recipe) {
+        throw new Error("Recipe not found");
+      }
+
+      if (recipe.userId !== userId) {
+        throw new Error("You are not authorized to delete this recipe");
+      }
+
+      // delete the recipe
+      const deletedRecipe = await ctx.prisma.recipe.delete({
+        where: {
+          id: input,
+        },
+      });
+
+      return deletedRecipe;
     }),
+
   getCategories: publicProcedure.query(async ({ ctx }) => {
     const categories = await ctx.prisma.category.findMany();
 
@@ -521,5 +564,43 @@ export const recipeRouter = createTRPCRouter({
       });
 
       return recipes;
+    }),
+
+  updateSharedRecipe: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        shared: z.boolean(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const userId = ctx.session?.user?.id;
+
+      if (!userId) {
+        throw new Error("Not authenticated");
+      }
+
+      // check if the recipe belongs to the user
+      const recipe = await ctx.prisma.recipe.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+
+      if (recipe?.userId !== userId) {
+        throw new Error("You are not authorized to update this recipe");
+      }
+
+      // update the recipe
+      const updatedRecipe = await ctx.prisma.recipe.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          shared: input.shared,
+        },
+      });
+
+      return updatedRecipe;
     }),
 });
