@@ -6,8 +6,6 @@ import Image from "next/image";
 import { Disclosure, Menu, Switch, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
-  MoonIcon,
-  SunIcon,
   UserCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
@@ -174,6 +172,19 @@ export default function Navbar() {
                                 </Link>
                               )}
                             </Menu.Item>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link
+                                  href="/dashboard/favorite-recipes"
+                                  className={classNames(
+                                    active ? "bg-white dark:bg-zinc-600" : "",
+                                    "block px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100"
+                                  )}
+                                >
+                                  Favourite recipes
+                                </Link>
+                              )}
+                            </Menu.Item>
                           </>
                         )}
                         <Menu.Item>
@@ -183,6 +194,7 @@ export default function Navbar() {
                                 active ? "bg-white dark:bg-zinc-600" : "",
                                 "block cursor-pointer px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100"
                               )}
+                              // eslint-disable-next-line @typescript-eslint/no-misused-promises
                               onClick={
                                 sessionData ? () => signOut() : () => signIn()
                               }
@@ -249,6 +261,7 @@ export default function Navbar() {
                     <Disclosure.Button
                       as="button"
                       className="block rounded-md px-3 py-2 text-base font-medium text-zinc-600 hover:bg-zinc-100 hover:text-black dark:text-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white"
+                      // eslint-disable-next-line @typescript-eslint/no-misused-promises
                       onClick={() => signIn()}
                     >
                       Sign in
@@ -298,8 +311,16 @@ export default function Navbar() {
                       Create a recipe
                     </Disclosure.Button>
                     <Disclosure.Button
+                      as={Link}
+                      href="/dashboard/favorite-recipes"
+                      className="block rounded-md px-3 py-2 text-base font-medium text-zinc-600 hover:bg-zinc-100 hover:text-black dark:text-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white"
+                    >
+                      Favorite recipes
+                    </Disclosure.Button>
+                    <Disclosure.Button
                       as="button"
                       className="block rounded-md px-3 py-2 text-base font-medium text-zinc-600 hover:bg-zinc-100 hover:text-black dark:text-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white"
+                      // eslint-disable-next-line @typescript-eslint/no-misused-promises
                       onClick={() => signOut()}
                     >
                       Sign out

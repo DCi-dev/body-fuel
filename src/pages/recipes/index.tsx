@@ -79,6 +79,7 @@ const RecipesPage: NextPage = () => {
 
             <div className="-mt-px flex w-0 flex-1 justify-end">
               <button
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
                 onClick={handleFetchNextPage}
                 disabled={data?.pages.length === page + 1}
                 className="inline-flex items-center border-t-2 border-transparent pt-4 pl-1 text-sm font-medium text-zinc-500 hover:border-zinc-300 hover:text-zinc-700"
