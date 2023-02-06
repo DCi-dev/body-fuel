@@ -79,8 +79,8 @@ const RecipeTableItem = ({ recipe, refetch }: Props) => {
 
   return (
     <tr className="text-zinc-900 dark:text-zinc-100" key={recipe.id}>
-      <td className="whitespace-nowrap py-4 pl-4 pr-5">
-        <div className="flex items-center">
+      <td className="whitespace-normal py-4 pl-4 pr-5 md:whitespace-nowrap">
+        <div className="flex flex-col items-center sm:flex-row">
           <div className="h-16 w-16 flex-shrink-0">
             <Image
               src={recipe.image}
@@ -100,22 +100,22 @@ const RecipeTableItem = ({ recipe, refetch }: Props) => {
           </div>
         </div>
       </td>
-      <td className="whitespace-nowrap px-3 py-4">
+      <td className="whitespace-normal px-3 py-4 md:whitespace-nowrap">
         <div className=" text-zinc-900 dark:text-zinc-100">
           {recipe.category[0]?.name}
         </div>
       </td>
-      <td className="pk-3 whitespace-nowrap py-4">
+      <td className="pk-3 hidden whitespace-nowrap py-4 md:table-cell">
         <span className="inline-flex px-2  leading-5 text-zinc-800 dark:text-zinc-200">
           {recipe.servings}
         </span>
       </td>
-      <td className="whitespace-nowrap py-4 pr-3">
+      <td className="hidden whitespace-nowrap py-4 pr-3 md:table-cell">
         <span className="inline-flex rounded-full  px-2  leading-5 text-zinc-800 dark:text-zinc-200">
           {recipe.calories}
         </span>
       </td>
-      <td className="whitespace-nowrap py-4 px-3">
+      <td className="hidden whitespace-nowrap py-4 px-3 md:table-cell">
         <span className="inline-flex rounded-full  px-2  leading-5 text-zinc-800 dark:text-zinc-200">
           {recipe.shared ? "Yes" : "No"}
         </span>
@@ -145,7 +145,7 @@ const RecipeTableItem = ({ recipe, refetch }: Props) => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="static right-0 z-50 mt-2 w-56 origin-top-right divide-y divide-zinc-100 rounded-md bg-zinc-100 shadow-lg ring-1 ring-zinc-900 ring-opacity-5 focus:outline-none dark:divide-zinc-900 dark:bg-zinc-900 dark:ring-zinc-600 md:absolute">
+            <Menu.Items className="absolute right-0 z-50 mt-2 w-56 origin-top-right divide-y divide-zinc-100 rounded-md bg-zinc-100 shadow-lg ring-1 ring-zinc-900 ring-opacity-5 focus:outline-none dark:divide-zinc-900 dark:bg-zinc-900 dark:ring-zinc-600">
               <div className="py-1">
                 <Menu.Item>
                   {({ active }) => (

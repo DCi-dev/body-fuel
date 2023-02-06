@@ -19,9 +19,9 @@ export default function YourRecipes() {
           </div>
         </div>
         <div className="mt-8 flex flex-col">
-          <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 md:overflow-x-visible lg:-mx-8">
+          <div className="-my-2 -mx-4  overflow-x-visible sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-              <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:overflow-visible">
+              <div className=" overflow-visible shadow ring-1 ring-black ring-opacity-5">
                 <table className="min-w-full divide-y divide-zinc-100 dark:divide-zinc-900">
                   <thead className="bg-zinc-300 dark:bg-zinc-800">
                     <tr>
@@ -39,19 +39,19 @@ export default function YourRecipes() {
                       </th>
                       <th
                         scope="col"
-                        className="py-3.5 pl-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100"
+                        className="hidden py-3.5 pl-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 md:table-cell"
                       >
                         Nr. of servings
                       </th>
                       <th
                         scope="col"
-                        className="py-3.5 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100"
+                        className="hidden py-3.5 pr-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 md:table-cell"
                       >
                         Calories
                       </th>
                       <th
                         scope="col"
-                        className="py-3.5 px-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100"
+                        className="hidden py-3.5 px-3 text-left text-sm font-semibold text-zinc-900 dark:text-zinc-100 md:table-cell"
                       >
                         Shared
                       </th>
