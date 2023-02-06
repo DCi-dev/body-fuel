@@ -5,8 +5,6 @@ import RecipeTableItem from "@components/recipes/your-recipes/RecipeTableItem";
 export default function YourRecipes() {
   const { data, isLoading, refetch } = api.recipe.getUserRecipes.useQuery();
 
-  console.log(data);
-
   return (
     <>
       <main className="mx-auto mt-16  max-w-7xl px-4 pt-10 sm:px-6 lg:px-8">

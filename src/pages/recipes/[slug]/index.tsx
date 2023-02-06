@@ -131,7 +131,11 @@ const Recipe = ({ slug }: Props) => {
             Reviews
           </h2>
           {sessionData?.user ? (
-            <LeaveAReview recipeId={recipe?.id} refetch={refetch} />
+            <LeaveAReview
+              recipeId={recipe?.id}
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
+              refetch={refetch}
+            />
           ) : (
             <p className="text-xl font-bold text-zinc-700 dark:text-zinc-300 lg:text-2xl">
               Please sign in to leave a review

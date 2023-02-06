@@ -481,6 +481,13 @@ export const recipeRouter = createTRPCRouter({
         },
       });
 
+      await s3
+        .deleteObject({
+          Bucket: BUCKET_NAME,
+          Key: `${userId}/${input}`,
+        })
+        .promise();
+
       return deletedRecipe;
     }),
 
