@@ -451,6 +451,46 @@ export const recipeRouter = createTRPCRouter({
     };
   }),
 
+  getUserFavoriteRecipes: protectedProcedure.query(async ({ ctx }) => {
+    const userId = ctx.session?.user?.id;
+
+    if (!userId) {
+      throw new Error("Not authenticated");
+    }
+
+    const recipes = await ctx.prisma.recipe.findMany({
+      where: {
+        FavoriteRecipes: {
+          some: {
+            userId: userId,
+          },
+        },
+      },
+    });
+
+    // get the recipes details from the database
+    const recipesWithDetails = await Promise.all(
+      recipes.map(async (recipe) => {
+        const category = await ctx.prisma.category.findMany({
+          where: {
+            recipes: {
+              some: {
+                id: recipe.id,
+              },
+            },
+          },
+        });
+
+        return {
+          ...recipe,
+          category,
+        };
+      })
+    );
+
+    return recipesWithDetails;
+  }),
+
   deleteRecipe: protectedProcedure
     .input(z.string())
     .mutation(async ({ input, ctx }) => {
