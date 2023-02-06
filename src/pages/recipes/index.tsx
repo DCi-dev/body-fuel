@@ -19,8 +19,6 @@ const RecipesPage: NextPage = () => {
     }
   );
 
-  console.log(data);
-
   const handleFetchNextPage = async () => {
     await fetchNextPage();
     setPage((prev) => prev + 1);
