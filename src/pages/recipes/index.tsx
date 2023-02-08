@@ -1,11 +1,12 @@
 import FeaturedRecipes from "@/components/home/FeaturedRecipes";
 import RecipeCard from "@/components/recipes/RecipeCard";
+import { getServerAuthSession } from "@/server/auth";
 import { api } from "@/utils/api";
 import {
   ArrowLongLeftIcon,
   ArrowLongRightIcon,
 } from "@heroicons/react/24/outline";
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { useState } from "react";
 
@@ -96,6 +97,24 @@ const RecipesPage: NextPage = () => {
       </main>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await getServerAuthSession(ctx);
+
+  if (session) {
+    // If no session exists, redirect the user to the login page.
+    return {
+      redirect: {
+        destination: "/dashboard/recipes",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
 };
 
 export default RecipesPage;

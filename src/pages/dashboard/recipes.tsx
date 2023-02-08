@@ -3,6 +3,8 @@ import type { RecipeType } from "@/types";
 import { api } from "@/utils/api";
 import { Tab } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import type { GetServerSideProps } from "next";
+import { getServerAuthSession } from "@/server/auth";
 import { useSession } from "next-auth/react";
 import { Fragment, useState } from "react";
 
@@ -139,6 +141,24 @@ const SessionRecipes = () => {
       </Tab.Group>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await getServerAuthSession(ctx);
+
+  if (!session) {
+    // If no session exists, redirect the user to the login page.
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
 };
 
 export default SessionRecipes;
