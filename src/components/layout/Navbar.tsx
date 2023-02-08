@@ -1,6 +1,5 @@
 import { navigationRoutes } from "@utils/navigationRoutes";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { useTheme } from "next-themes";
 import Image from "next/image";
 
 import { Disclosure, Menu, Switch, Transition } from "@headlessui/react";
@@ -11,29 +10,24 @@ import {
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import type { NextRouter } from "next/router";
-import { useRouter } from "next/router";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment } from "react";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
+interface NavbarProps {
+  theme: string;
+  setTheme: (theme: string) => void;
+  router: NextRouter;
+  navRef: React.MutableRefObject<HTMLDivElement | null>;
+}
 
-export default function Navbar() {
-  //  Active navlink
-  const router = useRouter();
-  const navRef = useRef<HTMLDivElement | null>(null);
+export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) {
+  
 
   // Session
   const { data: sessionData } = useSession();
   const userProfileImageUrl = sessionData?.user?.image as string;
-
-  // Theme
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  if (!mounted) return null;
 
   return (
     <Disclosure
