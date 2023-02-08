@@ -1,5 +1,9 @@
+import RecipesTable from "@/components/recipes/table/RecipesTable";
+import type { RecipeType } from "@/types";
+import { api } from "@/utils/api";
 import { Tab } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { useSession } from "next-auth/react";
 import { Fragment, useState } from "react";
 
 function classNames(...classes: string[]) {
@@ -7,7 +11,28 @@ function classNames(...classes: string[]) {
 }
 
 const SessionRecipes = () => {
+  const { data: sessionData } = useSession();
+
   const [search, setSearch] = useState("");
+  const [allPage, setAllPage] = useState(0);
+
+  const yourRecipes = api.recipe.getUserRecipes.useQuery();
+  const favoriteRecipes = api.recipe.getUserFavoriteRecipes.useQuery();
+  const allRecipes = api.recipe.getLimitedRecipes.useInfiniteQuery(
+    { limit: 5 },
+    {
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
+    }
+  );
+
+  const favoriteRecipeIds = favoriteRecipes.data?.map((recipe) => recipe.id);
+
+  async function onChangeRefetch() {
+    await yourRecipes.refetch();
+    await favoriteRecipes.refetch();
+    await allRecipes.refetch();
+  }
+
   return (
     <div className=" min-h-screen  bg-zinc-100 px-4 dark:bg-zinc-900 md:px-6">
       <div className="mx-auto flex max-w-7xl items-center justify-between py-8">
@@ -37,19 +62,22 @@ const SessionRecipes = () => {
         </div>
       </div>
       {/* Views */}
-      <Tab.Group>
-        <Tab.List className="isolate flex divide-x divide-zinc-200 rounded-lg shadow">
+      <Tab.Group
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        onChange={onChangeRefetch}
+      >
+        <Tab.List className="isolate mx-auto flex max-w-7xl divide-x divide-zinc-200 rounded-lg shadow dark:divide-zinc-700">
           <Tab as={Fragment}>
             {({ selected }) => (
               <button
                 className={classNames(
                   selected
-                    ? "border-b-2 border-yellow-500 bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
-                    : "bg-zinc-300 text-zinc-600 hover:bg-zinc-50 hover:text-zinc-700 dark:bg-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-zinc-300",
-                  "group relative block w-full min-w-0 flex-1 overflow-hidden rounded-l-lg  py-4 px-4 text-center text-sm font-medium  "
+                    ? "bg-zinc-100 text-zinc-900 dark:bg-zinc-700 dark:text-zinc-50"
+                    : "bg-zinc-300 text-zinc-700 hover:bg-zinc-50 hover:text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-600 dark:hover:text-zinc-300",
+                  "group relative block w-full min-w-0 flex-1 overflow-hidden rounded-l-lg  py-4 px-4 text-center text-sm font-medium"
                 )}
               >
-                Tab 1
+                Your Recipes
               </button>
             )}
           </Tab>
@@ -58,12 +86,12 @@ const SessionRecipes = () => {
               <button
                 className={classNames(
                   selected
-                    ? "border-b-2 border-yellow-500 bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
-                    : "bg-zinc-300 text-zinc-600 hover:bg-zinc-50 hover:text-zinc-700 dark:bg-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-zinc-300",
-                  "group relative block w-full min-w-0 flex-1 overflow-hidden   py-4 px-4 text-center text-sm font-medium  "
+                    ? "bg-zinc-100 text-zinc-900 dark:bg-zinc-700 dark:text-zinc-50"
+                    : "bg-zinc-300 text-zinc-700 hover:bg-zinc-50 hover:text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-600 dark:hover:text-zinc-300",
+                  "group relative block w-full min-w-0 flex-1 overflow-hidden py-4 px-4 text-center text-sm font-medium"
                 )}
               >
-                Tab 1
+                Favorites
               </button>
             )}
           </Tab>
@@ -72,20 +100,48 @@ const SessionRecipes = () => {
               <button
                 className={classNames(
                   selected
-                    ? "border-b-2 border-yellow-500 bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
-                    : "bg-zinc-300 text-zinc-600 hover:bg-zinc-50 hover:text-zinc-700 dark:bg-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-zinc-300",
-                  "group relative block w-full min-w-0 flex-1 overflow-hidden rounded-r-lg  py-4 px-4 text-center text-sm font-medium  "
+                    ? "bg-zinc-100 text-zinc-900 dark:bg-zinc-700 dark:text-zinc-50"
+                    : "bg-zinc-300 text-zinc-700 hover:bg-zinc-50 hover:text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-600 dark:hover:text-zinc-300",
+                  "group relative block w-full min-w-0 flex-1 overflow-hidden rounded-r-lg  py-4 px-4 text-center text-sm font-medium"
                 )}
               >
-                Tab 1
+                All Recipes
               </button>
             )}
           </Tab>
         </Tab.List>
-        <Tab.Panels>
-          <Tab.Panel>Content 1</Tab.Panel>
-          <Tab.Panel>Content 2</Tab.Panel>
-          <Tab.Panel>Content 3</Tab.Panel>
+        <Tab.Panels className={"mx-auto mt-8 max-w-7xl"}>
+          <Tab.Panel>
+            <RecipesTable
+              recipes={yourRecipes.data as RecipeType[]}
+              isLoading={yourRecipes.isLoading}
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
+              refetch={yourRecipes.refetch}
+              userId={sessionData?.user?.id as string}
+            />
+          </Tab.Panel>
+          <Tab.Panel>
+            <RecipesTable
+              recipes={favoriteRecipes.data as RecipeType[]}
+              isLoading={favoriteRecipes.isLoading}
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
+              refetch={favoriteRecipes.refetch}
+              userId={sessionData?.user?.id as string}
+              favoriteRecipeIds={favoriteRecipeIds}
+            />
+          </Tab.Panel>
+          <Tab.Panel>
+            <RecipesTable
+              recipes={
+                allRecipes.data?.pages[allPage]
+                  ?.recipesWithDetails as RecipeType[]
+              }
+              isLoading={allRecipes.isLoading}
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
+              refetch={allRecipes.refetch}
+              userId={sessionData?.user?.id as string}
+            />
+          </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
     </div>

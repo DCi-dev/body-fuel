@@ -10,7 +10,7 @@ const CreateRecipe: NextPage = () => {
         <title>Body Fuel = Dashboard</title>
         <meta name="description" content="Healthy Lifestyle" />
       </Head>
-      <main className="pt-16">
+      <main className="min-h-screen bg-zinc-100 py-4 dark:bg-zinc-900">
         <CreateRecipeForm />
       </main>
     </>

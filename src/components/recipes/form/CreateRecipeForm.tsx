@@ -122,7 +122,7 @@ export default function CreateRecipeForm() {
 
   return (
     <form className="space-y-6 px-3" onSubmit={handleSubmit(onSubmit, onError)}>
-      <div className="bg-zinc-100 px-4 py-5 shadow dark:bg-zinc-900 sm:rounded-lg sm:p-6">
+      <div className="bg-zinc-200 px-4 py-5 shadow dark:bg-zinc-800 sm:rounded-lg sm:p-6">
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="md:col-span-1">
             <h3 className="text-lg font-medium leading-6 text-zinc-900 dark:text-zinc-100">
@@ -332,7 +332,7 @@ export default function CreateRecipeForm() {
         </div>
       </div>
 
-      <div className="bg-zinc-100 px-4 py-5 shadow dark:bg-zinc-900 sm:rounded-lg sm:p-6">
+      <div className="bg-zinc-200 px-4 py-5 shadow dark:bg-zinc-800 sm:rounded-lg sm:p-6">
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="md:col-span-1">
             <h3 className="text-lg font-medium leading-6 text-zinc-900 dark:text-zinc-100">
@@ -533,7 +533,7 @@ export default function CreateRecipeForm() {
         </div>
       </div>
       {/* Instructions START */}
-      <div className="bg-zinc-100 px-4 py-5 shadow dark:bg-zinc-900 sm:rounded-lg sm:p-6">
+      <div className="bg-zinc-200 px-4 py-5 shadow dark:bg-zinc-800 sm:rounded-lg sm:p-6">
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="md:col-span-1">
             <h3 className="text-lg font-medium leading-6 text-zinc-900 dark:text-zinc-100">

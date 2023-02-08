@@ -18,7 +18,7 @@ export default function UserMenu({ userName, userImage }: UserMenuProps) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center bg-zinc-100 px-4 py-2 text-sm font-medium text-zinc-800 shadow-sm hover:bg-zinc-300  dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-700">
+        <Menu.Button className="inline-flex w-full justify-center bg-zinc-50 px-4 py-2 text-sm font-medium text-zinc-900 shadow-sm hover:bg-zinc-300  dark:bg-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-600">
           <div className="group block w-full flex-shrink-0">
             <div className="flex items-center justify-start">
               <div>
@@ -58,7 +58,8 @@ export default function UserMenu({ userName, userImage }: UserMenuProps) {
             <Menu.Item>
               {({ active }) => (
                 <button
-                  onClick={signOut}
+                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                  onClick={() => signOut()}
                   className={classNames(
                     active
                       ? "bg-zinc-100 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100"

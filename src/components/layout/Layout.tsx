@@ -55,13 +55,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               navRef={navRef}
             />
           </header>
-          <main className={`${lato.className} font-sans`}>{children}</main>
+          <main
+            className={`${lato.className} max-w-screen mt-16 overflow-hidden font-sans`}
+          >
+            {children}
+          </main>
           <footer className="mt-auto">
             <Footer />
           </footer>
         </div>
       ) : (
-        <div className={`${lato.className} h-full font-sans`}>
+        <div
+          className={`${lato.className} max-w-screen h-full overflow-hidden font-sans`}
+        >
           {/* Session Layout */}
 
           <Transition.Root show={sidebarOpen} as={Fragment}>

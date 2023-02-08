@@ -19,26 +19,27 @@ function classNames(...classes: string[]) {
 type Props = {
   recipe: RecipeType;
   refetch: () => void;
+  userId: string;
+  favoriteRecipeIds?: string[];
 };
 
-const RecipeTableItem = ({ recipe, refetch }: Props) => {
+const RecipeTableItem = ({
+  recipe,
+  refetch,
+  userId,
+  favoriteRecipeIds,
+}: Props) => {
   // Favorite recipes
-  const favoriteRecipe = api.user.getFavoriteRecipes.useQuery();
   const addToFavorites = api.user.addRecipeToFavorites.useMutation();
   const removeFromFavorites = api.user.removeRecipeFromFavorites.useMutation();
 
   const [isFavoriteRecipe, setIsFavoriteRecipe] = useState<boolean>(false);
 
   useEffect(() => {
-    if (favoriteRecipe.data) {
-      const recipe = favoriteRecipe.data.find(
-        (recipe) => recipe.id === recipe.id
-      );
-      if (recipe) {
-        setIsFavoriteRecipe(true);
-      }
+    if (favoriteRecipeIds?.includes(recipe.id)) {
+      setIsFavoriteRecipe(true);
     }
-  }, [favoriteRecipe.data, recipe.id]);
+  }, [favoriteRecipeIds, recipe.id]);
 
   const handleAddToFavorites = async () => {
     await addToFavorites.mutateAsync(recipe.id);
@@ -56,6 +57,7 @@ const RecipeTableItem = ({ recipe, refetch }: Props) => {
     } else {
       await handleAddToFavorites();
     }
+    refetch();
   };
 
   // Share recipes
@@ -78,8 +80,8 @@ const RecipeTableItem = ({ recipe, refetch }: Props) => {
   };
 
   return (
-    <tr className="text-zinc-900 dark:text-zinc-100" key={recipe.id}>
-      <td className="whitespace-normal py-4 pl-4 pr-5 md:whitespace-nowrap">
+    <tr className="w-full text-zinc-900 dark:text-zinc-100" key={recipe.id}>
+      <td className="whitespace-normal py-4 pl-4 pr-5 lg:whitespace-nowrap">
         <div className="flex flex-col items-center sm:flex-row">
           <div className="h-16 w-16 flex-shrink-0">
             <Image
@@ -91,7 +93,7 @@ const RecipeTableItem = ({ recipe, refetch }: Props) => {
               height={64}
             />
           </div>
-          <div className="ml-4">
+          <div className="overflow-wrap ml-4">
             <Link href={`/recipes/${recipe.slug}`}>
               <div className=" font-bold text-zinc-900 dark:text-zinc-100">
                 {recipe.name}
@@ -100,24 +102,19 @@ const RecipeTableItem = ({ recipe, refetch }: Props) => {
           </div>
         </div>
       </td>
-      <td className="whitespace-normal px-3 py-4 md:whitespace-nowrap">
+      <td className="whitespace-normal px-3 py-4 lg:whitespace-nowrap">
         <div className=" text-zinc-900 dark:text-zinc-100">
           {recipe.category[0]?.name}
         </div>
       </td>
-      <td className="pk-3 hidden whitespace-nowrap py-4 md:table-cell">
+      <td className="hidden whitespace-nowrap px-3 py-4 lg:table-cell">
         <span className="inline-flex px-2  leading-5 text-zinc-800 dark:text-zinc-200">
           {recipe.servings}
         </span>
       </td>
-      <td className="hidden whitespace-nowrap py-4 pr-3 md:table-cell">
+      <td className="hidden whitespace-nowrap py-4 pr-3 lg:table-cell">
         <span className="inline-flex rounded-full  px-2  leading-5 text-zinc-800 dark:text-zinc-200">
           {recipe.calories}
-        </span>
-      </td>
-      <td className="hidden whitespace-nowrap py-4 px-3 md:table-cell">
-        <span className="inline-flex rounded-full  px-2  leading-5 text-zinc-800 dark:text-zinc-200">
-          {recipe.shared ? "Yes" : "No"}
         </span>
       </td>
       <td className="relative whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
@@ -167,28 +164,30 @@ const RecipeTableItem = ({ recipe, refetch }: Props) => {
                   )}
                 </Menu.Item>
               </div>
-              <div className="py-1">
-                <Menu.Item>
-                  {({ active }) => (
-                    <button
-                      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                      onClick={handleShare}
-                      className={classNames(
-                        active
-                          ? "bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
-                          : "text-zinc-700 dark:text-zinc-300",
-                        "group flex w-full items-center px-4 py-2 text-sm"
-                      )}
-                    >
-                      <ShareIcon
-                        className="mr-3 h-5 w-5 text-zinc-600 group-hover:text-zinc-800 dark:text-zinc-400 dark:group-hover:text-zinc-300"
-                        aria-hidden="true"
-                      />
-                      {recipe.shared ? "Unshare" : "Share"}
-                    </button>
-                  )}
-                </Menu.Item>
-              </div>
+              {userId === recipe.userId && (
+                <div className="py-1">
+                  <Menu.Item>
+                    {({ active }) => (
+                      <button
+                        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                        onClick={handleShare}
+                        className={classNames(
+                          active
+                            ? "bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
+                            : "text-zinc-700 dark:text-zinc-300",
+                          "group flex w-full items-center px-4 py-2 text-sm"
+                        )}
+                      >
+                        <ShareIcon
+                          className="mr-3 h-5 w-5 text-zinc-600 group-hover:text-zinc-800 dark:text-zinc-400 dark:group-hover:text-zinc-300"
+                          aria-hidden="true"
+                        />
+                        {recipe.shared ? "Unshare" : "Share"}
+                      </button>
+                    )}
+                  </Menu.Item>
+                </div>
+              )}
               <div className="py-1">
                 <Menu.Item>
                   {({ active }) => (
@@ -217,28 +216,30 @@ const RecipeTableItem = ({ recipe, refetch }: Props) => {
                   )}
                 </Menu.Item>
               </div>
-              <div className="py-1">
-                <Menu.Item>
-                  {({ active }) => (
-                    <button
-                      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                      onClick={handleDelete}
-                      className={classNames(
-                        active
-                          ? "bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
-                          : "text-zinc-700 dark:text-zinc-300",
-                        "group flex w-full items-center px-4 py-2 text-sm"
-                      )}
-                    >
-                      <TrashIcon
-                        className="mr-3 h-5 w-5 text-zinc-600 group-hover:text-zinc-800 dark:text-zinc-400 dark:group-hover:text-zinc-300"
-                        aria-hidden="true"
-                      />
-                      Delete
-                    </button>
-                  )}
-                </Menu.Item>
-              </div>
+              {userId === recipe.userId && (
+                <div className="py-1">
+                  <Menu.Item>
+                    {({ active }) => (
+                      <button
+                        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                        onClick={handleDelete}
+                        className={classNames(
+                          active
+                            ? "bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
+                            : "text-zinc-700 dark:text-zinc-300",
+                          "group flex w-full items-center px-4 py-2 text-sm"
+                        )}
+                      >
+                        <TrashIcon
+                          className="mr-3 h-5 w-5 text-zinc-600 group-hover:text-zinc-800 dark:text-zinc-400 dark:group-hover:text-zinc-300"
+                          aria-hidden="true"
+                        />
+                        Delete
+                      </button>
+                    )}
+                  </Menu.Item>
+                </div>
+              )}
             </Menu.Items>
           </Transition>
         </Menu>

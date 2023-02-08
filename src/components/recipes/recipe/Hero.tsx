@@ -5,6 +5,7 @@ import {
   HeartIcon,
   StarIcon,
 } from "@heroicons/react/24/outline";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -51,6 +52,8 @@ export default function RecipePageHero({
   difficulty,
   averageStars,
 }: Props) {
+  const { data: sessionData } = useSession();
+
   const favoriteRecipe = api.user.getFavoriteRecipes.useQuery();
   const addToFavorites = api.user.addRecipeToFavorites.useMutation();
   const removeFromFavorites = api.user.removeRecipeFromFavorites.useMutation();
@@ -58,12 +61,14 @@ export default function RecipePageHero({
   const [isFavoriteRecipe, setIsFavoriteRecipe] = useState<boolean>(false);
 
   const favoriteClass = `h-8 w-8 fill-current ${
-    isFavoriteRecipe ? "text-yellow-500" : "text-neutral-500"
+    isFavoriteRecipe ? "text-yellow-500" : "text-zinc-500"
   }`;
 
   useEffect(() => {
     if (favoriteRecipe.data) {
-      const recipe = favoriteRecipe.data.find((recipe) => recipe.id === id);
+      const recipe = favoriteRecipe.data.find(
+        (recipe) => recipe.recipeId === id
+      );
       if (recipe) {
         setIsFavoriteRecipe(true);
       }
@@ -177,19 +182,20 @@ export default function RecipePageHero({
                     : "Be the first one to leave a review"}
                 </p>
               </div>
-              {/* Favorite Button */}
-              <button
-                className="col-span-1 flex flex-row items-center justify-start gap-2 rounded-full p-2"
-                // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                onClick={handleClick}
-              >
-                <HeartIcon className={favoriteClass} />{" "}
-                <span>
-                  {!isFavoriteRecipe
-                    ? "Add to favorites"
-                    : "Remove from favorites"}
-                </span>
-              </button>
+              {sessionData?.user ? (
+                <button
+                  className="col-span-1 flex flex-row items-center justify-start gap-2 rounded-full p-2"
+                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                  onClick={()=> handleClick()}
+                >
+                  <HeartIcon className={favoriteClass} />{" "}
+                  <span>
+                    {!isFavoriteRecipe
+                      ? "Add to favorites"
+                      : "Remove from favorites"}
+                  </span>
+                </button>
+              ) : null}
             </div>
             <div className="mt-6 space-y-6 text-zinc-700 dark:text-zinc-300">
               <p className="text-lg">{description}</p>

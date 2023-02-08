@@ -37,7 +37,7 @@ const RecipesPage: NextPage = () => {
         <title>Body Fuel = Recipes</title>
         <meta name="description" content="Healthy Lifestyle" />
       </Head>
-      <main className="mt-16 bg-zinc-200 dark:bg-zinc-800">
+      <main className=" bg-zinc-200 dark:bg-zinc-800">
         <FeaturedRecipes />
         <div className="relative mx-auto max-w-7xl">
           <div>

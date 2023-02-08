@@ -46,8 +46,6 @@ const Recipe = ({ slug }: Props) => {
 
   const recipe = data as unknown as Recipe;
 
-  console.log(recipe);
-
   const [selectedServings, setSelectedServings] = useState<number>(0);
 
   useEffect(() => {
@@ -100,50 +98,52 @@ const Recipe = ({ slug }: Props) => {
         <title>Body Fuel = Recipes</title>
         <meta name="description" content="Healthy Lifestyle" />
       </Head>
-      <main className="mt-16">
-        <RecipePageHero
-          id={recipe?.id}
-          name={recipe?.name}
-          description={recipe?.description}
-          category={recipe?.category[0]?.name}
-          imageSrc={recipe?.image}
-          userName={recipe?.user?.name}
-          userImage={recipe?.user?.image}
-          calories={calories}
-          protein={protein}
-          fat={fat}
-          carbs={carbs}
-          servings={selectedServings}
-          setServings={setSelectedServings}
-          prepTime={recipe?.prepTime}
-          cookTime={recipe?.cookTime}
-          difficulty={recipe?.difficulty}
-          averageStars={averageStars}
-        />
-        <Ingredients
-          ingredients={recipe?.ingredients}
-          originalServings={recipe?.servings}
-          selectedServings={selectedServings}
-        />
-        <Instructions instructions={recipe?.instructions} />
-        <div className="bg-zinc-100 pb-16 text-center dark:bg-zinc-900">
-          <h2 className="mb-4 text-3xl font-bold text-zinc-900 dark:text-zinc-100 lg:text-4xl">
-            Reviews
-          </h2>
-          {sessionData?.user ? (
-            <LeaveAReview
-              recipeId={recipe?.id}
-              // eslint-disable-next-line @typescript-eslint/no-misused-promises
-              refetch={refetch}
-            />
-          ) : (
-            <p className="text-xl font-bold text-zinc-700 dark:text-zinc-300 lg:text-2xl">
-              Please sign in to leave a review
-            </p>
-          )}
-          <Reviews reviews={recipe?.reviewWithUserDetails} />
-        </div>
-      </main>
+      {!isLoading && (
+        <main className="max-w-screen overflow-hidden bg-zinc-100 dark:bg-zinc-900 md:px-4">
+          <RecipePageHero
+            id={recipe?.id}
+            name={recipe?.name}
+            description={recipe?.description}
+            category={recipe?.category[0]?.name}
+            imageSrc={recipe?.image}
+            userName={recipe?.user?.name}
+            userImage={recipe?.user?.image}
+            calories={calories}
+            protein={protein}
+            fat={fat}
+            carbs={carbs}
+            servings={selectedServings}
+            setServings={setSelectedServings}
+            prepTime={recipe?.prepTime}
+            cookTime={recipe?.cookTime}
+            difficulty={recipe?.difficulty}
+            averageStars={averageStars}
+          />
+          <Ingredients
+            ingredients={recipe?.ingredients}
+            originalServings={recipe?.servings}
+            selectedServings={selectedServings}
+          />
+          <Instructions instructions={recipe?.instructions} />
+          <div className="bg-zinc-100 pb-16 text-center dark:bg-zinc-900">
+            <h2 className="mb-4 text-3xl font-bold text-zinc-900 dark:text-zinc-100 lg:text-4xl">
+              Reviews
+            </h2>
+            {sessionData?.user ? (
+              <LeaveAReview
+                recipeId={recipe?.id}
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                refetch={refetch}
+              />
+            ) : (
+              <p className="text-xl font-bold text-zinc-700 dark:text-zinc-300 lg:text-2xl">
+                Please sign in to leave a review
+              </p>
+            )}
+            <Reviews reviews={recipe?.reviewWithUserDetails} />
+          </div>
+        </main>
+      )}
     </>
   );
 };
