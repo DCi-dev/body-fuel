@@ -39,6 +39,7 @@ const RecipeTableItem = ({
     if (favoriteRecipeIds?.includes(recipe.id)) {
       setIsFavoriteRecipe(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favoriteRecipeIds, recipe.id]);
 
   const handleAddToFavorites = async () => {

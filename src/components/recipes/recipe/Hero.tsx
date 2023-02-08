@@ -54,7 +54,7 @@ export default function RecipePageHero({
 }: Props) {
   const { data: sessionData } = useSession();
 
-  const favoriteRecipe = api.user.getFavoriteRecipes.useQuery();
+  const favoriteRecipe = api.recipe.getUserFavoriteRecipes.useQuery();
   const addToFavorites = api.user.addRecipeToFavorites.useMutation();
   const removeFromFavorites = api.user.removeRecipeFromFavorites.useMutation();
 
@@ -64,15 +64,19 @@ export default function RecipePageHero({
     isFavoriteRecipe ? "text-yellow-500" : "text-zinc-500"
   }`;
 
+  const invalidateFavorites = async () => {
+    await favoriteRecipe.refetch();
+  };
+
   useEffect(() => {
+    void invalidateFavorites();
     if (favoriteRecipe.data) {
-      const recipe = favoriteRecipe.data.find(
-        (recipe) => recipe.recipeId === id
-      );
+      const recipe = favoriteRecipe.data.find((recipe) => recipe.id === id);
       if (recipe) {
         setIsFavoriteRecipe(true);
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favoriteRecipe.data, id]);
 
   const handleAddToFavorites = async () => {
@@ -186,7 +190,7 @@ export default function RecipePageHero({
                 <button
                   className="col-span-1 flex flex-row items-center justify-start gap-2 rounded-full p-2"
                   // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                  onClick={()=> handleClick()}
+                  onClick={() => handleClick()}
                 >
                   <HeartIcon className={favoriteClass} />{" "}
                   <span>

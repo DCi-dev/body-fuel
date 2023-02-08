@@ -84,7 +84,9 @@ export default function LeaveAReview({
         />
       </div>
       <div className="min-w-0 max-w-5xl flex-1">
-        <form className="relative" onSubmit={handleSubmit}>
+        <form className="relative" 
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        onSubmit={(e) => handleSubmit(e)}>
           <div className="overflow-hidden rounded-lg border border-zinc-300 shadow-sm focus-within:border-yellow-500 focus-within:ring-1 focus-within:ring-yellow-500">
             <label htmlFor="comment" className="sr-only">
               Add your comment
@@ -96,7 +98,6 @@ export default function LeaveAReview({
               className="block w-full resize-none border-0 py-3 pl-1 focus:ring-0 sm:text-sm"
               placeholder="Add your comment..."
               defaultValue={""}
-              value={message}
               onChange={(e) => setMessage(e.target.value)}
             />
 

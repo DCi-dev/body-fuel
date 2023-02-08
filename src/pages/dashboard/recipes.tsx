@@ -118,6 +118,7 @@ const SessionRecipes = () => {
               // eslint-disable-next-line @typescript-eslint/no-misused-promises
               refetch={yourRecipes.refetch}
               userId={sessionData?.user?.id as string}
+              favoriteRecipeIds={favoriteRecipeIds}
             />
           </Tab.Panel>
           <Tab.Panel>
@@ -140,6 +141,7 @@ const SessionRecipes = () => {
               // eslint-disable-next-line @typescript-eslint/no-misused-promises
               refetch={allRecipes.refetch}
               userId={sessionData?.user?.id as string}
+              favoriteRecipeIds={favoriteRecipeIds}
             />
           </Tab.Panel>
         </Tab.Panels>
