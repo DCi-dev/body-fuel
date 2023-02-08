@@ -27,12 +27,6 @@ const SessionRecipes = () => {
 
   const favoriteRecipeIds = favoriteRecipes.data?.map((recipe) => recipe.id);
 
-  async function onChangeRefetch() {
-    await yourRecipes.refetch();
-    await favoriteRecipes.refetch();
-    await allRecipes.refetch();
-  }
-
   return (
     <div className=" min-h-screen  bg-zinc-100 px-4 dark:bg-zinc-900 md:px-6">
       <div className="mx-auto flex max-w-7xl items-center justify-between py-8">
@@ -62,10 +56,7 @@ const SessionRecipes = () => {
         </div>
       </div>
       {/* Views */}
-      <Tab.Group
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        onChange={onChangeRefetch}
-      >
+      <Tab.Group>
         <Tab.List className="isolate mx-auto flex max-w-7xl divide-x divide-zinc-200 rounded-lg shadow dark:divide-zinc-700">
           <Tab as={Fragment}>
             {({ selected }) => (
@@ -116,7 +107,7 @@ const SessionRecipes = () => {
               recipes={yourRecipes.data as RecipeType[]}
               isLoading={yourRecipes.isLoading}
               // eslint-disable-next-line @typescript-eslint/no-misused-promises
-              refetch={yourRecipes.refetch}
+              refetch={favoriteRecipes.refetch}
               userId={sessionData?.user?.id as string}
               favoriteRecipeIds={favoriteRecipeIds}
             />
@@ -139,7 +130,7 @@ const SessionRecipes = () => {
               }
               isLoading={allRecipes.isLoading}
               // eslint-disable-next-line @typescript-eslint/no-misused-promises
-              refetch={allRecipes.refetch}
+              refetch={favoriteRecipes.refetch}
               userId={sessionData?.user?.id as string}
               favoriteRecipeIds={favoriteRecipeIds}
             />
