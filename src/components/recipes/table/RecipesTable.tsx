@@ -9,9 +9,15 @@ interface Props {
   favoriteRecipeIds?: string[];
 }
 
-export default function RecipesTable({ recipes, isLoading, refetch, userId, favoriteRecipeIds }: Props) {
+export default function RecipesTable({
+  recipes,
+  isLoading,
+  refetch,
+  userId,
+  favoriteRecipeIds,
+}: Props) {
   return (
-    <div className="mx-auto max-w-full px-8 ">
+    <div className="mx-auto max-w-full md:px-8 ">
       <div className="flex flex-col">
         <div className="-my-2  overflow-x-visible sm:-mx-6 lg:-mx-8 ">
           <div className="inline-block min-w-full py-2 align-middle ">
