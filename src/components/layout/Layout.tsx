@@ -247,7 +247,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
           </div>
           <div className="flex flex-1 flex-col md:pl-64">
-            <div className="sticky top-0 z-10 bg-zinc-100 pl-1 pt-1 dark:bg-zinc-900 sm:pl-3 sm:pt-3 md:hidden">
+            <div className="sticky top-0 z-10 bg-zinc-200 pl-1 pt-1 dark:bg-zinc-800 sm:pl-3 sm:pt-3 md:hidden">
               <button
                 type="button"
                 className="-ml-0.5 -mt-0.5 inline-flex h-12 w-12 items-center justify-center rounded-md text-zinc-500 hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-500 dark:hover:text-zinc-100"
@@ -257,11 +257,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
               </button>
             </div>
-            <main className="flex-1">
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-                {children}
-              </div>
-            </main>
+            <main className="flex-1">{children}</main>
           </div>
         </div>
       )}

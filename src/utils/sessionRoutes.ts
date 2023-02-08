@@ -4,7 +4,7 @@ export const sessionRoutes = [
   { name: "Dashboard", href: "/dashboard", icon: HomeIcon },
   {
     name: "Recipes",
-    href: "/dashboard/your-recipes",
+    href: "/dashboard/recipes",
     icon: DocumentIcon,
   },
 ];
