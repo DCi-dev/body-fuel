@@ -1,10 +1,10 @@
 import RecipesTable from "@/components/recipes/table/RecipesTable";
+import { getServerAuthSession } from "@/server/auth";
 import type { RecipeType } from "@/types";
 import { api } from "@/utils/api";
 import { Tab } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import type { GetServerSideProps } from "next";
-import { getServerAuthSession } from "@/server/auth";
 import { useSession } from "next-auth/react";
 import { Fragment, useState } from "react";
 
@@ -16,18 +16,31 @@ const SessionRecipes = () => {
   const { data: sessionData } = useSession();
 
   const [search, setSearch] = useState("");
+  const [favPage, setFavPage] = useState(0);
+
   const [allPage, setAllPage] = useState(0);
 
   const yourRecipes = api.recipe.getUserRecipes.useQuery();
-  const favoriteRecipes = api.recipe.getUserFavoriteRecipes.useQuery();
+  // Favorite recipes
+  const allFavoriteRecipes = api.recipe.getUserFavoriteRecipes.useQuery();
+  const favoriteRecipesIds = allFavoriteRecipes.data?.map(
+    (recipe) => recipe.id
+  );
+
+  const favoriteRecipes =
+    api.recipe.getLimitedUserFavoriteRecipes.useInfiniteQuery(
+      { limit: 5, search: search },
+      {
+        getNextPageParam: (lastPage) => lastPage.nextCursor,
+      }
+    );
+  //  All recipes
   const allRecipes = api.recipe.getLimitedRecipes.useInfiniteQuery(
-    { limit: 5 },
+    { limit: 5, search: search },
     {
       getNextPageParam: (lastPage) => lastPage.nextCursor,
     }
   );
-
-  const favoriteRecipeIds = favoriteRecipes.data?.map((recipe) => recipe.id);
 
   return (
     <div className=" min-h-screen  bg-zinc-100 px-4 dark:bg-zinc-900 md:px-6">
@@ -109,19 +122,32 @@ const SessionRecipes = () => {
               recipes={yourRecipes.data as RecipeType[]}
               isLoading={yourRecipes.isLoading}
               // eslint-disable-next-line @typescript-eslint/no-misused-promises
-              refetch={favoriteRecipes.refetch}
               userId={sessionData?.user?.id as string}
-              favoriteRecipeIds={favoriteRecipeIds}
+              favoriteRecipesIds={favoriteRecipesIds as string[]}
+              refetchFav={
+                favoriteRecipes.refetch as unknown as () => Promise<void>
+              }
+              refetchFavIds={
+                allFavoriteRecipes.refetch as unknown as () => Promise<void>
+              }
             />
           </Tab.Panel>
           <Tab.Panel>
             <RecipesTable
-              recipes={favoriteRecipes.data as RecipeType[]}
+              recipes={
+                favoriteRecipes.data?.pages[favPage]
+                  ?.recipesWithDetails as RecipeType[]
+              }
               isLoading={favoriteRecipes.isLoading}
               // eslint-disable-next-line @typescript-eslint/no-misused-promises
-              refetch={favoriteRecipes.refetch}
               userId={sessionData?.user?.id as string}
-              favoriteRecipeIds={favoriteRecipeIds}
+              favoriteRecipesIds={favoriteRecipesIds as string[]}
+              refetchFav={
+                favoriteRecipes.refetch as unknown as () => Promise<void>
+              }
+              refetchFavIds={
+                allFavoriteRecipes.refetch as unknown as () => Promise<void>
+              }
             />
           </Tab.Panel>
           <Tab.Panel>
@@ -132,9 +158,14 @@ const SessionRecipes = () => {
               }
               isLoading={allRecipes.isLoading}
               // eslint-disable-next-line @typescript-eslint/no-misused-promises
-              refetch={favoriteRecipes.refetch}
               userId={sessionData?.user?.id as string}
-              favoriteRecipeIds={favoriteRecipeIds}
+              favoriteRecipesIds={favoriteRecipesIds as string[]}
+              refetchFav={
+                favoriteRecipes.refetch as unknown as () => Promise<void>
+              }
+              refetchFavIds={
+                allFavoriteRecipes.refetch as unknown as () => Promise<void>
+              }
             />
           </Tab.Panel>
         </Tab.Panels>

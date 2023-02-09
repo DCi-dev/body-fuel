@@ -18,16 +18,18 @@ function classNames(...classes: string[]) {
 
 type Props = {
   recipe: RecipeType;
-  refetch: () => void;
+  refetchFav: () => Promise<void>;
+  refetchFavIds: () => Promise<void>;
   userId: string;
-  favoriteRecipeIds?: string[];
+  favoriteRecipesIds?: string[];
 };
 
 const RecipeTableItem = ({
   recipe,
-  refetch,
+  refetchFav,
+  refetchFavIds,
   userId,
-  favoriteRecipeIds,
+  favoriteRecipesIds,
 }: Props) => {
   // Favorite recipes
   const addToFavorites = api.user.addRecipeToFavorites.useMutation();
@@ -36,11 +38,12 @@ const RecipeTableItem = ({
   const [isFavoriteRecipe, setIsFavoriteRecipe] = useState<boolean>(false);
 
   useEffect(() => {
-    if (favoriteRecipeIds?.includes(recipe.id)) {
+    if (favoriteRecipesIds?.includes(recipe.id)) {
       setIsFavoriteRecipe(true);
+    } else {
+      setIsFavoriteRecipe(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [favoriteRecipeIds, recipe.id]);
+  }, [favoriteRecipesIds, recipe.id]);
 
   const handleAddToFavorites = async () => {
     await addToFavorites.mutateAsync(recipe.id);
@@ -58,7 +61,8 @@ const RecipeTableItem = ({
     } else {
       await handleAddToFavorites();
     }
-    refetch();
+    await refetchFav();
+    await refetchFavIds();
   };
 
   // Share recipes
@@ -69,7 +73,6 @@ const RecipeTableItem = ({
       id: recipe.id,
       shared: !recipe.shared,
     });
-    refetch();
   };
 
   // Delete recipes
@@ -77,7 +80,6 @@ const RecipeTableItem = ({
 
   const handleDelete = async () => {
     await deleteRecipe.mutateAsync(recipe.id);
-    refetch();
   };
 
   return (

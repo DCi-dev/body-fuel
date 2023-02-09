@@ -4,17 +4,19 @@ import RecipeTableItem from "./RecipeTableItem";
 interface Props {
   recipes: RecipeType[];
   isLoading: boolean;
-  refetch: () => void;
+  refetchFav: () => Promise<void>;
+  refetchFavIds: () => Promise<void>;
   userId: string;
-  favoriteRecipeIds?: string[];
+  favoriteRecipesIds?: string[];
 }
 
 export default function RecipesTable({
   recipes,
   isLoading,
-  refetch,
+  refetchFav,
+  refetchFavIds,
   userId,
-  favoriteRecipeIds,
+  favoriteRecipesIds,
 }: Props) {
   return (
     <div className="mx-auto max-w-full md:px-8 ">
@@ -65,9 +67,10 @@ export default function RecipesTable({
                         recipe={recipe}
                         key={recipe.id}
                         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                        refetch={refetch}
+                        refetchFav={refetchFav}
+                        refetchFavIds={refetchFavIds}
                         userId={userId}
-                        favoriteRecipeIds={favoriteRecipeIds}
+                        favoriteRecipesIds={favoriteRecipesIds}
                       />
                     ))
                   ) : !isLoading && (!recipes || recipes.length === 0) ? (

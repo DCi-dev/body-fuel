@@ -1,21 +1,8 @@
-import { reviewSchema } from "@/types/zod-schemas";
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
-  getFavoriteRecipes: protectedProcedure.query(async ({ ctx }) => {
-    const userId = ctx.session?.user?.id;
-
-    const favoriteRecipes = await ctx.prisma.favoriteRecipes.findMany({
-      where: {
-        userId: userId,
-      },
-    });
-
-    return favoriteRecipes;
-  }),
-
   addRecipeToFavorites: protectedProcedure
     .input(z.string())
     .mutation(async ({ ctx, input }) => {
@@ -88,6 +75,7 @@ export const userRouter = createTRPCRouter({
 
       return favoriteRecipe;
     }),
+
   createReview: protectedProcedure
     .input(
       z.object({

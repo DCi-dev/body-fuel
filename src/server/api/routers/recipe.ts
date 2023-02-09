@@ -152,6 +152,7 @@ export const recipeRouter = createTRPCRouter({
       z.object({
         limit: z.number().min(1).max(100),
         cursor: z.string().nullish(),
+        search: z.string().nullish(),
       })
     )
     .query(async ({ input, ctx }) => {
@@ -162,6 +163,10 @@ export const recipeRouter = createTRPCRouter({
         take: limit + 1,
         where: {
           shared: true,
+          name: {
+            contains: input.search || "",
+            mode: "insensitive",
+          },
         },
         cursor: cursor ? { id: cursor } : undefined,
         orderBy: {
@@ -490,6 +495,99 @@ export const recipeRouter = createTRPCRouter({
 
     return recipesWithDetails;
   }),
+
+  getLimitedUserFavoriteRecipes: protectedProcedure
+    .input(
+      z.object({
+        limit: z.number().min(1).max(100),
+        cursor: z.string().nullish(),
+        search: z.string().nullish(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      const userId = ctx.session?.user?.id;
+
+      if (!userId) {
+        throw new Error("User not found");
+      }
+      const limit = input.limit ?? 50;
+      const { cursor } = input;
+
+      const recipes = await ctx.prisma.recipe.findMany({
+        take: limit + 1,
+        where: {
+          // Shared or created by user
+          OR: [
+            {
+              userId: userId,
+            },
+            {
+              shared: true,
+            },
+          ],
+          FavoriteRecipes: {
+            some: {
+              userId: userId,
+            },
+          },
+          name: {
+            contains: input.search || "",
+            mode: "insensitive",
+          },
+        },
+        cursor: cursor ? { id: cursor } : undefined,
+        orderBy: {
+          id: "asc",
+        },
+      });
+      let nextCursor: typeof cursor | undefined = undefined;
+      if (recipes.length > limit) {
+        const nextItem = recipes.pop();
+        nextCursor = nextItem?.id;
+      }
+
+      const recipesWithDetails = await Promise.all(
+        recipes.map(async (recipe) => {
+          const ingredients = await ctx.prisma.ingredient.findMany({
+            where: {
+              recipeId: recipe.id,
+            },
+          });
+
+          const instructions = await ctx.prisma.instructions.findMany({
+            where: {
+              recipeId: recipe.id,
+            },
+          });
+
+          const category = await ctx.prisma.category.findMany({
+            where: {
+              recipes: {
+                some: {
+                  id: recipe.id,
+                },
+              },
+            },
+          });
+
+          const user = await ctx.prisma.user.findUnique({
+            where: {
+              id: recipe.userId,
+            },
+          });
+
+          return {
+            ...recipe,
+            ingredients,
+            instructions,
+            category,
+            user,
+          };
+        })
+      );
+
+      return { recipesWithDetails, nextCursor };
+    }),
 
   deleteRecipe: protectedProcedure
     .input(z.string())
