@@ -456,44 +456,23 @@ export const recipeRouter = createTRPCRouter({
     };
   }),
 
-  getUserFavoriteRecipes: protectedProcedure.query(async ({ ctx }) => {
+  getUserFavoriteRecipesIds: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx.session?.user?.id;
 
     if (!userId) {
       throw new Error("Not authenticated");
     }
 
-    const recipes = await ctx.prisma.recipe.findMany({
+    // get fav recipes ids
+    const favRecipes = await ctx.prisma.favoriteRecipes.findMany({
       where: {
-        FavoriteRecipes: {
-          some: {
-            userId: userId,
-          },
-        },
+        userId,
       },
     });
 
-    // get the recipes details from the database
-    const recipesWithDetails = await Promise.all(
-      recipes.map(async (recipe) => {
-        const category = await ctx.prisma.category.findMany({
-          where: {
-            recipes: {
-              some: {
-                id: recipe.id,
-              },
-            },
-          },
-        });
+    const favRecipesIds = favRecipes.map((favRecipe) => favRecipe.recipeId);
 
-        return {
-          ...recipe,
-          category,
-        };
-      })
-    );
-
-    return recipesWithDetails;
+    return favRecipesIds;
   }),
 
   getLimitedUserFavoriteRecipes: protectedProcedure

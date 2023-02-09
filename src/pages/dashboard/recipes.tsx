@@ -22,10 +22,8 @@ const SessionRecipes = () => {
 
   const yourRecipes = api.recipe.getUserRecipes.useQuery();
   // Favorite recipes
-  const allFavoriteRecipes = api.recipe.getUserFavoriteRecipes.useQuery();
-  const favoriteRecipesIds = allFavoriteRecipes.data?.map(
-    (recipe) => recipe.id
-  );
+  const favoriteRecipesIds = api.recipe.getUserFavoriteRecipesIds.useQuery();
+  
 
   const favoriteRecipes =
     api.recipe.getLimitedUserFavoriteRecipes.useInfiniteQuery(
@@ -123,12 +121,12 @@ const SessionRecipes = () => {
               isLoading={yourRecipes.isLoading}
               // eslint-disable-next-line @typescript-eslint/no-misused-promises
               userId={sessionData?.user?.id as string}
-              favoriteRecipesIds={favoriteRecipesIds as string[]}
+              favoriteRecipesIds={favoriteRecipesIds.data as string[]}
               refetchFav={
                 favoriteRecipes.refetch as unknown as () => Promise<void>
               }
               refetchFavIds={
-                allFavoriteRecipes.refetch as unknown as () => Promise<void>
+                favoriteRecipesIds.refetch as unknown as () => Promise<void>
               }
             />
           </Tab.Panel>
@@ -141,12 +139,12 @@ const SessionRecipes = () => {
               isLoading={favoriteRecipes.isLoading}
               // eslint-disable-next-line @typescript-eslint/no-misused-promises
               userId={sessionData?.user?.id as string}
-              favoriteRecipesIds={favoriteRecipesIds as string[]}
+              favoriteRecipesIds={favoriteRecipesIds.data as string[]}
               refetchFav={
                 favoriteRecipes.refetch as unknown as () => Promise<void>
               }
               refetchFavIds={
-                allFavoriteRecipes.refetch as unknown as () => Promise<void>
+                favoriteRecipesIds.refetch as unknown as () => Promise<void>
               }
             />
           </Tab.Panel>
@@ -159,12 +157,12 @@ const SessionRecipes = () => {
               isLoading={allRecipes.isLoading}
               // eslint-disable-next-line @typescript-eslint/no-misused-promises
               userId={sessionData?.user?.id as string}
-              favoriteRecipesIds={favoriteRecipesIds as string[]}
+              favoriteRecipesIds={favoriteRecipesIds.data as string[]}
               refetchFav={
                 favoriteRecipes.refetch as unknown as () => Promise<void>
               }
               refetchFavIds={
-                allFavoriteRecipes.refetch as unknown as () => Promise<void>
+                favoriteRecipesIds.refetch as unknown as () => Promise<void>
               }
             />
           </Tab.Panel>
