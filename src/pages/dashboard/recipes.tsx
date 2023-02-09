@@ -16,14 +16,19 @@ const SessionRecipes = () => {
   const { data: sessionData } = useSession();
 
   const [search, setSearch] = useState("");
+  const [userPage, setUserPage] = useState(0);
   const [favPage, setFavPage] = useState(0);
-
   const [allPage, setAllPage] = useState(0);
 
-  const yourRecipes = api.recipe.getUserRecipes.useQuery();
+  // User recipes
+  const yourRecipes = api.recipe.getUserLimitedRecipes.useInfiniteQuery(
+    { limit: 5, search: search },
+    {
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
+    }
+  );
   // Favorite recipes
   const favoriteRecipesIds = api.recipe.getUserFavoriteRecipesIds.useQuery();
-  
 
   const favoriteRecipes =
     api.recipe.getLimitedUserFavoriteRecipes.useInfiniteQuery(
@@ -117,7 +122,10 @@ const SessionRecipes = () => {
         <Tab.Panels className={"mx-auto mt-8 max-w-7xl"}>
           <Tab.Panel>
             <RecipesTable
-              recipes={yourRecipes.data as RecipeType[]}
+              recipes={
+                yourRecipes.data?.pages[userPage]
+                  ?.recipesWithDetails as RecipeType[]
+              }
               isLoading={yourRecipes.isLoading}
               // eslint-disable-next-line @typescript-eslint/no-misused-promises
               userId={sessionData?.user?.id as string}
