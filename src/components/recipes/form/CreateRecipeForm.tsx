@@ -118,13 +118,14 @@ export default function CreateRecipeForm() {
     toast.dismiss();
     toast.success("Recipe created!");
   };
-  const onError = (errors: any, e: any) => console.log(errors, e);
 
   return (
-    <form className="space-y-6 px-3" onSubmit={handleSubmit(onSubmit, onError)}>
+    <form className="space-y-6 px-3" 
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    onSubmit={handleSubmit(onSubmit)}>
       <div className="bg-zinc-200 px-4 py-5 shadow dark:bg-zinc-800 sm:rounded-lg sm:p-6">
-        <div className="md:grid md:grid-cols-3 md:gap-6">
-          <div className="md:col-span-1">
+        <div className="lg:grid lg:grid-cols-3 lg:gap-6">
+          <div className="lg:col-span-1">
             <h3 className="text-lg font-medium leading-6 text-zinc-900 dark:text-zinc-100">
               RecipeDetails
             </h3>
@@ -132,7 +133,7 @@ export default function CreateRecipeForm() {
               General details about your recipe.
             </p>
           </div>
-          <div className="mt-5 space-y-6 md:col-span-2 md:mt-0">
+          <div className="mt-5 space-y-6 lg:col-span-2 lg:mt-0">
             <div className="grid grid-cols-3 gap-6">
               <div className="col-span-3 sm:col-span-1">
                 <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
@@ -272,7 +273,7 @@ export default function CreateRecipeForm() {
               >
                 <div className="space-y-1 overflow-hidden text-center">
                   {image ? (
-                    <div className="grid items-center justify-between md:grid-cols-2">
+                    <div className="grid items-center justify-between lg:grid-cols-2">
                       <Image
                         src={URL.createObjectURL(image)}
                         alt="Preview"
@@ -280,13 +281,14 @@ export default function CreateRecipeForm() {
                         height={500}
                         className="max-h-52 w-auto"
                       />
-                      <label className="relative mt-6 cursor-pointer rounded-md bg-zinc-200 font-medium text-yellow-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-yellow-500 focus-within:ring-offset-2 hover:text-yellow-500 dark:bg-zinc-800 md:mt-0 md:ml-6">
+                      <label className="relative mt-6 cursor-pointer rounded-md bg-zinc-200 font-medium text-yellow-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-yellow-500 focus-within:ring-offset-2 hover:text-yellow-500 dark:bg-zinc-800 lg:mt-0 lg:ml-6">
                         <span>Change image</span>
                         <input
                           className="sr-only"
                           type="file"
                           name="image"
                           accept="image/*"
+                          // eslint-disable-next-line @typescript-eslint/no-misused-promises
                           onChange={handleImageChange}
                         />
                       </label>
@@ -315,6 +317,7 @@ export default function CreateRecipeForm() {
                             type="file"
                             className="sr-only"
                             accept="image/*"
+                            // eslint-disable-next-line @typescript-eslint/no-misused-promises
                             onChange={handleImageChange}
                           />
                         </label>
@@ -333,8 +336,8 @@ export default function CreateRecipeForm() {
       </div>
 
       <div className="bg-zinc-200 px-4 py-5 shadow dark:bg-zinc-800 sm:rounded-lg sm:p-6">
-        <div className="md:grid md:grid-cols-3 md:gap-6">
-          <div className="md:col-span-1">
+        <div className="lg:grid lg:grid-cols-3 lg:gap-6">
+          <div className="lg:col-span-1">
             <h3 className="text-lg font-medium leading-6 text-zinc-900 dark:text-zinc-100">
               Ingredients
             </h3>
@@ -342,9 +345,9 @@ export default function CreateRecipeForm() {
               What ingredients do you need for this recipe?
             </p>
           </div>
-          <div className="mt-5 md:col-span-2 md:mt-0">
+          <div className="mt-5 lg:col-span-2 lg:mt-0">
             {ingredientFields.map((field, index) => (
-              <div key={field.id} className="mt-5 mb-6 md:col-span-2 md:mt-0">
+              <div key={field.id} className="mt-5 mb-6 lg:col-span-2 lg:mt-0">
                 <div className="grid grid-cols-6 gap-6">
                   <div className="col-span-3 sm:col-span-2">
                     <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
@@ -534,8 +537,8 @@ export default function CreateRecipeForm() {
       </div>
       {/* Instructions START */}
       <div className="bg-zinc-200 px-4 py-5 shadow dark:bg-zinc-800 sm:rounded-lg sm:p-6">
-        <div className="md:grid md:grid-cols-3 md:gap-6">
-          <div className="md:col-span-1">
+        <div className="lg:grid lg:grid-cols-3 lg:gap-6">
+          <div className="lg:col-span-1">
             <h3 className="text-lg font-medium leading-6 text-zinc-900 dark:text-zinc-100">
               Instructions
             </h3>
@@ -543,7 +546,7 @@ export default function CreateRecipeForm() {
               What are the steps to make this recipe?
             </p>
           </div>
-          <div className="mt-5 md:col-span-2 md:mt-0">
+          <div className="mt-5 lg:col-span-2 lg:mt-0">
             {instructionsFields.map((field, index) => (
               <div key={field.id}>
                 <div>
