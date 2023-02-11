@@ -294,6 +294,38 @@ export const recipeRouter = createTRPCRouter({
       return { recipesWithDetails, nextCursor };
     }),
 
+    getUserFavoriteRecipe: protectedProcedure
+    .input(
+      z.string()
+    )
+    .query(async ({ input, ctx }) => {
+      const userId = ctx.session?.user.id;
+
+      if (!userId) {
+        throw new Error("Not authenticated");
+      }
+
+      const recipe = await ctx.prisma.recipe.findUnique({
+        where: {
+          id: input,
+        },
+      });
+
+      if (!recipe) {
+        throw new Error("Recipe not found");
+      }
+
+      const favorite = await ctx.prisma.favoriteRecipes.findFirst({
+        where: {
+          userId: userId,
+          recipeId: recipe.id,
+        },
+      });
+
+      return favorite;
+    }),
+
+
   getRecipes: publicProcedure.query(async ({ ctx }) => {
     const recipes = await ctx.prisma.recipe.findMany({
       where: {

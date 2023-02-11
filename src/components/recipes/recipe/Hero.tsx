@@ -54,7 +54,7 @@ export default function RecipePageHero({
 }: Props) {
   const { data: sessionData } = useSession();
 
-  const favoriteRecipe = api.recipe.getUserFavoriteRecipes.useQuery();
+  const favoriteRecipe = api.recipe.getUserFavoriteRecipe.useQuery(id);
   const addToFavorites = api.user.addRecipeToFavorites.useMutation();
   const removeFromFavorites = api.user.removeRecipeFromFavorites.useMutation();
 
@@ -70,14 +70,14 @@ export default function RecipePageHero({
 
   useEffect(() => {
     void invalidateFavorites();
+    
     if (favoriteRecipe.data) {
-      const recipe = favoriteRecipe.data.find((recipe) => recipe.id === id);
-      if (recipe) {
-        setIsFavoriteRecipe(true);
-      }
+      setIsFavoriteRecipe(true);
+    } else {
+      setIsFavoriteRecipe(false);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [favoriteRecipe.data, id]);
+  }, [favoriteRecipe.data]);
 
   const handleAddToFavorites = async () => {
     await addToFavorites.mutateAsync(id);
