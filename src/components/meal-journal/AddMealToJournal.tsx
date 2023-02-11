@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function AddMealToJournal({ recipe, open, setOpen }: Props) {
-  const [selectedServings, setSelectedServings] = useState<number>(0);
+  const [selectedServings, setSelectedServings] = useState<number>(1);
   const [date, setDate] = useState<Date>(new Date());
 
   const cancelButtonRef = useRef(null);
@@ -156,7 +156,7 @@ export default function AddMealToJournal({ recipe, open, setOpen }: Props) {
                           name="servings"
                           id="servings"
                           className="block w-full rounded-md border-zinc-300 py-1 pl-7 focus:border-yellow-500 focus:ring-yellow-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 sm:text-sm"
-                          placeholder={selectedServings.toString()}
+                          defaultValue={1}
                           onChange={(e) =>
                             setSelectedServings(parseInt(e.target.value))
                           }
