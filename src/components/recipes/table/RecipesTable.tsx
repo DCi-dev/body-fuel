@@ -1,4 +1,8 @@
 import type { RecipeType } from "@/types/index";
+import type {
+  FetchNextPageOptions,
+  UseInfiniteQueryResult,
+} from "@tanstack/react-query";
 import RecipeTableItem from "./RecipeTableItem";
 
 interface Props {
@@ -8,6 +12,12 @@ interface Props {
   refetchFavIds: () => Promise<void>;
   userId: string;
   favoriteRecipesIds?: string[];
+  page: number;
+  setPage: (page: number) => void;
+  fetchNextPage: (
+    options?: FetchNextPageOptions
+  ) => Promise<UseInfiniteQueryResult>;
+  pageLength?: number;
 }
 
 export default function RecipesTable({
@@ -17,7 +27,19 @@ export default function RecipesTable({
   refetchFavIds,
   userId,
   favoriteRecipesIds,
+  page,
+  setPage,
+  fetchNextPage,
+  pageLength,
 }: Props) {
+  const handleFetchNextPage = async () => {
+    await fetchNextPage();
+    setPage(page + 1);
+  };
+
+  const handleFetchPreviousPage = () => {
+    setPage(page - 1);
+  };
   return (
     <div className="mx-auto max-w-full md:px-8 ">
       <div className="flex flex-col">
@@ -105,6 +127,30 @@ export default function RecipesTable({
                 </tbody>
               </table>
             </div>
+            {!isLoading && recipes.length > 5 ? (
+              <div className="min-w-full">
+                <div className="flex w-full justify-between py-4 text-center">
+                  <button
+                    type="button"
+                    disabled={page === 0}
+                    className="inline-flex items-center rounded-md border border-transparent bg-zinc-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-zinc-600 "
+                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                    onClick={handleFetchPreviousPage}
+                  >
+                    Prev
+                  </button>
+                  <button
+                    type="button"
+                    disabled={pageLength === page + 1}
+                    className="inline-flex items-center rounded-md border border-transparent bg-zinc-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-zinc-600 "
+                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                    onClick={handleFetchNextPage}
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

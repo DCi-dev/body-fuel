@@ -48,6 +48,7 @@ model User {
   Recipe          Recipe[]
   Review          Review[]
   FavoriteRecipes FavoriteRecipes[]
+  MealJournal     MealJournal[]
 }
 
 model VerificationToken {
@@ -100,6 +101,7 @@ model Recipe {
   difficulty      Difficulty?
   instructions    Instructions[]
   FavoriteRecipes FavoriteRecipes[]
+  MealItem        MealItem[]
 }
 
 enum Difficulty {
@@ -136,4 +138,22 @@ model Review {
   userId   String
   stars    Int
   comments String
+}
+
+// Meal Journal
+model MealJournal {
+  id        String     @id @default(cuid())
+  date      DateTime   @default(now())
+  user      User       @relation(fields: [userId], references: [id])
+  userId    String
+  mealItems MealItem[]
+}
+
+model MealItem {
+  id            String      @id @default(cuid())
+  mealJournalId String
+  mealJournal   MealJournal @relation(fields: [mealJournalId], references: [id], onDelete: Cascade)
+  recipe        Recipe      @relation(fields: [recipeId], references: [id])
+  recipeId      String
+  servings      Int
 }

@@ -137,6 +137,10 @@ const SessionRecipes = () => {
               refetchFavIds={
                 favoriteRecipesIds.refetch as unknown as () => Promise<void>
               }
+              page={userPage}
+              setPage={setUserPage}
+              fetchNextPage={yourRecipes.fetchNextPage}
+              pageLength={yourRecipes.data?.pages.length}
             />
           </Tab.Panel>
           <Tab.Panel>
@@ -155,6 +159,10 @@ const SessionRecipes = () => {
               refetchFavIds={
                 favoriteRecipesIds.refetch as unknown as () => Promise<void>
               }
+              page={favPage}
+              setPage={setFavPage}
+              fetchNextPage={favoriteRecipes.fetchNextPage}
+              pageLength={favoriteRecipes.data?.pages.length}
             />
           </Tab.Panel>
           <Tab.Panel>
@@ -173,6 +181,10 @@ const SessionRecipes = () => {
               refetchFavIds={
                 favoriteRecipesIds.refetch as unknown as () => Promise<void>
               }
+              page={allPage}
+              setPage={setAllPage}
+              fetchNextPage={allRecipes.fetchNextPage}
+              pageLength={allRecipes.data?.pages.length}
             />
           </Tab.Panel>
         </Tab.Panels>

@@ -9,7 +9,7 @@ const s3 = new AWS.S3();
 const BUCKET_NAME = env.AWS_BUCKET_NAME;
 const REGION = env.AWS_REGION;
 const UPLOADING_TIME_LIMIT = 30;
-const UPLOAD_MAX_FILE_SIZE = 1000000;
+const UPLOAD_MAX_FILE_SIZE = 5000000;
 
 export const recipeRouter = createTRPCRouter({
   createRecipe: protectedProcedure

@@ -53,7 +53,17 @@ const RecipesPage: NextPage = () => {
                   key={recipe.id}
                   name={recipe.name}
                   description={recipe.description}
-                  category={recipe.category[0]?.name as string}
+                  category={
+                    recipe.category as
+                      | "Breakfast"
+                      | "Salads"
+                      | "MainCourse"
+                      | "Sides"
+                      | "Snacks"
+                      | "Desserts"
+                      | "Drinks"
+                      | "SaucesAndDressings"
+                  }
                   imageSrc={recipe.image as string}
                   slug={recipe.slug}
                   userName={recipe.user?.name as string}
@@ -77,7 +87,6 @@ const RecipesPage: NextPage = () => {
                 Previous
               </button>
             </div>
-
             <div className="-mt-px flex w-0 flex-1 justify-end">
               <button
                 // eslint-disable-next-line @typescript-eslint/no-misused-promises

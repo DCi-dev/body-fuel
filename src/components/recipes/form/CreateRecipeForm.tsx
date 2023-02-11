@@ -334,7 +334,7 @@ export default function CreateRecipeForm() {
                         <p className="pl-1">or drag and drop</p>
                       </div>
                       <p className="text-xs text-zinc-600 dark:text-zinc-400">
-                        PNG, JPG, GIF up to 10MB
+                        PNG, JPG, GIF up to 5MB
                       </p>
                     </>
                   )}
