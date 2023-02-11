@@ -1,3 +1,4 @@
+import AddMealToJournal from "@/components/meal-journal/AddMealToJournal";
 import type { RecipeType } from "@/types";
 import { api } from "@/utils/api";
 import { Menu, Transition } from "@headlessui/react";
@@ -31,6 +32,8 @@ const RecipeTableItem = ({
   userId,
   favoriteRecipesIds,
 }: Props) => {
+  const [isAddToJournalModalOpen, setIsAddToJournalModalOpen] = useState(false);
+
   // Favorite recipes
   const addToFavorites = api.user.addRecipeToFavorites.useMutation();
   const removeFromFavorites = api.user.removeRecipeFromFavorites.useMutation();
@@ -82,28 +85,28 @@ const RecipeTableItem = ({
     await deleteRecipe.mutateAsync(recipe.id);
   };
 
-const humanReadableCategory: Record<
-  | "Breakfast"
-  | "Salads"
-  | "MainCourse"
-  | "Sides"
-  | "Snacks"
-  | "Desserts"
-  | "Drinks"
-  | "SaucesAndDressings",
-  string
-> = {
-  Breakfast: "Breakfast",
-  Salads: "Salads",
-  MainCourse: "Main Course",
-  Sides: "Sides",
-  Snacks: "Snacks",
-  Desserts: "Desserts",
-  Drinks: "Drinks",
-  SaucesAndDressings: "Sauces and Dressings",
-};
+  const humanReadableCategory: Record<
+    | "Breakfast"
+    | "Salads"
+    | "MainCourse"
+    | "Sides"
+    | "Snacks"
+    | "Desserts"
+    | "Drinks"
+    | "SaucesAndDressings",
+    string
+  > = {
+    Breakfast: "Breakfast",
+    Salads: "Salads",
+    MainCourse: "Main Course",
+    Sides: "Sides",
+    Snacks: "Snacks",
+    Desserts: "Desserts",
+    Drinks: "Drinks",
+    SaucesAndDressings: "Sauces and Dressings",
+  };
 
-const category = humanReadableCategory[recipe.category] || "Unknown Category";
+  const category = humanReadableCategory[recipe.category] || "Unknown Category";
 
   return (
     <tr className="w-full text-zinc-900 dark:text-zinc-100" key={recipe.id}>
@@ -167,6 +170,29 @@ const category = humanReadableCategory[recipe.category] || "Unknown Category";
             leaveTo="transform opacity-0 scale-95"
           >
             <Menu.Items className="absolute right-0 z-50 mt-2 w-56 origin-top-right divide-y divide-zinc-100 rounded-md bg-zinc-100 shadow-lg ring-1 ring-zinc-900 ring-opacity-5 focus:outline-none dark:divide-zinc-900 dark:bg-zinc-900 dark:ring-zinc-600">
+              <div className="py-1">
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
+                      onClick={() =>
+                        setIsAddToJournalModalOpen(!isAddToJournalModalOpen)
+                      }
+                      className={classNames(
+                        active
+                          ? "bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
+                          : "text-zinc-700 dark:text-zinc-300",
+                        "group flex w-full items-center px-4 py-2 text-sm"
+                      )}
+                    >
+                      <PencilSquareIcon
+                        className="mr-3 h-5 w-5 text-zinc-600 group-hover:text-zinc-800 dark:text-zinc-400 dark:group-hover:text-zinc-300"
+                        aria-hidden="true"
+                      />
+                      Add to Journal
+                    </button>
+                  )}
+                </Menu.Item>
+              </div>
               <div className="py-1">
                 <Menu.Item>
                   {({ active }) => (
@@ -267,6 +293,12 @@ const category = humanReadableCategory[recipe.category] || "Unknown Category";
             </Menu.Items>
           </Transition>
         </Menu>
+        {/* Modal Add to journal */}
+        <AddMealToJournal
+          recipe={recipe}
+          open={isAddToJournalModalOpen}
+          setOpen={setIsAddToJournalModalOpen}
+        />
       </td>
     </tr>
   );

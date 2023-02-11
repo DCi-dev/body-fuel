@@ -49,8 +49,8 @@ export const reviewSchema = z.object({
 
 // Meal Journal
 export const MealItemSchema = z.object({
-  id: z.string(),
-  mealJournalId: z.string(),
+  id: z.string().optional(),
+  mealJournalId: z.string().optional(),
   recipeId: z.string(),
   servings: z.number().positive(),
   calories: z.number().optional(),
@@ -60,8 +60,15 @@ export const MealItemSchema = z.object({
 });
 
 export const MealJournalSchema = z.object({
-  id: z.string().optional(),
   date: z.date(),
-  userId: z.string().optional(),
-  mealItems: z.array(MealItemSchema),
+  mealItems: z.array(
+    z.object({
+      recipeId: z.string(),
+      servings: z.number().positive(),
+      calories: z.number().optional(),
+      protein: z.number().optional(),
+      carbs: z.number().optional(),
+      fat: z.number().optional(),
+    })
+  ),
 });

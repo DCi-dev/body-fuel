@@ -2,7 +2,6 @@ import { getServerAuthSession } from "@/server/auth";
 import { type GetServerSideProps, type NextPage } from "next";
 import Head from "next/head";
 
-
 const Dashboard: NextPage = () => {
   return (
     <>

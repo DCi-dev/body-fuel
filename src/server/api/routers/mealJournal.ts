@@ -8,10 +8,20 @@ export const mealJournalRouter = createTRPCRouter({
     .input(MealJournalSchema)
     .mutation(async ({ input, ctx }) => {
       const userId = ctx.session.user.id;
+      const dateOnly = new Date(
+        input.date.getFullYear(),
+        input.date.getMonth(),
+        input.date.getDate()
+      );
+
+      if (!userId) {
+        throw new Error("User not logged in");
+      }
+
       const mealJournal = await ctx.prisma.mealJournal.findFirst({
         where: {
           userId,
-          date: input.date,
+          date: dateOnly,
         },
       });
       if (mealJournal) {
@@ -21,17 +31,39 @@ export const mealJournalRouter = createTRPCRouter({
           },
           data: {
             mealItems: {
-              create: input.mealItems,
+              create: input.mealItems.map((item) => ({
+                recipe: {
+                  connect: {
+                    id: item.recipeId,
+                  },
+                },
+                servings: item.servings,
+                calories: item.calories,
+                protein: item.protein,
+                carbs: item.carbs,
+                fat: item.fat,
+              })),
             },
           },
         });
       } else {
         return ctx.prisma.mealJournal.create({
           data: {
-            date: input.date,
+            date: dateOnly,
             userId,
             mealItems: {
-              create: input.mealItems,
+              create: input.mealItems.map((item) => ({
+                recipe: {
+                  connect: {
+                    id: item.recipeId,
+                  },
+                },
+                servings: item.servings,
+                calories: item.calories,
+                protein: item.protein,
+                carbs: item.carbs,
+                fat: item.fat,
+              })),
             },
           },
         });
