@@ -14,11 +14,6 @@ export interface Instruction {
   text: string;
 }
 
-export interface Category {
-  id: string;
-  name: string;
-}
-
 export interface RecipeType {
   id: string;
   name: string;
@@ -29,7 +24,15 @@ export interface RecipeType {
   ingredients?: Ingredient[];
   instructions?: Instruction[];
   shared: boolean;
-  category: Category[];
+  category:
+    | "Breakfast"
+    | "Salads"
+    | "MainCourse"
+    | "Sides"
+    | "Snacks"
+    | "Desserts"
+    | "Drinks"
+    | "SaucesAndDressings";
   prepTime: string;
   cookTime: string;
   difficulty: string;

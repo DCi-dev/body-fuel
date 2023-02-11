@@ -82,6 +82,29 @@ const RecipeTableItem = ({
     await deleteRecipe.mutateAsync(recipe.id);
   };
 
+const humanReadableCategory: Record<
+  | "Breakfast"
+  | "Salads"
+  | "MainCourse"
+  | "Sides"
+  | "Snacks"
+  | "Desserts"
+  | "Drinks"
+  | "SaucesAndDressings",
+  string
+> = {
+  Breakfast: "Breakfast",
+  Salads: "Salads",
+  MainCourse: "Main Course",
+  Sides: "Sides",
+  Snacks: "Snacks",
+  Desserts: "Desserts",
+  Drinks: "Drinks",
+  SaucesAndDressings: "Sauces and Dressings",
+};
+
+const category = humanReadableCategory[recipe.category] || "Unknown Category";
+
   return (
     <tr className="w-full text-zinc-900 dark:text-zinc-100" key={recipe.id}>
       <td className="whitespace-normal py-4 pl-4 pr-5 lg:whitespace-nowrap">
@@ -106,9 +129,7 @@ const RecipeTableItem = ({
         </div>
       </td>
       <td className="whitespace-normal px-3 py-4 lg:whitespace-nowrap">
-        <div className=" text-zinc-900 dark:text-zinc-100">
-          {recipe.category[0]?.name}
-        </div>
+        <div className=" text-zinc-900 dark:text-zinc-100">{category}</div>
       </td>
       <td className="hidden whitespace-nowrap px-3 py-4 lg:table-cell">
         <span className="inline-flex px-2  leading-5 text-zinc-800 dark:text-zinc-200">

@@ -27,6 +27,7 @@ const SessionRecipes = () => {
       getNextPageParam: (lastPage) => lastPage.nextCursor,
     }
   );
+
   // Favorite recipes
   const favoriteRecipesIds = api.recipe.getUserFavoriteRecipesIds.useQuery();
 

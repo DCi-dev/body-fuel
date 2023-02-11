@@ -93,19 +93,31 @@ model Recipe {
   carbohydrates   Float?
   fat             Float?
   reviews         Review[]
-  categories      Category[]
+  category        Category?
   shared          Boolean?
   prepTime        String?
   cookTime        String?
-  difficulty      String?
+  difficulty      Difficulty?
   instructions    Instructions[]
   FavoriteRecipes FavoriteRecipes[]
 }
 
-model Category {
-  id      String   @id @default(cuid())
-  name    String   @unique
-  recipes Recipe[]
+enum Difficulty {
+  Easy
+  Medium
+  Hard
+  MasterChef
+}
+
+enum Category {
+  Breakfast
+  Salads
+  MainCourse
+  Sides
+  Snacks
+  Desserts
+  Drinks
+  SaucesAndDressings
 }
 
 model FavoriteRecipes {

@@ -4,7 +4,15 @@ import Link from "next/link";
 interface RecipeCardProps {
   name: string;
   description: string;
-  category: string;
+  category:
+    | "Breakfast"
+    | "Salads"
+    | "MainCourse"
+    | "Sides"
+    | "Snacks"
+    | "Desserts"
+    | "Drinks"
+    | "SaucesAndDressings";
   imageSrc: string;
   slug: string;
   userName: string;
@@ -20,6 +28,28 @@ export default function RecipeCard({
   userName,
   userImage,
 }: RecipeCardProps) {
+  const humanReadableCategory: Record<
+    | "Breakfast"
+    | "Salads"
+    | "MainCourse"
+    | "Sides"
+    | "Snacks"
+    | "Desserts"
+    | "Drinks"
+    | "SaucesAndDressings",
+    string
+  > = {
+    Breakfast: "Breakfast",
+    Salads: "Salads",
+    MainCourse: "Main Course",
+    Sides: "Sides",
+    Snacks: "Snacks",
+    Desserts: "Desserts",
+    Drinks: "Drinks",
+    SaucesAndDressings: "Sauces and Dressings",
+  };
+
+  const newCategory = humanReadableCategory[category] || "Unknown Category";
   return (
     <div
       key={name}
@@ -37,7 +67,7 @@ export default function RecipeCard({
       <div className="flex flex-1 flex-col justify-between bg-zinc-100 p-6 dark:bg-zinc-700">
         <div className="flex-1">
           <div className="text-lg font-medium text-yellow-600 dark:text-yellow-400">
-            <p className="hover:underline">{category}</p>
+            <p className="hover:underline">{newCategory}</p>
           </div>
           <Link href={`/recipes/${slug}`} className="mt-2 block">
             <p className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">

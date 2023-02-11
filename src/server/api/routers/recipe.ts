@@ -1,6 +1,6 @@
 import { env } from "@/env/server.mjs";
 import { AWS } from "@/lib/aws";
-import { recipeSchema } from "@/types/zod-schemas";
+import { difficultyEnum, recipeSchema } from "@/types/zod-schemas";
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
@@ -97,14 +97,7 @@ export const recipeRouter = createTRPCRouter({
               })),
             },
             shared: input.shared,
-            categories: {
-              connectOrCreate: {
-                where: {
-                  name: input.category,
-                },
-                create: { name: input.category },
-              },
-            },
+            category: input.category,
             prepTime: input.prepTime,
             cookTime: input.cookTime,
             difficulty: input.difficulty,
@@ -193,16 +186,6 @@ export const recipeRouter = createTRPCRouter({
             },
           });
 
-          const category = await ctx.prisma.category.findMany({
-            where: {
-              recipes: {
-                some: {
-                  id: recipe.id,
-                },
-              },
-            },
-          });
-
           const user = await ctx.prisma.user.findUnique({
             where: {
               id: recipe.userId,
@@ -213,7 +196,6 @@ export const recipeRouter = createTRPCRouter({
             ...recipe,
             ingredients,
             instructions,
-            category,
             user,
           };
         })
@@ -265,16 +247,6 @@ export const recipeRouter = createTRPCRouter({
             },
           });
 
-          const category = await ctx.prisma.category.findMany({
-            where: {
-              recipes: {
-                some: {
-                  id: recipe.id,
-                },
-              },
-            },
-          });
-
           const user = await ctx.prisma.user.findUnique({
             where: {
               id: recipe.userId,
@@ -285,7 +257,6 @@ export const recipeRouter = createTRPCRouter({
             ...recipe,
             ingredients,
             instructions,
-            category,
             user,
           };
         })
@@ -294,10 +265,8 @@ export const recipeRouter = createTRPCRouter({
       return { recipesWithDetails, nextCursor };
     }),
 
-    getUserFavoriteRecipe: protectedProcedure
-    .input(
-      z.string()
-    )
+  getUserFavoriteRecipe: protectedProcedure
+    .input(z.string())
     .query(async ({ input, ctx }) => {
       const userId = ctx.session?.user.id;
 
@@ -325,7 +294,6 @@ export const recipeRouter = createTRPCRouter({
       return favorite;
     }),
 
-
   getRecipes: publicProcedure.query(async ({ ctx }) => {
     const recipes = await ctx.prisma.recipe.findMany({
       where: {
@@ -347,16 +315,6 @@ export const recipeRouter = createTRPCRouter({
           },
         });
 
-        const category = await ctx.prisma.category.findMany({
-          where: {
-            recipes: {
-              some: {
-                id: recipe.id,
-              },
-            },
-          },
-        });
-
         const user = await ctx.prisma.user.findUnique({
           where: {
             id: recipe.userId,
@@ -366,7 +324,6 @@ export const recipeRouter = createTRPCRouter({
         return {
           ...recipe,
           ingredients,
-          category,
           user,
           instructions,
         };
@@ -426,16 +383,6 @@ export const recipeRouter = createTRPCRouter({
             },
           });
 
-          const category = await ctx.prisma.category.findMany({
-            where: {
-              recipes: {
-                some: {
-                  id: recipe.id,
-                },
-              },
-            },
-          });
-
           const user = await ctx.prisma.user.findUnique({
             where: {
               id: recipe.userId,
@@ -446,7 +393,6 @@ export const recipeRouter = createTRPCRouter({
             ...recipe,
             ingredients,
             instructions,
-            category,
             user,
           };
         })
@@ -476,16 +422,6 @@ export const recipeRouter = createTRPCRouter({
     const instructions = await ctx.prisma.instructions.findMany({
       where: {
         recipeId: recipe.id,
-      },
-    });
-
-    const category = await ctx.prisma.category.findMany({
-      where: {
-        recipes: {
-          some: {
-            id: recipe.id,
-          },
-        },
       },
     });
 
@@ -519,7 +455,6 @@ export const recipeRouter = createTRPCRouter({
     return {
       ...recipe,
       ingredients,
-      category,
       user,
       instructions,
       reviewWithUserDetails,
@@ -609,16 +544,6 @@ export const recipeRouter = createTRPCRouter({
             },
           });
 
-          const category = await ctx.prisma.category.findMany({
-            where: {
-              recipes: {
-                some: {
-                  id: recipe.id,
-                },
-              },
-            },
-          });
-
           const user = await ctx.prisma.user.findUnique({
             where: {
               id: recipe.userId,
@@ -629,7 +554,6 @@ export const recipeRouter = createTRPCRouter({
             ...recipe,
             ingredients,
             instructions,
-            category,
             user,
           };
         })
@@ -678,26 +602,6 @@ export const recipeRouter = createTRPCRouter({
       return deletedRecipe;
     }),
 
-  getCategories: publicProcedure.query(async ({ ctx }) => {
-    const categories = await ctx.prisma.category.findMany();
-
-    return categories;
-  }),
-  getRecipesByCategory: publicProcedure
-    .input(z.string())
-    .query(async ({ input, ctx }) => {
-      const recipes = await ctx.prisma.recipe.findMany({
-        where: {
-          categories: {
-            some: {
-              name: input,
-            },
-          },
-        },
-      });
-
-      return recipes;
-    }),
   getRecipesByUser: publicProcedure
     .input(z.string())
     .query(async ({ input, ctx }) => {
@@ -710,7 +614,7 @@ export const recipeRouter = createTRPCRouter({
       return recipes;
     }),
   getRecipesByDifficulty: publicProcedure
-    .input(z.string())
+    .input(difficultyEnum)
     .query(async ({ input, ctx }) => {
       const recipes = await ctx.prisma.recipe.findMany({
         where: {
