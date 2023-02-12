@@ -87,24 +87,28 @@ export const mealJournalRouter = createTRPCRouter({
       if (!userId) {
         throw new Error("User not logged in");
       }
+
       const mealJournal = await ctx.prisma.mealJournal.findFirst({
         where: {
-          userId,
+          userId: userId,
           id: input.journalId,
         },
       });
       if (!mealJournal) {
         throw new Error("Journal not found");
       }
+
       const mealItem = await ctx.prisma.mealItem.findFirst({
         where: {
           id: input.itemId,
           mealJournalId: input.journalId,
         },
       });
+
       if (!mealItem) {
         throw new Error("Meal item not found");
       }
+
       return ctx.prisma.mealItem.update({
         where: {
           id: input.itemId,

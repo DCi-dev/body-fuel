@@ -16,6 +16,8 @@ const Dashboard: NextPage = () => {
     | MealJournalItemType[]
     | undefined;
 
+  const mealJournalId = getMealJournal.data?.id;
+
   console.log(getMealJournal.data);
 
   return (
@@ -56,7 +58,11 @@ const Dashboard: NextPage = () => {
         {/* Meal Items List */}
         {getMealJournal.data?.mealItems &&
           getMealJournal.data.mealItems.length > 0 && (
-            <MealItemsList mealItems={mealItems} />
+            <MealItemsList
+              mealItems={mealItems}
+              mealJournalId={mealJournalId}
+              refetch={getMealJournal.refetch}
+            />
           )}
       </main>
     </>
