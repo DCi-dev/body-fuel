@@ -143,9 +143,9 @@ model Review {
 // Meal Journal
 model MealJournal {
   id        String     @id @default(cuid())
-  date      DateTime   @default(now())
+  date      DateTime   @unique @default(now())
   user      User       @relation(fields: [userId], references: [id])
-  userId    String
+  userId    String     
   mealItems MealItem[]
 }
 

@@ -187,12 +187,50 @@ export const mealJournalRouter = createTRPCRouter({
     .input(z.date())
     .query(async ({ input, ctx }) => {
       const userId = ctx.session.user.id;
-      return ctx.prisma.mealJournal.findFirst({
+      if (!userId) {
+        throw new Error("User not logged in");
+      }
+
+      const dateOnly = new Date(
+        input.getFullYear(),
+        input.getMonth(),
+        input.getDate()
+      );
+      const mealJournal = await ctx.prisma.mealJournal.findFirst({
         where: {
-          userId,
-          date: input,
+          userId: userId,
+          date: dateOnly,
         },
       });
+
+      if (!mealJournal) {
+        return null;
+      }
+
+      const mealItems = await ctx.prisma.mealItem.findMany({
+        where: {
+          mealJournalId: mealJournal.id,
+        },
+      });
+
+      const mealItemsWithRecipe = await Promise.all(
+        mealItems.map(async (item) => {
+          const recipe = await ctx.prisma.recipe.findFirst({
+            where: {
+              id: item.recipeId,
+            },
+          });
+          return {
+            ...item,
+            recipe,
+          };
+        })
+      );
+
+      return {
+        ...mealJournal,
+        mealItems: mealItemsWithRecipe,
+      };
     }),
 
   getMealJournalByDateRange: protectedProcedure

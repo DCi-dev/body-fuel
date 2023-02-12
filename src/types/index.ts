@@ -60,3 +60,21 @@ export interface Review {
   };
   userId: string;
 }
+
+export interface MealJournalType {
+  id?: string;
+  date?: string;
+  userId?: string;
+  mealItems?: MealJournalItemType[];
+}
+
+export interface MealJournalItemType {
+  id?: string;
+  mealJournalId?: string;
+  recipe?: RecipeType;
+  servings?: number;
+  calories: number;
+  protein: number;
+  fat: number;
+  carbs: number;
+}
