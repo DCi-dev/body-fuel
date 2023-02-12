@@ -72,7 +72,7 @@ export default function AddMealToJournal({ recipe, open, setOpen }: Props) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-zinc-500 bg-opacity-75 transition-opacity" />
+            <div className="fixed inset-0 bg-zinc-400 bg-opacity-75 transition-opacity dark:bg-zinc-800 dark:bg-opacity-75" />
           </Transition.Child>
 
           <div className="fixed inset-0 z-10 overflow-y-auto">

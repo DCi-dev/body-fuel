@@ -1,65 +1,47 @@
 /* eslint-disable react/no-unescaped-entities */
 import { api } from "@/utils/api";
 import { Dialog, Transition } from "@headlessui/react";
-import { CalendarIcon, UserGroupIcon } from "@heroicons/react/24/outline";
-import { Fragment, useRef, useState } from "react";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import { Fragment, useRef } from "react";
 import { toast } from "react-hot-toast";
 
 interface Props {
   recipeName: string;
   journalId: string;
   itemId: string;
-  servings: number;
-  calories: number;
-  protein: number;
-  carbs: number;
-  fat: number;
   open: boolean;
   setOpen: (open: boolean) => void;
   refetch: () => void;
 }
 
-export default function UpdateServings({
+export default function DeleteMealItem({
   recipeName,
   journalId,
   itemId,
-  servings,
-  calories,
-  protein,
-  carbs,
-  fat,
   open,
   setOpen,
   refetch,
 }: Props) {
-  const [selectedServings, setSelectedServings] = useState<number>(servings);
-
   const cancelButtonRef = useRef(null);
 
-  //  Update meal item in journal
-  const updateMealJournal = api.mealJournal.updateJournalItem.useMutation();
+  //  Delete meal item from journal
+  const deleteMealJournal = api.mealJournal.deleteJournalItem.useMutation();
 
-  const handleUpdateMealItemJournal = async () => {
-    toast.loading("Updating meal...");
+  const handleDeleteMealItemJournal = async () => {
+    toast.loading("Deleting meal...");
     try {
-      const mealUpdate = {
+      const mealDelete = {
         journalId: journalId,
         itemId: itemId,
-        servings: selectedServings,
-        calories: Math.round((calories / servings) * selectedServings),
-        protein: Math.round((protein / servings) * selectedServings),
-        fat: Math.round((fat / servings) * selectedServings),
-        carbs: Math.round((carbs / servings) * selectedServings),
       };
-      console.log(mealUpdate);
-      await updateMealJournal.mutateAsync(mealUpdate);
+      await deleteMealJournal.mutateAsync(mealDelete);
       refetch();
       toast.dismiss();
-      toast.success("Meal updated!");
+      toast.success("Meal deleted!");
       setOpen(false);
     } catch (error) {
       toast.dismiss();
-      return toast.error("Something went wrong!");
+      toast.error("Something went wrong. Please try again.");
     }
   };
 
@@ -97,9 +79,9 @@ export default function UpdateServings({
               >
                 <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-zinc-100 px-4 pt-5 pb-4 text-left shadow-xl transition-all dark:bg-zinc-900 sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                   <div>
-                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-yellow-100">
-                      <CalendarIcon
-                        className="h-6 w-6 text-yellow-600"
+                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
+                      <ExclamationTriangleIcon
+                        className="h-6 w-6 text-red-600"
                         aria-hidden="true"
                       />
                     </div>
@@ -108,54 +90,25 @@ export default function UpdateServings({
                         as="h3"
                         className="text-lg font-medium leading-6 text-zinc-900 dark:text-zinc-100"
                       >
-                        Update "{recipeName}" in Your Meal Journal
+                        Remove "{recipeName}" from Your Meal Journal
                       </Dialog.Title>
-                      <div className="mt-2">
+                      <div className="mt-2 mb-8">
                         <p className=" text-zinc-700 dark:text-zinc-300">
-                          Select number of servings
+                          Are you sure you want to remove this meal from your
+                          journal? This action cannot be undone.
                         </p>
                       </div>
                     </div>
                   </div>
-                  {/* Select date and number of servings */}
-                  <div className="mt-5 flex w-full items-center justify-center gap-4 sm:mt-6">
-                    <label
-                      htmlFor="servings"
-                      className="flex justify-start gap-2 text-sm font-medium text-zinc-700 dark:text-zinc-300"
-                    >
-                      Servings
-                      <UserGroupIcon
-                        className="h-5 w-5 text-zinc-400 dark:text-zinc-600"
-                        aria-hidden="true"
-                      />
-                    </label>
-                    <div className="relative mt-1 w-16 rounded-md shadow-sm">
-                      <input
-                        type="number"
-                        name="servings"
-                        id="servings"
-                        className="block w-full rounded-md border-zinc-300 py-1 pl-2 focus:border-yellow-500 focus:ring-yellow-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 sm:text-sm"
-                        value={selectedServings}
-                        onChange={(e) =>
-                          setSelectedServings(parseInt(e.target.value))
-                        }
-                      />
-                      <div className="absolute inset-y-0 right-0 flex items-center">
-                        <label htmlFor="servings" className="sr-only">
-                          Servings
-                        </label>
-                      </div>
-                    </div>
-                  </div>
 
-                  <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                  <div className="mt-5 mb-3 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                     <button
                       type="button"
-                      className="inline-flex w-full justify-center rounded-md border border-transparent bg-yellow-600 px-4 py-2 text-base font-medium text-zinc-100 shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 sm:col-start-2 sm:text-sm"
+                      className="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-zinc-100 shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:col-start-2 sm:text-sm"
                       // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                      onClick={() => handleUpdateMealItemJournal()}
+                      onClick={() => handleDeleteMealItemJournal()}
                     >
-                      Update servings
+                      Remove
                     </button>
                     <button
                       type="button"

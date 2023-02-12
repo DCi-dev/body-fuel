@@ -11,6 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Fragment, useState } from "react";
 import UpdateServings from "./UpdateServings";
+import DeleteMealItem from "./DeleteMealItem";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -22,7 +23,11 @@ interface Props {
   refetch: () => void;
 }
 
-export default function MealItemsList({ mealItems, mealJournalId, refetch }: Props) {
+export default function MealItemsList({
+  mealItems,
+  mealJournalId,
+  refetch,
+}: Props) {
   const [isUpdateJournalModalOpen, setIsUpdateJournalModalOpen] = useState<
     boolean[]
   >(Array(mealItems?.length).fill(false));
@@ -36,7 +41,7 @@ export default function MealItemsList({ mealItems, mealJournalId, refetch }: Pro
       <h2 className="text-2xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100">
         Meal Items
       </h2>
-      <div className="mt-4 overflow-hidden bg-zinc-50 shadow dark:bg-zinc-800 sm:rounded-md">
+      <div className="mt-4 bg-zinc-50 shadow dark:bg-zinc-800 sm:rounded-md">
         <ul
           role="list"
           className="divide-y divide-zinc-200 dark:divide-zinc-700"
@@ -187,6 +192,20 @@ export default function MealItemsList({ mealItems, mealJournalId, refetch }: Pro
                       protein={item.protein}
                       carbs={item.carbs}
                       fat={item.fat}
+                      refetch={refetch}
+                    />
+                    {/* Delete from journal */}
+                    <DeleteMealItem
+                      recipeName={item.recipe?.name as string}
+                      journalId={mealJournalId as string}
+                      itemId={item.id as string}
+                      open={isDeleteJournalModalOpen[index] as boolean}
+                      setOpen={(open) => {
+                        setIsDeleteJournalModalOpen((prev) => {
+                          prev[index] = open;
+                          return [...prev];
+                        });
+                      }}
                       refetch={refetch}
                     />
                   </div>
