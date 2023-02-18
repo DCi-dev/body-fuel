@@ -131,11 +131,17 @@ const SessionRecipes = () => {
               // eslint-disable-next-line @typescript-eslint/no-misused-promises
               userId={sessionData?.user?.id as string}
               favoriteRecipesIds={favoriteRecipesIds.data as string[]}
+              refetchYourRecipes={
+                yourRecipes.refetch as unknown as () => Promise<void>
+              }
               refetchFav={
                 favoriteRecipes.refetch as unknown as () => Promise<void>
               }
               refetchFavIds={
                 favoriteRecipesIds.refetch as unknown as () => Promise<void>
+              }
+              refetchAllRecipes={
+                allRecipes.refetch as unknown as () => Promise<void>
               }
               page={userPage}
               setPage={setUserPage}
@@ -153,11 +159,17 @@ const SessionRecipes = () => {
               // eslint-disable-next-line @typescript-eslint/no-misused-promises
               userId={sessionData?.user?.id as string}
               favoriteRecipesIds={favoriteRecipesIds.data as string[]}
+              refetchYourRecipes={
+                yourRecipes.refetch as unknown as () => Promise<void>
+              }
               refetchFav={
                 favoriteRecipes.refetch as unknown as () => Promise<void>
               }
               refetchFavIds={
                 favoriteRecipesIds.refetch as unknown as () => Promise<void>
+              }
+              refetchAllRecipes={
+                allRecipes.refetch as unknown as () => Promise<void>
               }
               page={favPage}
               setPage={setFavPage}
@@ -175,11 +187,17 @@ const SessionRecipes = () => {
               // eslint-disable-next-line @typescript-eslint/no-misused-promises
               userId={sessionData?.user?.id as string}
               favoriteRecipesIds={favoriteRecipesIds.data as string[]}
+              refetchYourRecipes={
+                yourRecipes.refetch as unknown as () => Promise<void>
+              }
               refetchFav={
                 favoriteRecipes.refetch as unknown as () => Promise<void>
               }
               refetchFavIds={
                 favoriteRecipesIds.refetch as unknown as () => Promise<void>
+              }
+              refetchAllRecipes={
+                allRecipes.refetch as unknown as () => Promise<void>
               }
               page={allPage}
               setPage={setAllPage}

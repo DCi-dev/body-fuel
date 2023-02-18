@@ -9,6 +9,14 @@ import { useFieldArray, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import type { z } from "zod";
 
+interface ImageData {
+  [key: string]: string | undefined | null | File;
+  "Content-Type": string | undefined;
+  file: File | null;
+  Policy: string;
+  "X-Amz-Signature": string;
+}
+
 function useZodForm<TSchema extends z.ZodType>(
   props: Omit<UseFormProps<TSchema["_input"]>, "resolver"> & {
     schema: TSchema;
@@ -97,7 +105,7 @@ export default function CreateRecipeForm() {
 
       const { url, fields } = presignedUrl;
 
-      const imgData = {
+      const imgData: ImageData = {
         ...fields,
         "Content-Type": file?.type,
         file,
@@ -106,8 +114,10 @@ export default function CreateRecipeForm() {
       const formData = new FormData();
 
       for (const name in imgData) {
-        const key: string = name;
-        formData.append(name, imgData[key]);
+        const value = imgData[name];
+        if (value) {
+          formData.append(name, value);
+        }
       }
 
       await fetch(url, {

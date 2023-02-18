@@ -23,6 +23,8 @@ type Props = {
   refetchFavIds: () => Promise<void>;
   userId: string;
   favoriteRecipesIds?: string[];
+  refetchYour: () => Promise<void>;
+  refetchAll: () => Promise<void>;
 };
 
 const RecipeTableItem = ({
@@ -31,6 +33,8 @@ const RecipeTableItem = ({
   refetchFavIds,
   userId,
   favoriteRecipesIds,
+  refetchYour,
+  refetchAll,
 }: Props) => {
   const [isAddToJournalModalOpen, setIsAddToJournalModalOpen] = useState(false);
 
@@ -83,6 +87,9 @@ const RecipeTableItem = ({
 
   const handleDelete = async () => {
     await deleteRecipe.mutateAsync(recipe.id);
+
+    await refetchYour();
+    await refetchAll();
   };
 
   const humanReadableCategory: Record<

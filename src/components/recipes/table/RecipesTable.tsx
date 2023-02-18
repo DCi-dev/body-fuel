@@ -8,8 +8,10 @@ import RecipeTableItem from "./RecipeTableItem";
 interface Props {
   recipes: RecipeType[];
   isLoading: boolean;
+  refetchYourRecipes: () => Promise<void>;
   refetchFav: () => Promise<void>;
   refetchFavIds: () => Promise<void>;
+  refetchAllRecipes: () => Promise<void>;
   userId: string;
   favoriteRecipesIds?: string[];
   page: number;
@@ -25,6 +27,8 @@ export default function RecipesTable({
   isLoading,
   refetchFav,
   refetchFavIds,
+  refetchYourRecipes,
+  refetchAllRecipes,
   userId,
   favoriteRecipesIds,
   page,
@@ -93,6 +97,8 @@ export default function RecipesTable({
                         refetchFavIds={refetchFavIds}
                         userId={userId}
                         favoriteRecipesIds={favoriteRecipesIds}
+                        refetchYour={refetchYourRecipes}
+                        refetchAll={refetchAllRecipes}
                       />
                     ))
                   ) : !isLoading && (!recipes || recipes.length === 0) ? (
