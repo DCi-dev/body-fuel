@@ -43,6 +43,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
       <Head>
         <link rel="icon" href="/favicon.ico" />
+        <script
+          async
+          defer
+          data-website-id="5769784c-0d00-42be-ac4c-9a622632084c"
+          src="https://umami.cdi.dev/umami.js"
+        ></script>
       </Head>
       {/* No session */}
       {!sessionData ? (

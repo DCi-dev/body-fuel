@@ -13,6 +13,7 @@ export default function CTA() {
         <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
           <div className="inline-flex rounded-md shadow">
             <button
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
               onClick={() => signIn()}
               className="inline-flex items-center justify-center rounded-md border border-transparent bg-zinc-100 px-5 py-3 text-base font-medium text-zinc-900 hover:bg-zinc-200"
             >
