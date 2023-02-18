@@ -3,9 +3,9 @@ import * as aws from "aws-sdk";
 
 aws.config.update({
   apiVersion: "2006-03-01",
-  accessKeyId: env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
-  region: env.AWS_REGION,
+  accessKeyId: env.S3_KEY_ID,
+  secretAccessKey: env.S3_KEY_SECRET,
+  region: env.S3_REGION,
   signatureVersion: "v4",
 });
 

@@ -6,8 +6,8 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 const s3 = new AWS.S3();
 
-const BUCKET_NAME = env.AWS_BUCKET_NAME;
-const REGION = env.AWS_REGION;
+const BUCKET_NAME = env.S3_BUCKET;
+const REGION = env.S3_REGION;
 const UPLOADING_TIME_LIMIT = 30;
 const UPLOAD_MAX_FILE_SIZE = 5000000;
 

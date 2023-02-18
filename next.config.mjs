@@ -21,7 +21,7 @@ const config = {
       "avatars.githubusercontent.com",
       "cdn.discordapp.com",
       "lh3.googleusercontent.com",
-      `${env.AWS_BUCKET_NAME}.s3.${env.AWS_REGION}.amazonaws.com`,
+      `${env.S3_BUCKET}.s3.${env.S3_REGION}.amazonaws.com`,
     ],
   },
 };
