@@ -70,7 +70,7 @@ export default function UpdateServings({
           as="div"
           className="relative z-10"
           initialFocus={cancelButtonRef}
-          onClose={setOpen}
+          onClose={() => setOpen(!open)}
         >
           <Transition.Child
             as={Fragment}

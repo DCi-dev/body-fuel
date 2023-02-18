@@ -18,8 +18,6 @@ const Dashboard: NextPage = () => {
 
   const mealJournalId = getMealJournal.data?.id;
 
-  console.log(getMealJournal.data);
-
   return (
     <>
       <Head>
@@ -61,6 +59,7 @@ const Dashboard: NextPage = () => {
             <MealItemsList
               mealItems={mealItems}
               mealJournalId={mealJournalId}
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
               refetch={getMealJournal.refetch}
             />
           )}
