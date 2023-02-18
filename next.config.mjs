@@ -1,6 +1,6 @@
 // @ts-check
 
-import { env } from "./src/env/server.mjs";
+import { env } from "./src/env/client.mjs";
 
 /**
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
@@ -22,7 +22,7 @@ const config = {
       "avatars.githubusercontent.com",
       "cdn.discordapp.com",
       "lh3.googleusercontent.com",
-      `${env.AWS_BUCKET_NAME}.s3.${env.AWS_REGION}.amazonaws.com`,
+      `${env.NEXT_PUBLIC_AWS_BUCKET_NAME}.s3.${env.NEXT_PUBLIC_AWS_REGION}.amazonaws.com`,
     ],
   },
 };
