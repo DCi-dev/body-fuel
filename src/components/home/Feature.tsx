@@ -3,6 +3,8 @@ import {
   ChatBubbleBottomCenterTextIcon,
   HeartIcon,
 } from "@heroicons/react/24/outline";
+import { useTheme } from "next-themes";
+import Image from "next/image";
 
 const features = [
   {
@@ -26,6 +28,8 @@ const features = [
 ];
 
 export default function Feature() {
+  const { theme } = useTheme();
+
   return (
     <div>
       <div className="relative overflow-hidden bg-zinc-100 pt-16 dark:bg-zinc-900 sm:pt-24 lg:pt-32">
@@ -42,10 +46,16 @@ export default function Feature() {
             </h2>
           </div>
           <div className="mt-12 -mb-10 sm:-mb-24 lg:-mb-80">
-            <img
-              className="rounded-lg shadow-xl ring-1 ring-black ring-opacity-5"
-              src="https://tailwindui.com/img/component-images/top-nav-with-multi-column-layout-screenshot.jpg"
-              alt=""
+            <Image
+              className="rounded-lg shadow-xl ring-1 ring-zinc-800 ring-opacity-5 dark:ring-zinc-600"
+              src={
+                theme === "light"
+                  ? "/img/light-recipes.jpg"
+                  : "/img/dark-recipes.jpg"
+              }
+              alt="Recipes display"
+              width={1536}
+              height={960}
             />
           </div>
         </div>

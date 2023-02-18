@@ -1,3 +1,6 @@
+/* eslint-disable react/no-unescaped-entities */
+import Image from "next/image";
+
 export default function Testimonials() {
   return (
     <section className="bg-yellow-500">
@@ -41,10 +44,12 @@ export default function Testimonials() {
             <footer className="mt-8">
               <div className="flex items-start">
                 <div className="inline-flex flex-shrink-0 rounded-full border-2 border-white">
-                  <img
+                  <Image
                     className="h-12 w-12 rounded-full"
-                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    src="/img/woman.webp"
                     alt=""
+                    width={48}
+                    height={48}
                   />
                 </div>
                 <div className="ml-4">
@@ -111,10 +116,12 @@ export default function Testimonials() {
             <footer className="mt-8">
               <div className="flex items-start">
                 <div className="inline-flex flex-shrink-0 rounded-full border-2 border-white">
-                  <img
+                  <Image
                     className="h-12 w-12 rounded-full"
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    src="/img/man.webp"
                     alt=""
+                    width={48}
+                    height={48}
                   />
                 </div>
                 <div className="ml-4">

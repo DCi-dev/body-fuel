@@ -1,7 +1,10 @@
 import { signIn } from "next-auth/react";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 
 export default function HomeHero() {
+  const { theme } = useTheme();
+
   return (
     <div className="min-h-screen bg-zinc-100 dark:bg-zinc-900">
       <div className="overflow-hidden  lg:relative lg:py-40">
@@ -75,10 +78,16 @@ export default function HomeHero() {
               </svg>
             </div>
             <div className="relative -mr-40 pl-4 sm:mx-auto sm:max-w-3xl sm:px-0  lg:h-full lg:max-w-none lg:pl-12">
-              <img
-                className="w-full rounded-md shadow-xl ring-1 ring-black ring-opacity-5 lg:h-full lg:w-auto lg:max-w-none"
-                src="https://tailwindui.com/img/component-images/top-nav-with-multi-column-layout-screenshot.jpg"
-                alt=""
+              <Image
+                className="w-full rounded-md shadow-xl ring-1 ring-zinc-800 ring-opacity-5 dark:ring-zinc-600 lg:h-full lg:w-auto lg:max-w-none"
+                src={
+                  theme === "light"
+                    ? "/img/light-dashboard.jpg"
+                    : "/img/dark-dashboard.jpg"
+                }
+                alt="Body Fuel Dashboard"
+                width={768}
+                height={512}
               />
             </div>
           </div>
