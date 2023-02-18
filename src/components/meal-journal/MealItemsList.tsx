@@ -10,7 +10,7 @@ import {
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import DeleteMealItem from "./DeleteMealItem";
 import UpdateServings from "./UpdateServings";
 
