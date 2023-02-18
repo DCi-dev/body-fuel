@@ -20,7 +20,7 @@ const config = {
       "avatars.githubusercontent.com",
       "cdn.discordapp.com",
       "lh3.googleusercontent.com",
-      `${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com`,
+      `body-fuel.s3.eu-central-1.amazonaws.com`,
     ],
   },
 };
