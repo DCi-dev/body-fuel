@@ -57,10 +57,10 @@ export const serverEnv = {
   EMAIL_PORT: process.env.EMAIL_PORT,
   EMAIL_USERNAME: process.env.EMAIL_USERNAME,
   EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
-  S3_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
-  S3_KEY_SECRET: process.env.AWS_SECRET_ACCESS_KEY,
-  S3_REGION: process.env.AWS_REGION,
-  S3_BUCKET: process.env.AWS_BUCKET_NAME,
+  S3_KEY_ID: process.env.S3_KEY_ID,
+  S3_KEY_SECRET: process.env.S3_KEY_SECRET,
+  S3_REGION: process.env.S3_REGION,
+  S3_BUCKET: process.env.S3_BUCKET,
 };
 
 /**
