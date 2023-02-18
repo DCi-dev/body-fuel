@@ -68,7 +68,7 @@ export default function LeaveAReview({
       refetch();
     } catch (error: unknown) {
       toast.dismiss();
-      toast.error(error.message as string);
+      toast.error((error as Error).message);
     }
   };
 
@@ -84,9 +84,11 @@ export default function LeaveAReview({
         />
       </div>
       <div className="min-w-0 max-w-5xl flex-1">
-        <form className="relative" 
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        onSubmit={(e) => handleSubmit(e)}>
+        <form
+          className="relative"
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
+          onSubmit={(e) => handleSubmit(e)}
+        >
           <div className="overflow-hidden rounded-lg border border-zinc-300 shadow-sm focus-within:border-yellow-500 focus-within:ring-1 focus-within:ring-yellow-500">
             <label htmlFor="comment" className="sr-only">
               Add your comment
