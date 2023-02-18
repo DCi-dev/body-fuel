@@ -28,7 +28,17 @@ export default function FeaturedRecipes() {
                 key={recipe.id}
                 name={recipe.name}
                 description={recipe.description}
-                category={recipe.category as string}
+                category={
+                  recipe.category as
+                    | "Breakfast"
+                    | "Salads"
+                    | "MainCourse"
+                    | "Sides"
+                    | "Snacks"
+                    | "Desserts"
+                    | "Drinks"
+                    | "SaucesAndDressings"
+                }
                 imageSrc={recipe.image as string}
                 slug={recipe.slug}
                 userName={recipe.user?.name as string}
