@@ -5,7 +5,6 @@
  * This is especially useful for Docker builds.
  */
 !process.env.SKIP_ENV_VALIDATION && (await import("./src/env/server.mjs"));
-import { env } from "./src/env/server.mjs";
 
 /** @type {import("next").NextConfig} */
 const config = {
@@ -21,7 +20,7 @@ const config = {
       "avatars.githubusercontent.com",
       "cdn.discordapp.com",
       "lh3.googleusercontent.com",
-      `${env.AWS_BUCKET_NAME}.s3.${env.AWS_REGION}.amazonaws.com`,
+      `${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com`,
     ],
   },
 };
