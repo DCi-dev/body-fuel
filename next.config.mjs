@@ -1,7 +1,5 @@
 // @ts-check
 
-import { env } from "./src/env/client.mjs";
-
 /**
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
  * This is especially useful for Docker builds.
@@ -22,7 +20,7 @@ const config = {
       "avatars.githubusercontent.com",
       "cdn.discordapp.com",
       "lh3.googleusercontent.com",
-      `${env.NEXT_PUBLIC_AWS_BUCKET_NAME}.s3.${env.NEXT_PUBLIC_AWS_REGION}.amazonaws.com`,
+      `body-fuel.s3.eu-central-1.amazonaws.com`,
     ],
   },
 };
