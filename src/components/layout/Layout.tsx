@@ -20,7 +20,6 @@ const lato = Lato({
   subsets: ["latin"],
 });
 
-type NavRef = React.MutableRefObject<HTMLDivElement | null>;
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -32,7 +31,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   //  Active navlink
   const router = useRouter();
-  const navRef = useRef(null) as NavRef;
+  const navRef = useRef(null);
 
   // Theme
   const { theme, setTheme } = useTheme();
