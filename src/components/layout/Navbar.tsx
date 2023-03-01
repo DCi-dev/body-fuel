@@ -1,5 +1,5 @@
 import { navigationRoutes } from "@utils/navigationRoutes";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 
 import { Disclosure, Menu, Switch, Transition } from "@headlessui/react";
@@ -34,6 +34,10 @@ export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) 
 
   async function handleSignIn() {
     await signIn();
+  }
+  
+  async function handleSignOut() {
+    await signOut();
   }
 
   return (
@@ -194,7 +198,7 @@ export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) 
                                 "block cursor-pointer px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100"
                               )}
                               onClick={
-                                sessionData ? () => null : () => handleSignIn()
+                                sessionData ? () => handleSignOut() : () => handleSignIn()
                               }
                             >
                               {sessionData ? "Sign out" : "Sign in"}
@@ -260,7 +264,7 @@ export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) 
                       as="button"
                       className="block rounded-md px-3 py-2 text-base font-medium text-zinc-600 hover:bg-zinc-100 hover:text-black dark:text-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white"
                       >
-                      <button onClick={handleSignIn}>
+                      <button onClick={()=> handleSignIn()}>
                         Sign in                     
                       </button>
                     </Disclosure.Button>
