@@ -39,11 +39,9 @@ export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) 
   return (
     <Disclosure
       as="nav"
-      className="fixed z-50 w-screen bg-zinc-200 dark:bg-zinc-800"
-      ref={navRef}
-    >
+      className="fixed z-50 w-screen bg-zinc-200 dark:bg-zinc-800"    >
       {({ open }) => (
-        <>
+        <nav ref={navRef}>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
@@ -340,7 +338,7 @@ export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) 
               </div>
             </div>
           </Disclosure.Panel>
-        </>
+        </nav>
       )}
     </Disclosure>
   );
