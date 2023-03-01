@@ -193,7 +193,6 @@ export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) 
                                 active ? "bg-white dark:bg-zinc-600" : "",
                                 "block cursor-pointer px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100"
                               )}
-                              // eslint-disable-next-line @typescript-eslint/no-misused-promises
                               onClick={
                                 sessionData ? () => signOut() : () => signIn()
                               }
@@ -260,12 +259,9 @@ export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) 
                     <Disclosure.Button
                       as="button"
                       className="block rounded-md px-3 py-2 text-base font-medium text-zinc-600 hover:bg-zinc-100 hover:text-black dark:text-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white"
+                      onClick={handleSignIn}
                     >
-                      <button
-                        onClick={handleSignIn}
-                      >
-                        Sign in
-                      </button>
+                        Sign in                     
                     </Disclosure.Button>
                   </>
                 )}
