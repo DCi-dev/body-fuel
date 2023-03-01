@@ -29,11 +29,15 @@ export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) 
   const { data: sessionData } = useSession();
   const userProfileImageUrl = sessionData?.user?.image as string;
 
+  async function handleSignIn() {
+    await signIn();
+  }
+
   return (
     <Disclosure
       as="nav"
       className="fixed z-50 w-screen bg-zinc-200 dark:bg-zinc-800"
-      ref={navRef}
+      ref={navRef as any}
     >
       {({ open }) => (
         <>
@@ -255,10 +259,8 @@ export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) 
                     <Disclosure.Button
                       as="button"
                       className="block rounded-md px-3 py-2 text-base font-medium text-zinc-600 hover:bg-zinc-100 hover:text-black dark:text-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white"
-                      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                      onClick={() => signIn()}
                     >
-                      Sign in
+                      <button onClick={handleSignIn}>Sign in</button>
                     </Disclosure.Button>
                   </>
                 )}
@@ -316,10 +318,8 @@ export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) 
                     <Disclosure.Button
                       as="button"
                       className="block rounded-md px-3 py-2 text-base font-medium text-zinc-600 hover:bg-zinc-100 hover:text-black dark:text-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white"
-                      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                      onClick={() => signOut()}
                     >
-                      Sign out
+                      <button onClick={() => signOut()}>Sign out</button>
                     </Disclosure.Button>
                   </>
                 )}
