@@ -82,8 +82,8 @@ export default function HomeHero() {
                 className="w-full rounded-md shadow-xl ring-1 ring-zinc-800 ring-opacity-5 dark:ring-zinc-600 lg:h-full lg:w-auto lg:max-w-none"
                 src={
                   theme === "light"
-                    ? "/img/light-dashboard.jpg"
-                    : "/img/dark-dashboard.jpg"
+                    ? "/img/light-dashboard.webp"
+                    : "/img/dark-dashboard.webp"
                 }
                 alt="Body Fuel Dashboard"
                 width={768}
