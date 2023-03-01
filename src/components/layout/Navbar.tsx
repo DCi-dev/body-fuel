@@ -15,11 +15,14 @@ import { Fragment } from "react";
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
+
+type NavRefType =  React.RefObject<HTMLDivElement> | null;
+
 interface NavbarProps {
   theme: string;
   setTheme: (theme: string) => void;
   router: NextRouter;
-  navRef: React.MutableRefObject<HTMLDivElement | null>;
+  navRef: NavRefType;
 }
 
 export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) {
@@ -37,8 +40,7 @@ export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) 
     <Disclosure
       as="nav"
       className="fixed z-50 w-screen bg-zinc-200 dark:bg-zinc-800"
-      // @ts-ignore - Ref type is not compatible with the type of the ref prop
-      ref={navRef as any}
+      ref={navRef}
     >
       {({ open }) => (
         <>
