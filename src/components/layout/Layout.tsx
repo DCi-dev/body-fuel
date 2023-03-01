@@ -140,7 +140,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                         />
                         <Switch
                           checked={theme === "light"}
-                          onClick={() =>
+                          onChange={() =>
                             setTheme(theme === "light" ? "dark" : "light")
                           }
                           className={`${
@@ -210,7 +210,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   />
                   <Switch
                     checked={theme === "light"}
-                    onClick={() =>
+                    onChange={() =>
                       setTheme(theme === "light" ? "dark" : "light")
                     }
                     className={`${

@@ -6,7 +6,7 @@ import { Disclosure, Menu, Switch, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   UserCircleIcon,
-  XMarkIcon,
+  XMarkIcon
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import type { NextRouter } from "next/router";
@@ -76,7 +76,7 @@ export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) 
                   <div className="py-16">
                     <Switch
                       checked={theme === "light"}
-                      onClick={() =>
+                      onChange={() =>
                         setTheme(theme === "light" ? "dark" : "light")
                       }
                       className={`${
@@ -264,7 +264,9 @@ export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) 
                 )}
                 <Switch
                   checked={theme === "light"}
-                  onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+                  onChange={() =>
+                    setTheme(theme === "light" ? "dark" : "light")
+                  }
                   className={`${
                     theme == "light" ? "bg-zinc-400" : "bg-zinc-700"
                   } relative ml-auto inline-flex h-6 w-11 items-center rounded-full`}

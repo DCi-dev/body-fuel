@@ -1,7 +1,7 @@
 import {
   BoltIcon,
   ChatBubbleBottomCenterTextIcon,
-  HeartIcon,
+  HeartIcon
 } from "@heroicons/react/24/outline";
 import { useTheme } from "next-themes";
 import Image from "next/image";
@@ -50,12 +50,12 @@ export default function Feature() {
               className="rounded-lg shadow-xl ring-1 ring-zinc-800 ring-opacity-5 dark:ring-zinc-600"
               src={
                 theme === "light"
-                  ? "/img/light-recipes.jpg"
-                  : "/img/dark-recipes.jpg"
+                  ? "/img/light-recipes.webp"
+                  : "/img/dark-recipes.webp"
               }
               alt="Recipes display"
-              width={1536}
-              height={960}
+              width={1880}
+              height={970}
             />
           </div>
         </div>

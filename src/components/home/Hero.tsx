@@ -86,8 +86,9 @@ export default function HomeHero() {
                     : "/img/dark-dashboard.webp"
                 }
                 alt="Body Fuel Dashboard"
-                width={768}
-                height={512}
+                width={1417}
+                height={731}
+                quality={100}
               />
             </div>
           </div>
