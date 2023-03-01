@@ -194,7 +194,7 @@ export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) 
                                 "block cursor-pointer px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100"
                               )}
                               onClick={
-                                sessionData ? () => signOut() : () => signIn()
+                                sessionData ? () => null : () => handleSignIn()
                               }
                             >
                               {sessionData ? "Sign out" : "Sign in"}
