@@ -40,7 +40,7 @@ jobs:
       - name: Format lighthouse score and add comment
         if: ${{ steps.waitFor200.outputs.url != '' }}
         id: format_lighthouse_score
-        uses: actions/github-script@v3
+        uses: actions/github-script@v6
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
