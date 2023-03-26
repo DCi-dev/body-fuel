@@ -11,12 +11,16 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
+      - name: Wait for 30 seconds
+        run: sleep 30
+        
       - name: Waiting for 200 from the Vercel Preview
         uses: patrickedqvist/wait-for-vercel-preview@v1.3.1
         id: waitFor200
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           max_timeout: 120
+          check_interval: 5
 
       - name: Checkout repository
         if: ${{ steps.waitFor200.outputs.url != '' }}
