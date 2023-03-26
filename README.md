@@ -9,9 +9,11 @@
   </tr>
 </table>
 
-<p align="center">
-    <a href="https://body-fuel.cdi.dev/">View Demo</a>
- </p>
+ <p align="center">
+     <a href="https://body-fuel.cdi.dev/">Live</a>
+    ·
+    <a href="https://cdi.dev/projects/body-fuel">About</a>
+  </p>
 
 ## ✨ Features
 
