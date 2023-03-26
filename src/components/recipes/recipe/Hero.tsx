@@ -70,13 +70,13 @@ export default function RecipePageHero({
 
   useEffect(() => {
     void invalidateFavorites();
-    
+
     if (favoriteRecipe.data) {
       setIsFavoriteRecipe(true);
     } else {
       setIsFavoriteRecipe(false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favoriteRecipe.data]);
 
   const handleAddToFavorites = async () => {

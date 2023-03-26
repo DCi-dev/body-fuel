@@ -52,8 +52,7 @@ export default function DeleteMealItem({
           as="div"
           className="relative z-10"
           initialFocus={cancelButtonRef}
-                    onClose={() => setOpen(!open)}
-
+          onClose={() => setOpen(!open)}
         >
           <Transition.Child
             as={Fragment}

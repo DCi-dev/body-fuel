@@ -1,7 +1,7 @@
 import {
   BoltIcon,
   ChatBubbleBottomCenterTextIcon,
-  HeartIcon
+  HeartIcon,
 } from "@heroicons/react/24/outline";
 import { useTheme } from "next-themes";
 import Image from "next/image";

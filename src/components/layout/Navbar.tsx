@@ -6,7 +6,7 @@ import { Disclosure, Menu, Switch, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   UserCircleIcon,
-  XMarkIcon
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import type { NextRouter } from "next/router";
@@ -16,7 +16,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-type NavRefType =  React.RefObject<HTMLDivElement> | null;
+type NavRefType = React.RefObject<HTMLDivElement> | null;
 
 interface NavbarProps {
   theme: string;
@@ -25,9 +25,12 @@ interface NavbarProps {
   navRef: NavRefType;
 }
 
-export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) {
-  
-
+export default function Navbar({
+  theme,
+  setTheme,
+  router,
+  navRef,
+}: NavbarProps) {
   // Session
   const { data: sessionData } = useSession();
   const userProfileImageUrl = sessionData?.user?.image as string;
@@ -35,7 +38,7 @@ export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) 
   async function handleSignIn() {
     await signIn();
   }
-  
+
   async function handleSignOut() {
     await signOut();
   }
@@ -43,7 +46,8 @@ export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) 
   return (
     <Disclosure
       as="nav"
-      className="fixed z-50 w-screen bg-zinc-200 dark:bg-zinc-800"    >
+      className="fixed z-50 w-screen bg-zinc-200 dark:bg-zinc-800"
+    >
       {({ open }) => (
         <nav ref={navRef}>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -198,7 +202,9 @@ export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) 
                                 "block cursor-pointer px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100"
                               )}
                               onClick={
-                                sessionData ? () => void handleSignOut() : () => void handleSignIn()
+                                sessionData
+                                  ? () => void handleSignOut()
+                                  : () => void handleSignIn()
                               }
                             >
                               {sessionData ? "Sign out" : "Sign in"}
@@ -263,9 +269,9 @@ export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) 
                     <Disclosure.Button
                       as="button"
                       className="block rounded-md px-3 py-2 text-base font-medium text-zinc-600 hover:bg-zinc-100 hover:text-black dark:text-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white"
-                      >
-                      <button onClick={()=> void handleSignIn()}>
-                        Sign in                     
+                    >
+                      <button onClick={() => void handleSignIn()}>
+                        Sign in
                       </button>
                     </Disclosure.Button>
                   </>
@@ -321,7 +327,6 @@ export default function Navbar({ theme, setTheme, router, navRef}: NavbarProps) 
                     >
                       Favorite recipes
                     </Disclosure.Button>
-                    
                   </>
                 )}
               </div>
