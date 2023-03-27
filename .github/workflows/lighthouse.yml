@@ -61,7 +61,7 @@ jobs:
                 ' ',
                 `*Lighthouse ran on [${Object.keys(links)[0]}](${Object.keys(links)[0]})*`
             ].join('\n')
-            await github.repos.createCommitComment({
+            await github.rest.repos.createCommitComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               commit_sha: context.sha,
