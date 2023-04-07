@@ -44,13 +44,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
       <Head>
         <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Script
         async
         defer
         data-website-id="5769784c-0d00-42be-ac4c-9a622632084c"
         src="https://umami.cdi.dev/cdi-uuumamy.js"
       />
+      </Head>
       {/* No session */}
       {!sessionData ? (
         <div className="flex min-h-screen flex-col justify-start bg-zinc-100 dark:bg-zinc-900">
