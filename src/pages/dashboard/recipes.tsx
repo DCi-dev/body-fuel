@@ -84,7 +84,7 @@ const SessionRecipes = () => {
                   selected
                     ? "bg-zinc-100 text-zinc-900 dark:bg-zinc-700 dark:text-zinc-50"
                     : "bg-zinc-300 text-zinc-700 hover:bg-zinc-50 hover:text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-600 dark:hover:text-zinc-300",
-                  "group relative block w-full min-w-0 flex-1 overflow-hidden rounded-l-lg  py-4 px-4 text-center text-sm font-medium"
+                  "group relative block w-full min-w-0 flex-1 overflow-hidden rounded-l-lg  px-4 py-4 text-center text-sm font-medium"
                 )}
               >
                 Your Recipes
@@ -98,7 +98,7 @@ const SessionRecipes = () => {
                   selected
                     ? "bg-zinc-100 text-zinc-900 dark:bg-zinc-700 dark:text-zinc-50"
                     : "bg-zinc-300 text-zinc-700 hover:bg-zinc-50 hover:text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-600 dark:hover:text-zinc-300",
-                  "group relative block w-full min-w-0 flex-1 overflow-hidden py-4 px-4 text-center text-sm font-medium"
+                  "group relative block w-full min-w-0 flex-1 overflow-hidden px-4 py-4 text-center text-sm font-medium"
                 )}
               >
                 Favorites
@@ -112,7 +112,7 @@ const SessionRecipes = () => {
                   selected
                     ? "bg-zinc-100 text-zinc-900 dark:bg-zinc-700 dark:text-zinc-50"
                     : "bg-zinc-300 text-zinc-700 hover:bg-zinc-50 hover:text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-600 dark:hover:text-zinc-300",
-                  "group relative block w-full min-w-0 flex-1 overflow-hidden rounded-r-lg  py-4 px-4 text-center text-sm font-medium"
+                  "group relative block w-full min-w-0 flex-1 overflow-hidden rounded-r-lg  px-4 py-4 text-center text-sm font-medium"
                 )}
               >
                 All Recipes

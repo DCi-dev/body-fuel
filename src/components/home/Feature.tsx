@@ -45,7 +45,7 @@ export default function Feature() {
               Fuel your body, fuel your mind.
             </h2>
           </div>
-          <div className="mt-12 -mb-10 sm:-mb-24 lg:-mb-80">
+          <div className="-mb-10 mt-12 sm:-mb-24 lg:-mb-80">
             <Image
               className="rounded-lg shadow-xl ring-1 ring-zinc-800 ring-opacity-5 dark:ring-zinc-600"
               src={

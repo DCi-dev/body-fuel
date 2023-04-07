@@ -6,7 +6,7 @@ export default function Instructions({
   instructions: Instruction[];
 }) {
   return (
-    <div className="bg-zinc-100 py-12 px-4 dark:bg-zinc-900">
+    <div className="bg-zinc-100 px-4 py-12 dark:bg-zinc-900">
       <div className="flow-root lg:mx-auto lg:max-w-7xl">
         <div className="mb-12 sm:flex-auto">
           <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-4xl">
@@ -22,7 +22,7 @@ export default function Instructions({
               <div className="relative pb-8">
                 {index !== instructions.length - 1 ? (
                   <span
-                    className="absolute top-4 left-4 -ml-px h-full w-0.5 bg-zinc-200 dark:bg-zinc-800"
+                    className="absolute left-4 top-4 -ml-px h-full w-0.5 bg-zinc-200 dark:bg-zinc-800"
                     aria-hidden="true"
                   />
                 ) : null}
@@ -36,7 +36,7 @@ export default function Instructions({
                       {index + 1}
                     </span>
                   </div>
-                  <div className="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5 pl-1">
+                  <div className="flex min-w-0 flex-1 justify-between space-x-4 pl-1 pt-1.5">
                     <div>
                       <p className="text-lg text-zinc-700 dark:text-zinc-300">
                         {instruction.text}

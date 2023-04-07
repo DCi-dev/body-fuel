@@ -3,7 +3,7 @@ import { signIn } from "next-auth/react";
 export default function CTA() {
   return (
     <div className="bg-yellow-500">
-      <div className="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:flex lg:items-center lg:justify-between lg:py-24 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:flex lg:items-center lg:justify-between lg:px-8 lg:py-24">
         <h2 className="text-3xl font-bold tracking-tight text-zinc-900 md:text-4xl">
           <span className="block">Ready to dive in?</span>
           <span className="block text-zinc-100">

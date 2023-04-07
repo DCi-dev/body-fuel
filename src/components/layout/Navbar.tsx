@@ -231,7 +231,7 @@ export default function Navbar({
           </div>
 
           <Disclosure.Panel className="border-t border-zinc-300 dark:border-zinc-700 sm:hidden">
-            <div className="space-y-1 px-2 pt-2 pb-3">
+            <div className="space-y-1 px-2 pb-3 pt-2">
               {navigationRoutes.map((link, index) => (
                 <MobileItem
                   key={index}
@@ -241,7 +241,7 @@ export default function Navbar({
                 />
               ))}
             </div>
-            <div className="border-t border-zinc-300 pt-4 pb-3 dark:border-zinc-700">
+            <div className="border-t border-zinc-300 pb-3 pt-4 dark:border-zinc-700">
               <div className="flex items-center px-5">
                 {sessionData && (
                   <>
@@ -356,7 +356,7 @@ function NavItem({
         isActive
           ? " bg-zinc-300 text-black dark:bg-zinc-900  dark:text-white"
           : "text-zinc-700 hover:bg-zinc-100 hover:text-black dark:text-zinc-300 dark:hover:bg-zinc-700 dark:hover:text-white"
-      } rounded-md py-2 px-3  text-sm  font-medium`}
+      } rounded-md px-3 py-2  text-sm  font-medium`}
     >
       <span className="capitalize">{text}</span>
     </Link>
@@ -382,7 +382,7 @@ function MobileItem({
         isActive
           ? " bg-zinc-300 text-black dark:bg-zinc-900  dark:text-white"
           : "text-zinc-700 hover:bg-zinc-100 hover:text-black dark:text-zinc-300 dark:hover:bg-zinc-700 dark:hover:text-white"
-      } block rounded-md py-2 px-3  text-base  font-medium`}
+      } block rounded-md px-3 py-2  text-base  font-medium`}
     >
       <span className="capitalize">{text}</span>
     </Disclosure.Button>

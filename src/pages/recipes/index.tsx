@@ -78,7 +78,7 @@ const RecipesPage: NextPage = () => {
               <button
                 onClick={handleFetchPreviousPage}
                 disabled={page === 0}
-                className="inline-flex items-center border-t-2 border-transparent pt-4 pr-1 text-sm font-medium text-zinc-500 hover:border-zinc-300 hover:text-zinc-700"
+                className="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-zinc-500 hover:border-zinc-300 hover:text-zinc-700"
               >
                 <ArrowLongLeftIcon
                   className="mr-3 h-5 w-5 text-zinc-400"
@@ -92,7 +92,7 @@ const RecipesPage: NextPage = () => {
                 // eslint-disable-next-line @typescript-eslint/no-misused-promises
                 onClick={handleFetchNextPage}
                 disabled={data?.pages.length === page + 1}
-                className="inline-flex items-center border-t-2 border-transparent pt-4 pl-1 text-sm font-medium text-zinc-500 hover:border-zinc-300 hover:text-zinc-700"
+                className="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-zinc-500 hover:border-zinc-300 hover:text-zinc-700"
               >
                 Next
                 <ArrowLongRightIcon

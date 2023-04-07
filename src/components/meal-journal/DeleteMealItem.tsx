@@ -77,7 +77,7 @@ export default function DeleteMealItem({
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-zinc-100 px-4 pt-5 pb-4 text-left shadow-xl transition-all dark:bg-zinc-900 sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-zinc-100 px-4 pb-4 pt-5 text-left shadow-xl transition-all dark:bg-zinc-900 sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                   <div>
                     <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
                       <ExclamationTriangleIcon
@@ -92,7 +92,7 @@ export default function DeleteMealItem({
                       >
                         Remove "{recipeName}" from Your Meal Journal
                       </Dialog.Title>
-                      <div className="mt-2 mb-8">
+                      <div className="mb-8 mt-2">
                         <p className=" text-zinc-700 dark:text-zinc-300">
                           Are you sure you want to remove this meal from your
                           journal? This action cannot be undone.
@@ -101,7 +101,7 @@ export default function DeleteMealItem({
                     </div>
                   </div>
 
-                  <div className="mt-5 mb-3 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                  <div className="mb-3 mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                     <button
                       type="button"
                       className="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-zinc-100 shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:col-start-2 sm:text-sm"

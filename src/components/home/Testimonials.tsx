@@ -5,7 +5,7 @@ export default function Testimonials() {
   return (
     <section className="bg-yellow-500">
       <div className="mx-auto max-w-7xl md:grid md:grid-cols-2 md:px-6 lg:px-8">
-        <div className="py-12 px-4 sm:px-6 md:flex md:flex-col md:border-r md:border-yellow-800 md:py-16 md:pl-0 md:pr-10 lg:pr-16">
+        <div className="px-4 py-12 sm:px-6 md:flex md:flex-col md:border-r md:border-yellow-800 md:py-16 md:pl-0 md:pr-10 lg:pr-16">
           <div className="md:flex-shrink-0">
             {/* Logo Women's Health */}
             <svg
@@ -25,7 +25,7 @@ export default function Testimonials() {
           <blockquote className="mt-6 md:flex md:flex-grow md:flex-col">
             <div className="relative text-lg font-medium text-white md:flex-grow">
               <svg
-                className="absolute top-0 left-0 h-8 w-8 -translate-x-3 -translate-y-2 transform text-yellow-600"
+                className="absolute left-0 top-0 h-8 w-8 -translate-x-3 -translate-y-2 transform text-yellow-600"
                 fill="currentColor"
                 viewBox="0 0 32 32"
                 aria-hidden="true"
@@ -64,7 +64,7 @@ export default function Testimonials() {
             </footer>
           </blockquote>
         </div>
-        <div className="border-t-2 border-yellow-800 py-12 px-4 sm:px-6 md:border-t-0 md:border-l md:py-16 md:pr-0 md:pl-10 lg:pl-16">
+        <div className="border-t-2 border-yellow-800 px-4 py-12 sm:px-6 md:border-l md:border-t-0 md:py-16 md:pl-10 md:pr-0 lg:pl-16">
           <div className="md:flex-shrink-0">
             {/* GQ Logo */}
             <svg
@@ -98,7 +98,7 @@ export default function Testimonials() {
           <blockquote className="mt-6 md:flex md:flex-grow md:flex-col">
             <div className="relative text-lg font-medium text-white md:flex-grow">
               <svg
-                className="absolute top-0 left-0 h-8 w-8 -translate-x-3 -translate-y-2 transform text-yellow-600"
+                className="absolute left-0 top-0 h-8 w-8 -translate-x-3 -translate-y-2 transform text-yellow-600"
                 fill="currentColor"
                 viewBox="0 0 32 32"
               >

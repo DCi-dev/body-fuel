@@ -18,7 +18,7 @@ const Reviews = ({ reviews }: { reviews: Review[] }) => {
             <div className="relative pb-8">
               {index !== reviews.length - 1 ? (
                 <span
-                  className="absolute top-5 left-5 -ml-px h-full w-0.5 "
+                  className="absolute left-5 top-5 -ml-px h-full w-0.5 "
                   aria-hidden="true"
                 />
               ) : null}

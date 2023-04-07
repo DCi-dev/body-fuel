@@ -45,7 +45,7 @@ export default function HomeHero() {
             <div className="hidden sm:block lg:mt-0">
               <div className="absolute inset-y-0 left-1/2 w-screen rounded-l-3xl bg-zinc-300 dark:bg-zinc-700 lg:left-80 lg:right-0 lg:w-full" />
               <svg
-                className="absolute top-8 right-1/2 -mr-3 lg:left-0 lg:m-0"
+                className="absolute right-1/2 top-8 -mr-3 lg:left-0 lg:m-0"
                 width={404}
                 height={392}
                 fill="none"

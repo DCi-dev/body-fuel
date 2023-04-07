@@ -120,7 +120,7 @@ export default function DailyStats({ mealJournal, date }: Props) {
       <h3 className="text-xl font-medium leading-6 text-zinc-900 dark:text-zinc-100">
         Meal Journal - {date.toDateString()}
       </h3>
-      <dl className="mt-5 grid grid-cols-1 divide-y divide-zinc-200 overflow-hidden rounded-lg bg-zinc-50 shadow dark:divide-zinc-700 dark:bg-zinc-800 sm:grid-cols-2 md:grid-cols-4 md:divide-y-0 md:divide-x">
+      <dl className="mt-5 grid grid-cols-1 divide-y divide-zinc-200 overflow-hidden rounded-lg bg-zinc-50 shadow dark:divide-zinc-700 dark:bg-zinc-800 sm:grid-cols-2 md:grid-cols-4 md:divide-x md:divide-y-0">
         {macroStats.map((item) => (
           <div key={item.name} className="px-4 py-5 sm:p-6">
             <dt className="text-base font-normal text-zinc-900 dark:text-zinc-100">

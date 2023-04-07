@@ -8,7 +8,7 @@ export default function FeaturedRecipes() {
   const recipesFilter = data?.pages[0]?.recipesWithDetails;
 
   return (
-    <div className="relative bg-zinc-200 px-4 pt-16 pb-20 dark:bg-zinc-800 sm:px-6 lg:px-8 lg:pt-24 lg:pb-28">
+    <div className="relative bg-zinc-200 px-4 pb-20 pt-16 dark:bg-zinc-800 sm:px-6 lg:px-8 lg:pb-28 lg:pt-24">
       <div className="absolute inset-0">
         <div className="h-1/3 bg-zinc-100 dark:bg-zinc-900 sm:h-2/3" />
       </div>

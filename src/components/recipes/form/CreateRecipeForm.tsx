@@ -287,7 +287,7 @@ export default function CreateRecipeForm() {
                 Recipe Image
               </label>
               <div
-                className="mt-1 flex justify-center rounded-md border-2 border-dashed border-zinc-300 px-6 pt-5 pb-6 dark:border-zinc-700"
+                className="mt-1 flex justify-center rounded-md border-2 border-dashed border-zinc-300 px-6 pb-6 pt-5 dark:border-zinc-700"
                 onDrop={handleDrop}
                 onDragOver={handleDragOver}
               >
@@ -301,7 +301,7 @@ export default function CreateRecipeForm() {
                         height={500}
                         className="max-h-52 w-auto"
                       />
-                      <label className="relative mt-6 cursor-pointer rounded-md bg-zinc-200 font-medium text-yellow-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-yellow-500 focus-within:ring-offset-2 hover:text-yellow-500 dark:bg-zinc-800 lg:mt-0 lg:ml-6">
+                      <label className="relative mt-6 cursor-pointer rounded-md bg-zinc-200 font-medium text-yellow-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-yellow-500 focus-within:ring-offset-2 hover:text-yellow-500 dark:bg-zinc-800 lg:ml-6 lg:mt-0">
                         <span>Change image</span>
                         <input
                           className="sr-only"
@@ -367,7 +367,7 @@ export default function CreateRecipeForm() {
           </div>
           <div className="mt-5 lg:col-span-2 lg:mt-0">
             {ingredientFields.map((field, index) => (
-              <div key={field.id} className="mt-5 mb-6 lg:col-span-2 lg:mt-0">
+              <div key={field.id} className="mb-6 mt-5 lg:col-span-2 lg:mt-0">
                 <div className="grid grid-cols-6 gap-6">
                   <div className="col-span-3 sm:col-span-2">
                     <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
@@ -528,7 +528,7 @@ export default function CreateRecipeForm() {
                 <button
                   type="button"
                   onClick={() => ingredientRemove(index)}
-                  className="mt-6 rounded-md border border-zinc-300 bg-white py-2 px-4 text-sm font-medium text-zinc-700 shadow-sm hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
+                  className="mt-6 rounded-md border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-700 shadow-sm hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
                 >
                   Remove
                 </button>
@@ -547,7 +547,7 @@ export default function CreateRecipeForm() {
                     fat: 0,
                   });
                 }}
-                className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-yellow-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
+                className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-yellow-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
               >
                 Add ingredient
               </button>
@@ -587,7 +587,7 @@ export default function CreateRecipeForm() {
                 <button
                   type="button"
                   onClick={() => instructionsRemove(index)}
-                  className="mt-6 rounded-md border border-zinc-300 bg-white py-2 px-4 text-sm font-medium text-zinc-700 shadow-sm hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
+                  className="mt-6 rounded-md border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-700 shadow-sm hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
                 >
                   Remove
                 </button>
@@ -601,7 +601,7 @@ export default function CreateRecipeForm() {
                     text: "",
                   });
                 }}
-                className="ml-3 mt-1 inline-flex justify-center rounded-md border border-transparent bg-yellow-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
+                className="ml-3 mt-1 inline-flex justify-center rounded-md border border-transparent bg-yellow-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
               >
                 Add instruction
               </button>
@@ -634,13 +634,13 @@ export default function CreateRecipeForm() {
       <div className="flex justify-end pb-6">
         <button
           type="button"
-          className="rounded-md border border-zinc-300 bg-white py-2 px-4 text-sm font-medium text-zinc-700 shadow-sm hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
+          className="rounded-md border border-zinc-300 bg-white px-4 py-2 text-sm font-medium text-zinc-700 shadow-sm hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
         >
           Cancel
         </button>
         <input
           type="submit"
-          className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-yellow-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
+          className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-yellow-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
         />
       </div>
     </form>

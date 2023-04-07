@@ -25,7 +25,7 @@ const Dashboard: NextPage = () => {
         <meta name="description" content="Healthy Lifestyle" />
       </Head>
       <main className="min-h-screen bg-zinc-100 dark:bg-zinc-900">
-        <div className="flex items-center justify-between border-b-2 border-zinc-200 py-6 px-6 dark:border-zinc-800 md:px-16 lg:px-32">
+        <div className="flex items-center justify-between border-b-2 border-zinc-200 px-6 py-6 dark:border-zinc-800 md:px-16 lg:px-32">
           <h1 className="text-2xl text-zinc-900 dark:text-zinc-100 lg:text-4xl">
             Dashboard
           </h1>

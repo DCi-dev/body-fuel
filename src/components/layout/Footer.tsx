@@ -66,7 +66,7 @@ const navigation = {
 export default function Footer() {
   return (
     <footer className="bg-zinc-200 dark:bg-zinc-800">
-      <div className="mx-auto max-w-7xl overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
         <nav
           className="-mx-5 -my-2 flex flex-wrap justify-center"
           aria-label="Footer"

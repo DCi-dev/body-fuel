@@ -53,7 +53,7 @@ export default function UserMenu({ userName, userImage }: UserMenuProps) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="dark:ring-zing-100 absolute right-1 bottom-14 z-10 mt-2 w-56 origin-bottom-right rounded-md bg-zinc-100 shadow-lg ring-1 ring-zinc-900 ring-opacity-5 focus:outline-none dark:bg-zinc-900">
+        <Menu.Items className="dark:ring-zing-100 absolute bottom-14 right-1 z-10 mt-2 w-56 origin-bottom-right rounded-md bg-zinc-100 shadow-lg ring-1 ring-zinc-900 ring-opacity-5 focus:outline-none dark:bg-zinc-900">
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (
