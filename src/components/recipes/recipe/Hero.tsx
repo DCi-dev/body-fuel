@@ -1,13 +1,11 @@
-import { api } from "@/utils/api";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
-  HeartIcon,
   StarIcon,
 } from "@heroicons/react/24/outline";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import FavoriteRecipe from "./FavoriteRecipe";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -53,50 +51,7 @@ export default function RecipePageHero({
   averageStars,
 }: Props) {
   const { data: sessionData } = useSession();
-
-  const favoriteRecipe = api.recipe.getUserFavoriteRecipe.useQuery(id);
-  const addToFavorites = api.user.addRecipeToFavorites.useMutation();
-  const removeFromFavorites = api.user.removeRecipeFromFavorites.useMutation();
-
-  const [isFavoriteRecipe, setIsFavoriteRecipe] = useState<boolean>(false);
-
-  const favoriteClass = `h-8 w-8 fill-current ${
-    isFavoriteRecipe ? "text-yellow-500" : "text-zinc-500"
-  }`;
-
-  const invalidateFavorites = async () => {
-    await favoriteRecipe.refetch();
-  };
-
-  useEffect(() => {
-    void invalidateFavorites();
-
-    if (favoriteRecipe.data) {
-      setIsFavoriteRecipe(true);
-    } else {
-      setIsFavoriteRecipe(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [favoriteRecipe.data]);
-
-  const handleAddToFavorites = async () => {
-    await addToFavorites.mutateAsync(id);
-    setIsFavoriteRecipe(true);
-  };
-
-  const handleRemoveFromFavorites = async () => {
-    await removeFromFavorites.mutateAsync(id);
-    setIsFavoriteRecipe(false);
-  };
-
-  const handleClick = async () => {
-    if (isFavoriteRecipe) {
-      await handleRemoveFromFavorites();
-    } else {
-      await handleAddToFavorites();
-    }
-  };
-
+ 
   return (
     <div className="relative bg-zinc-100 pb-16 pt-2 dark:bg-zinc-900 sm:pb-24">
       <div className="lg:mx-auto lg:grid lg:max-w-7xl lg:grid-cols-2 lg:items-start lg:gap-24 lg:px-8">
@@ -187,18 +142,7 @@ export default function RecipePageHero({
                 </p>
               </div>
               {sessionData?.user ? (
-                <button
-                  className="col-span-1 flex flex-row items-center justify-start gap-2 rounded-full p-2"
-                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                  onClick={() => handleClick()}
-                >
-                  <HeartIcon className={favoriteClass} />{" "}
-                  <span>
-                    {!isFavoriteRecipe
-                      ? "Add to favorites"
-                      : "Remove from favorites"}
-                  </span>
-                </button>
+                <FavoriteRecipe id={id} />
               ) : null}
             </div>
             <div className="mt-6 space-y-6 text-zinc-700 dark:text-zinc-300">
