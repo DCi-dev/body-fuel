@@ -44,13 +44,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
       <Head>
         <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Script
         async
         defer
         data-website-id="5769784c-0d00-42be-ac4c-9a622632084c"
         src="https://umami.cdi.dev/cdi-uuumamy.js"
       />
-      </Head>
       {/* No session */}
       {!sessionData ? (
         <div className="flex min-h-screen flex-col justify-start bg-zinc-100 dark:bg-zinc-900">
@@ -115,7 +115,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       leaveFrom="opacity-100"
                       leaveTo="opacity-0"
                     >
-                      <div className="absolute top-0 right-0 -mr-12 pt-2">
+                      <div className="absolute right-0 top-0 -mr-12 pt-2">
                         <button
                           type="button"
                           className="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-zinc-100 dark:focus:bg-zinc-900"
@@ -129,7 +129,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                         </button>
                       </div>
                     </Transition.Child>
-                    <div className="h-0 flex-1 overflow-y-auto pt-5 pb-4">
+                    <div className="h-0 flex-1 overflow-y-auto pb-4 pt-5">
                       <div className="flex flex-shrink-0 items-center justify-between px-4">
                         <Image
                           className="h-8 w-auto"
@@ -199,7 +199,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           {/* Static sidebar for desktop */}
           <div className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
             <div className="flex min-h-0 flex-1 flex-col bg-zinc-200 dark:bg-zinc-800">
-              <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
+              <div className="flex flex-1 flex-col overflow-y-auto pb-4 pt-5">
                 <div className="flex flex-shrink-0 items-center justify-between px-4">
                   <Image
                     className="h-8 w-auto"

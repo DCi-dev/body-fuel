@@ -98,7 +98,7 @@ export default function RecipePageHero({
   };
 
   return (
-    <div className="relative bg-zinc-100 pt-2 pb-16 dark:bg-zinc-900 sm:pb-24">
+    <div className="relative bg-zinc-100 pb-16 pt-2 dark:bg-zinc-900 sm:pb-24">
       <div className="lg:mx-auto lg:grid lg:max-w-7xl lg:grid-cols-2 lg:items-start lg:gap-24 lg:px-8">
         <div className="relative sm:py-16 lg:py-0">
           <div
@@ -107,7 +107,7 @@ export default function RecipePageHero({
           >
             <div className="absolute inset-y-0 right-1/2 w-full rounded-r-3xl bg-zinc-50 dark:bg-zinc-800 lg:right-72" />
             <svg
-              className="absolute top-8 left-1/2 -ml-3 lg:-right-8 lg:left-auto lg:top-12"
+              className="absolute left-1/2 top-8 -ml-3 lg:-right-8 lg:left-auto lg:top-12"
               width={404}
               height={392}
               fill="none"
@@ -141,7 +141,7 @@ export default function RecipePageHero({
           </div>
           <div className="relative mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-none lg:px-0 lg:py-20">
             {/* Recipe Image*/}
-            <div className="relative overflow-hidden rounded-2xl pt-64 pb-10 shadow-xl">
+            <div className="relative overflow-hidden rounded-2xl pb-10 pt-64 shadow-xl">
               <Image
                 className="absolute inset-0 h-full w-full object-cover"
                 src={imageSrc}
@@ -303,7 +303,7 @@ export default function RecipePageHero({
                     {calories ? calories : "*"}
                   </dd>
                 </div>
-                <div className="flex flex-col border-t border-b border-zinc-200 p-6 text-center dark:border-zinc-700 sm:border-0 sm:border-l sm:border-r">
+                <div className="flex flex-col border-b border-t border-zinc-200 p-6 text-center dark:border-zinc-700 sm:border-0 sm:border-l sm:border-r">
                   <dt className="order-2 mt-2 text-lg font-medium leading-6 text-zinc-700 dark:text-zinc-300">
                     Protein
                   </dt>

@@ -39,7 +39,7 @@ interface Recipe {
   instructions: Instruction[];
 }
 
-const Recipe = ({ slug }: Props) => {
+const RecipePage = ({ slug }: Props) => {
   const { data: sessionData } = useSession();
 
   const { data, isLoading, refetch } = api.recipe.getRecipe.useQuery(slug);
@@ -156,4 +156,4 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     },
   });
 };
-export default Recipe;
+export default RecipePage;
