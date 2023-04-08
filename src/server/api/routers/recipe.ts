@@ -401,10 +401,14 @@ export const recipeRouter = createTRPCRouter({
       return { recipesWithDetails, nextCursor };
     }),
 
-  getRecipe: publicProcedure.input(z.string()).query(async ({ input, ctx }) => {
+  getRecipe: publicProcedure.input(z.object(
+    {
+      slug: z.string(),
+    }
+  )).query(async ({ input, ctx }) => {
     const recipe = await ctx.prisma.recipe.findUnique({
       where: {
-        slug: input,
+        slug: input.slug,
       },
     });
 
