@@ -51,7 +51,7 @@ export default function RecipePageHero({
   averageStars,
 }: Props) {
   const { data: sessionData } = useSession();
- 
+
   return (
     <div className="relative bg-zinc-100 pb-16 pt-2 dark:bg-zinc-900 sm:pb-24">
       <div className="lg:mx-auto lg:grid lg:max-w-7xl lg:grid-cols-2 lg:items-start lg:gap-24 lg:px-8">
@@ -141,9 +141,7 @@ export default function RecipePageHero({
                     : "Be the first one to leave a review"}
                 </p>
               </div>
-              {sessionData?.user ? (
-                <FavoriteRecipe id={id} />
-              ) : null}
+              {sessionData?.user ? <FavoriteRecipe id={id} /> : null}
             </div>
             <div className="mt-6 space-y-6 text-zinc-700 dark:text-zinc-300">
               <p className="text-lg">{description}</p>

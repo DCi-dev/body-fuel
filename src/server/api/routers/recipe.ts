@@ -401,65 +401,71 @@ export const recipeRouter = createTRPCRouter({
       return { recipesWithDetails, nextCursor };
     }),
 
-  getRecipe: publicProcedure.input(z.string()).query(async ({ input, ctx }) => {
-    const recipe = await ctx.prisma.recipe.findUnique({
-      where: {
-        slug: input,
-      },
-    });
-
-    if (!recipe) {
-      throw new Error("Recipe not found");
-    }
-
-    //  get the recipe with details from the database
-    const ingredients = await ctx.prisma.ingredient.findMany({
-      where: {
-        recipeId: recipe.id,
-      },
-    });
-
-    const instructions = await ctx.prisma.instructions.findMany({
-      where: {
-        recipeId: recipe.id,
-      },
-    });
-
-    const user = await ctx.prisma.user.findUnique({
-      where: {
-        id: recipe.userId,
-      },
-    });
-
-    const reviews = await ctx.prisma.review.findMany({
-      where: {
-        recipeId: recipe.id,
-      },
-    });
-
-    const reviewWithUserDetails = await Promise.all(
-      reviews.map(async (review) => {
-        const reviewUser = await ctx.prisma.user.findUnique({
-          where: {
-            id: review.userId,
-          },
-        });
-
-        return {
-          ...review,
-          user: reviewUser,
-        };
+  getRecipe: publicProcedure
+    .input(
+      z.object({
+        slug: z.string(),
       })
-    );
+    )
+    .query(async ({ input, ctx }) => {
+      const recipe = await ctx.prisma.recipe.findUnique({
+        where: {
+          slug: input.slug,
+        },
+      });
 
-    return {
-      ...recipe,
-      ingredients,
-      user,
-      instructions,
-      reviewWithUserDetails,
-    };
-  }),
+      if (!recipe) {
+        throw new Error("Recipe not found");
+      }
+
+      //  get the recipe with details from the database
+      const ingredients = await ctx.prisma.ingredient.findMany({
+        where: {
+          recipeId: recipe.id,
+        },
+      });
+
+      const instructions = await ctx.prisma.instructions.findMany({
+        where: {
+          recipeId: recipe.id,
+        },
+      });
+
+      const user = await ctx.prisma.user.findUnique({
+        where: {
+          id: recipe.userId,
+        },
+      });
+
+      const reviews = await ctx.prisma.review.findMany({
+        where: {
+          recipeId: recipe.id,
+        },
+      });
+
+      const reviewWithUserDetails = await Promise.all(
+        reviews.map(async (review) => {
+          const reviewUser = await ctx.prisma.user.findUnique({
+            where: {
+              id: review.userId,
+            },
+          });
+
+          return {
+            ...review,
+            user: reviewUser,
+          };
+        })
+      );
+
+      return {
+        ...recipe,
+        ingredients,
+        user,
+        instructions,
+        reviewWithUserDetails,
+      };
+    }),
 
   getUserFavoriteRecipesIds: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx.session?.user?.id;
