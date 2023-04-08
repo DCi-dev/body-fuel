@@ -1,19 +1,13 @@
 import { api } from "@/utils/api";
-import {
-  HeartIcon,
-} from "@heroicons/react/24/outline";
+import { HeartIcon } from "@heroicons/react/24/outline";
 
 import { useEffect, useState } from "react";
-
-
 
 interface Props {
   id: string;
 }
 
-export default function FavoriteRecipe({
-  id,
-}: Props) {
+export default function FavoriteRecipe({ id }: Props) {
   const favoriteRecipe = api.recipe.getUserFavoriteRecipe.useQuery(id);
   const addToFavorites = api.user.addRecipeToFavorites.useMutation();
   const removeFromFavorites = api.user.removeRecipeFromFavorites.useMutation();
@@ -58,19 +52,15 @@ export default function FavoriteRecipe({
   };
 
   return (
-
-                <button
-                  className="col-span-1 flex flex-row items-center justify-start gap-2 rounded-full p-2"
-                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                  onClick={() => handleClick()}
-                >
-                  <HeartIcon className={favoriteClass} />{" "}
-                  <span>
-                    {!isFavoriteRecipe
-                      ? "Add to favorites"
-                      : "Remove from favorites"}
-                  </span>
-                </button>
-           
+    <button
+      className="col-span-1 flex flex-row items-center justify-start gap-2 rounded-full p-2"
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      onClick={() => handleClick()}
+    >
+      <HeartIcon className={favoriteClass} />{" "}
+      <span>
+        {!isFavoriteRecipe ? "Add to favorites" : "Remove from favorites"}
+      </span>
+    </button>
   );
 }
