@@ -35,7 +35,7 @@ const RecipesPage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Body Fuel = Recipes</title>
+        <title>Body Fuel - Recipes</title>
         <meta name="description" content="Healthy Lifestyle" />
       </Head>
       <main className=" bg-zinc-200 dark:bg-zinc-800">

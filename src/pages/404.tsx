@@ -1,8 +1,13 @@
+import Head from "next/head";
 import Link from "next/link";
 
 export default function FourOhFour() {
   return (
     <>
+      <Head>
+        <title>Body Fuel - 404</title>
+        <meta name="description" content="Healthy Lifestyle" />
+      </Head>
       <div className="min-h-full bg-zinc-100 px-4 py-32 dark:bg-zinc-900 sm:px-6 sm:py-40 md:grid md:place-items-center lg:px-8">
         <div className="mx-auto max-w-max">
           <main className="sm:flex">

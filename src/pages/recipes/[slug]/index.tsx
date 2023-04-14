@@ -71,7 +71,7 @@ const RecipePage: NextPage<PageProps> = ({ slug }) => {
   return (
     <>
       <Head>
-        <title>Body Fuel = Recipes</title>
+        <title>Body Fuel - {recipe.name}</title>
         <meta name="description" content="Healthy Lifestyle" />
       </Head>
       <main className="max-w-screen overflow-hidden bg-zinc-100 dark:bg-zinc-900 md:px-4">

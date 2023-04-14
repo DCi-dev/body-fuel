@@ -7,7 +7,7 @@ const CreateRecipe: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Body Fuel = Dashboard</title>
+        <title>Body Fuel - Create recipe</title>
         <meta name="description" content="Healthy Lifestyle" />
       </Head>
       <main className="min-h-screen bg-zinc-100 py-4 dark:bg-zinc-900">
