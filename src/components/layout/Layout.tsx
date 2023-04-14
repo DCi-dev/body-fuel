@@ -1,5 +1,5 @@
 import { sessionRoutes } from "@/utils/sessionRoutes";
-import { Lato } from "@next/font/google";
+import { Lato } from "next/font/google";
 import { useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
 import Head from "next/head";
