@@ -130,10 +130,7 @@ export default function CreateRecipeForm() {
   };
 
   return (
-    <form
-      className="space-y-6 px-3"
-      onSubmit={() => handleSubmit(onSubmit)}
-    >
+    <form className="space-y-6 px-3" onSubmit={() => handleSubmit(onSubmit)}>
       <div className="bg-zinc-200 px-4 py-5 shadow dark:bg-zinc-800 sm:rounded-lg sm:p-6">
         <div className="lg:grid lg:grid-cols-3 lg:gap-6">
           <div className="lg:col-span-1">
