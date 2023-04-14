@@ -1,23 +1,13 @@
 import { getServerAuthSession } from "@/server/auth";
 import type { GetServerSideProps } from "next";
-import { getCsrfToken, getProviders, signIn } from "next-auth/react";
+import { getCsrfToken, signIn } from "next-auth/react";
 import Image from "next/image";
 
 type Props = {
   csrfToken: string;
-  providers: Record<
-    string,
-    {
-      id: string;
-      name: string;
-      type: string;
-      signinUrl: string;
-      callbackUrl: string;
-    }
-  >;
 };
 
-const Signin = ({ csrfToken, providers }: Props) => {
+const Signin = ({ csrfToken }: Props) => {
   return (
     <>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -44,19 +34,14 @@ const Signin = ({ csrfToken, providers }: Props) => {
             >
               <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-zinc-700 dark:text-zinc-300"
-                >
+                <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
                   Email address
                 </label>
                 <div className="mt-1">
                   <input
+                    type="email"
                     id="email"
                     name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
                     className="block w-full appearance-none rounded-md border border-zinc-300 px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-yellow-500 focus:outline-none focus:ring-yellow-500 dark:border-zinc-700 dark:placeholder-zinc-600 dark:focus:border-yellow-500 dark:focus:ring-yellow-500 sm:text-sm"
                   />
                 </div>
@@ -87,7 +72,7 @@ const Signin = ({ csrfToken, providers }: Props) => {
               <div className="mt-6 grid grid-cols-3 gap-3">
                 <div>
                   <button
-                    onClick={() => void signIn(providers.google?.id)}
+                    onClick={() => void signIn("google")}
                     className="inline-flex w-full justify-center rounded-md border border-zinc-300 bg-zinc-100 px-4 py-2 text-sm font-medium text-zinc-700 shadow-sm hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-600"
                   >
                     <span className="sr-only">Sign in with Google</span>
@@ -106,7 +91,7 @@ const Signin = ({ csrfToken, providers }: Props) => {
 
                 <div>
                   <button
-                    onClick={() => void signIn(providers.discord?.id)}
+                    onClick={() => void signIn("discord")}
                     className="inline-flex w-full justify-center rounded-md border border-zinc-300 bg-zinc-100 px-4 py-2 text-sm font-medium text-zinc-700 shadow-sm hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-600"
                   >
                     <span className="sr-only">Sign in with Discord</span>
@@ -125,7 +110,7 @@ const Signin = ({ csrfToken, providers }: Props) => {
 
                 <div>
                   <button
-                    onClick={() => void signIn(providers.github?.id)}
+                    onClick={() => void signIn("github")}
                     className="inline-flex w-full justify-center rounded-md border border-zinc-300 bg-zinc-100 px-4 py-2 text-sm font-medium text-zinc-700 shadow-sm hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-600"
                   >
                     <span className="sr-only">Sign in with GitHub</span>
@@ -153,7 +138,6 @@ const Signin = ({ csrfToken, providers }: Props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const providers = await getProviders();
   const csrfToken = await getCsrfToken(ctx);
 
   const session = await getServerAuthSession(ctx);
@@ -169,7 +153,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return {
     props: {
-      providers,
       csrfToken,
       session,
     },
