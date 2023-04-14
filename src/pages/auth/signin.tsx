@@ -2,8 +2,29 @@ import { getServerAuthSession } from "@/server/auth";
 import type { GetServerSideProps } from "next";
 import { getCsrfToken, signIn } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const Signin = ({ csrfToken }: { csrfToken: string }) => {
+  const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setError(router.query.error as string | null);
+  }, [router]);
+
+  useEffect(() => {
+    if (error === "OAuthAccountNotLinked") {
+      toast.error(
+        "Please sign in using the previous provider you signed up with.",
+        {
+          duration: 5000,
+        }
+      );
+    }
+  }, [error]);
+
   return (
     <>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
