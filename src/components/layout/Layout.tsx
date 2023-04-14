@@ -1,7 +1,7 @@
 import { sessionRoutes } from "@/utils/sessionRoutes";
-import { Lato } from "next/font/google";
 import { useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
+import { Lato } from "next/font/google";
 import Head from "next/head";
 import Image from "next/image";
 import Script from "next/script";
@@ -162,6 +162,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                           <Link
                             key={item.name}
                             href={item.href}
+                            onClick={() => setSidebarOpen(false)}
                             className={classNames(
                               router.asPath === item.href
                                 ? "bg-zinc-100 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100"

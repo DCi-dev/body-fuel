@@ -268,11 +268,10 @@ export default function Navbar({
                   <>
                     <Disclosure.Button
                       as="button"
+                      onClick={() => void handleSignIn()}
                       className="block rounded-md px-3 py-2 text-base font-medium text-zinc-600 hover:bg-zinc-100 hover:text-black dark:text-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white"
                     >
-                      <button onClick={() => void handleSignIn()}>
-                        Sign in
-                      </button>
+                      Sign in
                     </Disclosure.Button>
                   </>
                 )}
