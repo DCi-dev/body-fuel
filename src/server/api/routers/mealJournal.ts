@@ -1,6 +1,7 @@
 import { MealJournalSchema } from "@/types/zod-schemas";
 import { z } from "zod";
 
+import { TRPCError } from "@trpc/server";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const mealJournalRouter = createTRPCRouter({
@@ -8,15 +9,12 @@ export const mealJournalRouter = createTRPCRouter({
     .input(MealJournalSchema)
     .mutation(async ({ input, ctx }) => {
       const userId = ctx.session.user.id;
+
       const dateOnly = new Date(
         input.date.getFullYear(),
         input.date.getMonth(),
         input.date.getDate()
       );
-
-      if (!userId) {
-        throw new Error("User not logged in");
-      }
 
       const mealJournal = await ctx.prisma.mealJournal.findFirst({
         where: {
@@ -84,9 +82,6 @@ export const mealJournalRouter = createTRPCRouter({
     )
     .mutation(async ({ input, ctx }) => {
       const userId = ctx.session.user.id;
-      if (!userId) {
-        throw new Error("User not logged in");
-      }
 
       const mealJournal = await ctx.prisma.mealJournal.findFirst({
         where: {
@@ -95,7 +90,10 @@ export const mealJournalRouter = createTRPCRouter({
         },
       });
       if (!mealJournal) {
-        throw new Error("Journal not found");
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Journal not found",
+        });
       }
 
       const mealItem = await ctx.prisma.mealItem.findFirst({
@@ -106,7 +104,10 @@ export const mealJournalRouter = createTRPCRouter({
       });
 
       if (!mealItem) {
-        throw new Error("Meal item not found");
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Meal item not found",
+        });
       }
 
       return ctx.prisma.mealItem.update({
@@ -132,9 +133,7 @@ export const mealJournalRouter = createTRPCRouter({
     )
     .mutation(async ({ input, ctx }) => {
       const userId = ctx.session.user.id;
-      if (!userId) {
-        throw new Error("User not logged in");
-      }
+
       const mealJournal = await ctx.prisma.mealJournal.findFirst({
         where: {
           userId,
@@ -142,7 +141,10 @@ export const mealJournalRouter = createTRPCRouter({
         },
       });
       if (!mealJournal) {
-        throw new Error("Journal not found");
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Journal not found",
+        });
       }
       const mealItem = await ctx.prisma.mealItem.findFirst({
         where: {
@@ -151,7 +153,10 @@ export const mealJournalRouter = createTRPCRouter({
         },
       });
       if (!mealItem) {
-        throw new Error("Meal item not found");
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Meal item not found",
+        });
       }
       return ctx.prisma.mealItem.delete({
         where: {
@@ -168,9 +173,7 @@ export const mealJournalRouter = createTRPCRouter({
     )
     .mutation(async ({ input, ctx }) => {
       const userId = ctx.session.user.id;
-      if (!userId) {
-        throw new Error("User not logged in");
-      }
+
       const mealJournal = await ctx.prisma.mealJournal.findFirst({
         where: {
           userId,
@@ -178,7 +181,10 @@ export const mealJournalRouter = createTRPCRouter({
         },
       });
       if (!mealJournal) {
-        throw new Error("Journal not found");
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Journal not found",
+        });
       }
       return ctx.prisma.mealJournal.delete({
         where: {
@@ -191,9 +197,6 @@ export const mealJournalRouter = createTRPCRouter({
     .input(z.date())
     .query(async ({ input, ctx }) => {
       const userId = ctx.session.user.id;
-      if (!userId) {
-        throw new Error("User not logged in");
-      }
 
       const dateOnly = new Date(
         input.getFullYear(),

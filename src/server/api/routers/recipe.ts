@@ -1,6 +1,7 @@
 import { env } from "@/env/server.mjs";
 import { AWS } from "@/lib/aws";
 import { difficultyEnum, recipeSchema } from "@/types/zod-schemas";
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
@@ -16,10 +17,6 @@ export const recipeRouter = createTRPCRouter({
     .input(recipeSchema)
     .mutation(async ({ input, ctx }) => {
       const userId = ctx.session?.user?.id;
-
-      if (!userId) {
-        throw new Error("Not authenticated");
-      }
 
       try {
         // check if the recipe slug already exists
@@ -136,7 +133,11 @@ export const recipeRouter = createTRPCRouter({
           recipe,
         };
       } catch (error) {
-        console.log(error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Something went wrong",
+          cause: error,
+        });
       }
     }),
 
@@ -270,10 +271,6 @@ export const recipeRouter = createTRPCRouter({
     .query(async ({ input, ctx }) => {
       const userId = ctx.session?.user.id;
 
-      if (!userId) {
-        throw new Error("Not authenticated");
-      }
-
       const recipe = await ctx.prisma.recipe.findUnique({
         where: {
           id: input,
@@ -281,7 +278,10 @@ export const recipeRouter = createTRPCRouter({
       });
 
       if (!recipe) {
-        throw new Error("Recipe not found");
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Recipe not found",
+        });
       }
 
       const favorite = await ctx.prisma.favoriteRecipes.findFirst({
@@ -343,9 +343,6 @@ export const recipeRouter = createTRPCRouter({
     .query(async ({ input, ctx }) => {
       const userId = ctx.session?.user?.id;
 
-      if (!userId) {
-        throw new Error("Not authenticated");
-      }
       const limit = input.limit ?? 50;
       const { cursor } = input;
 
@@ -415,7 +412,10 @@ export const recipeRouter = createTRPCRouter({
       });
 
       if (!recipe) {
-        throw new Error("Recipe not found");
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Recipe not found",
+        });
       }
 
       //  get the recipe with details from the database
@@ -470,10 +470,6 @@ export const recipeRouter = createTRPCRouter({
   getUserFavoriteRecipesIds: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx.session?.user?.id;
 
-    if (!userId) {
-      throw new Error("Not authenticated");
-    }
-
     // get fav recipes ids
     const favRecipes = await ctx.prisma.favoriteRecipes.findMany({
       where: {
@@ -497,9 +493,6 @@ export const recipeRouter = createTRPCRouter({
     .query(async ({ input, ctx }) => {
       const userId = ctx.session?.user?.id;
 
-      if (!userId) {
-        throw new Error("User not found");
-      }
       const limit = input.limit ?? 50;
       const { cursor } = input;
 
@@ -573,9 +566,6 @@ export const recipeRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       const userId = ctx.session?.user?.id;
 
-      if (!userId) {
-        throw new Error("Not authenticated");
-      }
       // check if the recipe belongs to the user
       const recipe = await ctx.prisma.recipe.findUnique({
         where: {
@@ -584,11 +574,17 @@ export const recipeRouter = createTRPCRouter({
       });
 
       if (!recipe) {
-        throw new Error("Recipe not found");
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Recipe not found",
+        });
       }
 
       if (recipe.userId !== userId) {
-        throw new Error("You are not authorized to delete this recipe");
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "You are not allowed to delete this recipe",
+        });
       }
 
       // delete the recipe
@@ -680,10 +676,6 @@ export const recipeRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       const userId = ctx.session?.user?.id;
 
-      if (!userId) {
-        throw new Error("Not authenticated");
-      }
-
       // check if the recipe belongs to the user
       const recipe = await ctx.prisma.recipe.findUnique({
         where: {
@@ -692,7 +684,10 @@ export const recipeRouter = createTRPCRouter({
       });
 
       if (recipe?.userId !== userId) {
-        throw new Error("You are not authorized to update this recipe");
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "You are not allowed to update this recipe",
+        });
       }
 
       // update the recipe

@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { TRPCError } from "@trpc/server";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
@@ -13,7 +14,10 @@ export const userRouter = createTRPCRouter({
       });
 
       if (!user) {
-        throw new Error("User not found");
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "User not found",
+        });
       }
 
       const recipe = await ctx.prisma.recipe.findUnique({
@@ -23,7 +27,10 @@ export const userRouter = createTRPCRouter({
       });
 
       if (!recipe) {
-        throw new Error("Recipe not found");
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Recipe not found",
+        });
       }
 
       const favoriteRecipe = await ctx.prisma.favoriteRecipes.create({
@@ -53,7 +60,10 @@ export const userRouter = createTRPCRouter({
       });
 
       if (!user) {
-        throw new Error("User not found");
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "User not found",
+        });
       }
 
       const recipe = await ctx.prisma.recipe.findUnique({
@@ -63,7 +73,10 @@ export const userRouter = createTRPCRouter({
       });
 
       if (!recipe) {
-        throw new Error("Recipe not found");
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Recipe not found",
+        });
       }
 
       const favoriteRecipe = await ctx.prisma.favoriteRecipes.deleteMany({
@@ -92,7 +105,10 @@ export const userRouter = createTRPCRouter({
       });
 
       if (!user) {
-        throw new Error("User not found");
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "User not found",
+        });
       }
 
       try {
@@ -103,7 +119,10 @@ export const userRouter = createTRPCRouter({
         });
 
         if (!recipe) {
-          throw new Error("Recipe not found");
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "Recipe not found",
+          });
         }
 
         const review = await ctx.prisma.review.create({
@@ -125,9 +144,11 @@ export const userRouter = createTRPCRouter({
 
         return review;
       } catch (error) {
-        console.log(error);
-
-        throw new Error("Error creating review");
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Error creating review",
+          cause: error,
+        });
       }
     }),
 });
