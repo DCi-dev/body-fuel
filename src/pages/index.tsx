@@ -31,7 +31,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx);
 
   if (session) {
-    // If no session exists, redirect the user to the login page.
     return {
       redirect: {
         destination: "/dashboard",
