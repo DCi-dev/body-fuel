@@ -1,49 +1,9 @@
 import { getServerAuthSession } from "@/server/auth";
 import type { GetServerSideProps } from "next";
-import { signIn } from "next-auth/react";
+import { getCsrfToken, signIn } from "next-auth/react";
 import Image from "next/image";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import type { SubmitHandler, UseFormProps } from "react-hook-form";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { z } from "zod";
-
-function useZodForm<TSchema extends z.ZodType>(
-  props: Omit<UseFormProps<TSchema["_input"]>, "resolver"> & {
-    schema: TSchema;
-  }
-) {
-  const form = useForm<TSchema["_input"]>({
-    ...props,
-    resolver: zodResolver(props.schema, undefined),
-  });
-
-  return form;
-}
-
-const SignInSchema = z.object({
-  email: z.string().email(),
-});
-
-type FormValues = z.infer<typeof SignInSchema>;
-
-const Signin = () => {
-  const methods = useZodForm({
-    schema: SignInSchema,
-  });
-
-  const { handleSubmit, register } = methods;
-
-  const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    toast.loading("Loading...");
-
-    await signIn("email", { email: data.email });
-
-    toast.dismiss();
-    toast.success("Success!");
-  };
-
+const Signin = ({ csrfToken }: { csrfToken: string }) => {
   return (
     <>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -63,7 +23,12 @@ const Signin = () => {
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-zinc-50 px-4 py-8 shadow dark:bg-zinc-800 sm:rounded-lg sm:px-10">
-            <form className="space-y-6" onSubmit={() => handleSubmit(onSubmit)}>
+            <form
+              className="space-y-6"
+              method="post"
+              action="/api/auth/signin/email"
+            >
+              <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
               <div>
                 <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
                   Email address
@@ -72,7 +37,9 @@ const Signin = () => {
                   <input
                     type="email"
                     id="email"
-                    {...register("email")}
+                    name="email"
+                    autoComplete="email"
+                    required
                     className="block w-full appearance-none rounded-md border border-zinc-300 px-3 py-2 placeholder-zinc-400 shadow-sm focus:border-yellow-500 focus:outline-none focus:ring-yellow-500 dark:border-zinc-700 dark:placeholder-zinc-600 dark:focus:border-yellow-500 dark:focus:ring-yellow-500 sm:text-sm"
                   />
                 </div>
@@ -180,8 +147,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
+  const csrfToken = await getCsrfToken(ctx);
+
   return {
     props: {
+      csrfToken,
       session,
     },
   };
