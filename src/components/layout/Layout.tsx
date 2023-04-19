@@ -49,7 +49,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         async
         defer
         data-website-id="5769784c-0d00-42be-ac4c-9a622632084c"
-        src="https://umami.cdi.dev/cdi-uuumamy.js"
+        src="https://umami.cdi.dev/script.js"
       />
       {/* No session */}
       {!sessionData ? (
