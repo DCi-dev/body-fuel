@@ -40,14 +40,14 @@ const RecipesPage: NextPage = () => {
       </Head>
       <main className=" bg-zinc-200 dark:bg-zinc-800">
         <FeaturedRecipes />
-        <div className="relative mx-auto max-w-7xl">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 xl:px-0">
           <div>
-            <div className="text-left">
+            <div className="text-center lg:text-left">
               <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-4xl">
                 Explore
               </h2>
             </div>
-            <div className="mt-12 grid max-w-lg gap-5 lg:max-w-none lg:grid-cols-3">
+            <div className="mx-auto mt-12 grid max-w-lg gap-5 lg:max-w-none lg:grid-cols-3">
               {toShow?.map((recipe) => (
                 <RecipeCard
                   key={recipe.id}
