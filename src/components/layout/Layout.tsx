@@ -46,10 +46,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Script
-        async
         defer
-        data-website-id="5769784c-0d00-42be-ac4c-9a622632084c"
-        src="https://umami.cdi.dev/cdi-uuumamy.js"
+        data-domain="body-fuel.cdi.dev"
+        src="https://plausible-bt.cristd.cc/js/script.js"
       />
       {/* No session */}
       {!sessionData ? (
