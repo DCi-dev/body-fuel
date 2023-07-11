@@ -92,3 +92,58 @@ export const mockReview: Review = {
   recipeId: "test-recipe-id",
   userId: "test-user-id",
 };
+
+// Mock limitedRecipes
+export const mockLimitedRecipes = {
+  nextCursor: undefined,
+  recipesWithDetails: [
+    {
+      calories: 300,
+      carbohydrates: 30,
+      category: "Breakfast",
+      cookTime: "30 min",
+      description: "test-recipe-description",
+      difficulty: "Easy",
+      fat: 30,
+      id: "test-recipe-id",
+      image: "test-recipe-imageUrl",
+      ingredients: undefined,
+      instructions: undefined,
+      name: "test-recipe-name",
+      prepTime: "30 min",
+      protein: 30,
+      servings: 10,
+      shared: true,
+      slug: "test-recipe-slug",
+      user: null,
+      userId: "test-user-id",
+    },
+  ],
+};
+
+export const mockLimitedFavoritedRecipes = {
+  nextCursor: undefined,
+  recipesWithDetails: [
+    {
+      calories: 300,
+      carbohydrates: 30,
+      category: "Breakfast",
+      cookTime: "30 min",
+      description: "test-recipe-description",
+      difficulty: "Easy",
+      fat: 30,
+      id: "test-recipe-id",
+      image: "test-recipe-imageUrl",
+      ingredients: undefined,
+      instructions: undefined,
+      name: "test-recipe-name",
+      prepTime: "30 min",
+      protein: 30,
+      servings: 10,
+      shared: true,
+      slug: "test-recipe-slug",
+      user: undefined,
+      userId: "test-user-id",
+    },
+  ],
+};
