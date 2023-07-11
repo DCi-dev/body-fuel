@@ -1,7 +1,9 @@
+import type { MealJournalSchema } from "@/types/zod-schemas";
 import type {
   FavoriteRecipes,
   Ingredient,
   Instructions,
+  MealItem,
   PrismaClient,
   Recipe,
   Review,
@@ -10,6 +12,7 @@ import type {
 import { appRouter } from "@server/api/root";
 import { createInnerTRPCContext } from "@server/api/trpc";
 import { mockDeep } from "jest-mock-extended";
+import type { z } from "zod";
 
 // Mocking Prisma client
 export const prisma = mockDeep<PrismaClient>();
@@ -252,4 +255,43 @@ export const mockGetRecipeResult = {
     name: "test-user-name",
   },
   userId: "test-user-id",
+};
+
+/**
+ * Meal Journal
+ */
+
+// Mock Meal Journal Input
+export const mockMealJournalInput: z.infer<typeof MealJournalSchema> = {
+  date: new Date(),
+  mealItems: [
+    {
+      recipeId: "test-recipe-id",
+      servings: 10,
+      calories: 300,
+      protein: 30,
+      carbs: 30,
+      fat: 30,
+    },
+  ],
+};
+
+// Mock Meal Item
+export const mockMealItem: MealItem = {
+  id: "test-meal-item-id",
+  mealJournalId: "test-meal-journal-id",
+  recipeId: "test-recipe-id",
+  servings: 10,
+  calories: 300,
+  protein: 30,
+  carbs: 30,
+  fat: 30,
+};
+
+// Mock Meal Journal output
+export const mockMealJournalOutput = {
+  id: "test-meal-journal-id",
+  date: new Date(),
+  userId: "test-user-id",
+  mealItems: [mockMealItem],
 };
