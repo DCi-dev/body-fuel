@@ -51,7 +51,6 @@ export default function UpdateServings({
         fat: Math.round((fat / servings) * selectedServings),
         carbs: Math.round((carbs / servings) * selectedServings),
       };
-      console.log(mealUpdate);
       await updateMealJournal.mutateAsync(mealUpdate);
       refetch();
       toast.dismiss();
