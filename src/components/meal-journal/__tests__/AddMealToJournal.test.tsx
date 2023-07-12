@@ -47,6 +47,7 @@ describe("AddMealToJournal", () => {
     });
 
     // Dismiss loading toast
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(mockToast.dismiss).toHaveBeenCalled();
 
     // Success toast should be called

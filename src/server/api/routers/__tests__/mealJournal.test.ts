@@ -243,7 +243,7 @@ describe("mealJournalRouter", () => {
       const result = caller.mealJournal.getMealJournal(input);
 
       // Asserting the result to be null
-      expect(result).resolves.toBeNull();
+      void expect(result).resolves.toBeNull();
     });
   });
 });

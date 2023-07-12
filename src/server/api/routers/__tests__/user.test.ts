@@ -2,6 +2,8 @@
  * @jest-environment node
  */
 
+/* eslint-disable @typescript-eslint/unbound-method */
+
 import type { FavoriteRecipes } from "@prisma/client";
 import { type RouterInputs } from "@utils/api";
 import {
