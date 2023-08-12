@@ -146,7 +146,7 @@ export default function Navbar({
                                   href="/dashboard"
                                   className={classNames(
                                     active ? "bg-white dark:bg-zinc-600" : "",
-                                    "block px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100"
+                                    "block px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100",
                                   )}
                                 >
                                   Dashboard
@@ -159,7 +159,7 @@ export default function Navbar({
                                   href="/dashboard/your-recipes"
                                   className={classNames(
                                     active ? "bg-white dark:bg-zinc-600" : "",
-                                    "block px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100"
+                                    "block px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100",
                                   )}
                                 >
                                   Your recipes
@@ -172,7 +172,7 @@ export default function Navbar({
                                   href="/dashboard/create-recipe"
                                   className={classNames(
                                     active ? "bg-white dark:bg-zinc-600" : "",
-                                    "block px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100"
+                                    "block px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100",
                                   )}
                                 >
                                   Create a recipe
@@ -185,7 +185,7 @@ export default function Navbar({
                                   href="/dashboard/favorite-recipes"
                                   className={classNames(
                                     active ? "bg-white dark:bg-zinc-600" : "",
-                                    "block px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100"
+                                    "block px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100",
                                   )}
                                 >
                                   Favourite recipes
@@ -199,7 +199,7 @@ export default function Navbar({
                             <div
                               className={classNames(
                                 active ? "bg-white dark:bg-zinc-600" : "",
-                                "block cursor-pointer px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100"
+                                "block cursor-pointer px-4 py-2 text-sm text-zinc-900 dark:text-zinc-100",
                               )}
                               onClick={
                                 sessionData

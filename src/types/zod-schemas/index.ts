@@ -69,6 +69,6 @@ export const MealJournalSchema = z.object({
       protein: z.number().optional(),
       carbs: z.number().optional(),
       fat: z.number().optional(),
-    })
+    }),
   ),
 });

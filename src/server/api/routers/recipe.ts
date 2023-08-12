@@ -67,26 +67,26 @@ export const recipeRouter = createTRPCRouter({
                 ingredient?.calories !== undefined
                   ? acc + ingredient.calories
                   : acc,
-              0
+              0,
             ),
             protein: input.ingredients.reduce(
               (acc: number, ingredient) =>
                 ingredient?.protein !== undefined
                   ? acc + ingredient.protein
                   : acc,
-              0
+              0,
             ),
             carbohydrates: input.ingredients.reduce(
               (acc: number, ingredient) =>
                 ingredient?.carbohydrates !== undefined
                   ? acc + ingredient.carbohydrates
                   : acc,
-              0
+              0,
             ),
             fat: input.ingredients.reduce(
               (acc: number, ingredient) =>
                 ingredient?.fat !== undefined ? acc + ingredient.fat : acc,
-              0
+              0,
             ),
             instructions: {
               create: input.instructions.map((instruction) => ({
@@ -147,7 +147,7 @@ export const recipeRouter = createTRPCRouter({
         limit: z.number().min(1).max(100),
         cursor: z.string().nullish(),
         search: z.string().nullish(),
-      })
+      }),
     )
     .query(async ({ input, ctx }) => {
       const limit = input.limit ?? 50;
@@ -199,7 +199,7 @@ export const recipeRouter = createTRPCRouter({
             instructions,
             user,
           };
-        })
+        }),
       );
 
       return { recipesWithDetails, nextCursor };
@@ -210,7 +210,7 @@ export const recipeRouter = createTRPCRouter({
       z.object({
         limit: z.number().min(1).max(100),
         cursor: z.string().nullish(),
-      })
+      }),
     )
     .query(async ({ input, ctx }) => {
       const limit = input.limit ?? 50;
@@ -260,7 +260,7 @@ export const recipeRouter = createTRPCRouter({
             instructions,
             user,
           };
-        })
+        }),
       );
 
       return { recipesWithDetails, nextCursor };
@@ -327,7 +327,7 @@ export const recipeRouter = createTRPCRouter({
           user,
           instructions,
         };
-      })
+      }),
     );
 
     return recipesWithDetails;
@@ -338,7 +338,7 @@ export const recipeRouter = createTRPCRouter({
         limit: z.number().min(1).max(100),
         cursor: z.string().nullish(),
         search: z.string().nullish(),
-      })
+      }),
     )
     .query(async ({ input, ctx }) => {
       const userId = ctx.session?.user?.id;
@@ -392,7 +392,7 @@ export const recipeRouter = createTRPCRouter({
             instructions,
             user,
           };
-        })
+        }),
       );
 
       return { recipesWithDetails, nextCursor };
@@ -402,7 +402,7 @@ export const recipeRouter = createTRPCRouter({
     .input(
       z.object({
         slug: z.string(),
-      })
+      }),
     )
     .query(async ({ input, ctx }) => {
       const recipe = await ctx.prisma.recipe.findUnique({
@@ -455,7 +455,7 @@ export const recipeRouter = createTRPCRouter({
             ...review,
             user: reviewUser,
           };
-        })
+        }),
       );
 
       return {
@@ -488,7 +488,7 @@ export const recipeRouter = createTRPCRouter({
         limit: z.number().min(1).max(100),
         cursor: z.string().nullish(),
         search: z.string().nullish(),
-      })
+      }),
     )
     .query(async ({ input, ctx }) => {
       const userId = ctx.session?.user?.id;
@@ -555,7 +555,7 @@ export const recipeRouter = createTRPCRouter({
             instructions,
             user,
           };
-        })
+        }),
       );
 
       return { recipesWithDetails, nextCursor };
@@ -671,7 +671,7 @@ export const recipeRouter = createTRPCRouter({
       z.object({
         id: z.string(),
         shared: z.boolean(),
-      })
+      }),
     )
     .mutation(async ({ input, ctx }) => {
       const userId = ctx.session?.user?.id;

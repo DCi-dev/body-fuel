@@ -32,7 +32,7 @@ jest.mock("@utils/api", () => ({
 describe("DailyStats", () => {
   it("should render the daily stats correctly", () => {
     const { getByText } = render(
-      <DailyStats mealJournal={mealJournalToday} date={new Date()} />
+      <DailyStats mealJournal={mealJournalToday} date={new Date()} />,
     );
     // Day stats
     expect(getByText("Calories")).toBeDefined();

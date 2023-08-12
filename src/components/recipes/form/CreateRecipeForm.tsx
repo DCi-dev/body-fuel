@@ -20,7 +20,7 @@ interface ImageData {
 function useZodForm<TSchema extends z.ZodType>(
   props: Omit<UseFormProps<TSchema["_input"]>, "resolver"> & {
     schema: TSchema;
-  }
+  },
 ) {
   const form = useForm<TSchema["_input"]>({
     ...props,
@@ -396,7 +396,7 @@ export default function CreateRecipeForm() {
                         onChange={(e) => {
                           setValue(
                             `ingredients.${index}.quantity`,
-                            parseInt(e.target.value)
+                            parseInt(e.target.value),
                           );
                         }}
                         className="block w-full appearance-none rounded-md border-zinc-300 py-1 pl-2 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
@@ -424,7 +424,7 @@ export default function CreateRecipeForm() {
                         onChange={(e) => {
                           setValue(
                             `ingredients.${index}.calories`,
-                            parseInt(e.target.value)
+                            parseInt(e.target.value),
                           );
                         }}
                         className="block w-full appearance-none rounded-md border-zinc-300 py-1 pl-2 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
@@ -453,7 +453,7 @@ export default function CreateRecipeForm() {
                         onChange={(e) => {
                           setValue(
                             `ingredients.${index}.protein`,
-                            parseInt(e.target.value)
+                            parseInt(e.target.value),
                           );
                         }}
                         className="block w-full appearance-none rounded-md border-zinc-300 py-1 pl-2 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
@@ -482,7 +482,7 @@ export default function CreateRecipeForm() {
                         onChange={(e) => {
                           setValue(
                             `ingredients.${index}.carbohydrates`,
-                            parseInt(e.target.value)
+                            parseInt(e.target.value),
                           );
                         }}
                         className="block w-full appearance-none rounded-md border-zinc-300 py-1 pl-2 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
@@ -511,7 +511,7 @@ export default function CreateRecipeForm() {
                         onChange={(e) => {
                           setValue(
                             `ingredients.${index}.fat`,
-                            parseInt(e.target.value)
+                            parseInt(e.target.value),
                           );
                         }}
                         className="mt-1 block w-full appearance-none rounded-md border-zinc-300 py-1 pl-2 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"

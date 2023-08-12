@@ -130,7 +130,7 @@ export default function RecipePageHero({
                       "h-6 w-6",
                       i < averageStars
                         ? "fill-yellow-500 stroke-none"
-                        : "stroke-current text-zinc-400"
+                        : "stroke-current text-zinc-400",
                     )}
                   />
                 ))}

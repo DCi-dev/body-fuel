@@ -17,7 +17,7 @@ interface Props {
   page: number;
   setPage: (page: number) => void;
   fetchNextPage: (
-    options?: FetchNextPageOptions
+    options?: FetchNextPageOptions,
   ) => Promise<UseInfiniteQueryResult>;
   pageLength?: number;
 }

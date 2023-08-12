@@ -13,7 +13,7 @@ export const mealJournalRouter = createTRPCRouter({
       const dateOnly = new Date(
         input.date.getFullYear(),
         input.date.getMonth(),
-        input.date.getDate()
+        input.date.getDate(),
       );
 
       const mealJournal = await ctx.prisma.mealJournal.findFirst({
@@ -78,7 +78,7 @@ export const mealJournalRouter = createTRPCRouter({
         protein: z.number().optional(),
         carbs: z.number().optional(),
         fat: z.number().optional(),
-      })
+      }),
     )
     .mutation(async ({ input, ctx }) => {
       const userId = ctx.session.user.id;
@@ -129,7 +129,7 @@ export const mealJournalRouter = createTRPCRouter({
       z.object({
         journalId: z.string(),
         itemId: z.string(),
-      })
+      }),
     )
     .mutation(async ({ input, ctx }) => {
       const userId = ctx.session.user.id;
@@ -169,7 +169,7 @@ export const mealJournalRouter = createTRPCRouter({
     .input(
       z.object({
         journalId: z.string(),
-      })
+      }),
     )
     .mutation(async ({ input, ctx }) => {
       const userId = ctx.session.user.id;
@@ -201,7 +201,7 @@ export const mealJournalRouter = createTRPCRouter({
       const dateOnly = new Date(
         input.getFullYear(),
         input.getMonth(),
-        input.getDate()
+        input.getDate(),
       );
       const mealJournal = await ctx.prisma.mealJournal.findFirst({
         where: {
@@ -231,7 +231,7 @@ export const mealJournalRouter = createTRPCRouter({
             ...item,
             recipe,
           };
-        })
+        }),
       );
 
       return {

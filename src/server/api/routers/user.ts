@@ -95,7 +95,7 @@ export const userRouter = createTRPCRouter({
         recipeId: z.string(),
         stars: z.number(),
         comments: z.string(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session?.user?.id;

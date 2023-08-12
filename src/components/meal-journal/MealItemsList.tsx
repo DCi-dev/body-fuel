@@ -136,7 +136,7 @@ export default function MealItemsList({
                                       active
                                         ? "bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
                                         : "text-zinc-700 dark:text-zinc-300",
-                                      "group flex w-full items-center px-4 py-2 text-sm"
+                                      "group flex w-full items-center px-4 py-2 text-sm",
                                     )}
                                   >
                                     <PencilSquareIcon
@@ -162,7 +162,7 @@ export default function MealItemsList({
                                       active
                                         ? "bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
                                         : "text-zinc-700 dark:text-zinc-300",
-                                      "group flex w-full items-center px-4 py-2 text-sm"
+                                      "group flex w-full items-center px-4 py-2 text-sm",
                                     )}
                                   >
                                     <TrashIcon

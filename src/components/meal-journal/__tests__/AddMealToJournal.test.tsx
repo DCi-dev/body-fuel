@@ -24,7 +24,7 @@ describe("AddMealToJournal", () => {
     const mockSetOpen = jest.fn();
 
     const { getByText, getByLabelText } = render(
-      <AddMealToJournal recipe={recipe} open={true} setOpen={mockSetOpen} />
+      <AddMealToJournal recipe={recipe} open={true} setOpen={mockSetOpen} />,
     );
     // Select 2 servings
     const servingsInput = getByLabelText("Servings");

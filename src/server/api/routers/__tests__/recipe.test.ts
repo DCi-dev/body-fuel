@@ -148,7 +148,7 @@ describe("recipeRouter", () => {
 
       // make prisma.favoriteRecipes.findUnique return mockFavoriteRecipe
       prisma.favoriteRecipes.findFirst.mockResolvedValueOnce(
-        mockFavoriteRecipe
+        mockFavoriteRecipe,
       );
 
       // Call the procedure
@@ -330,7 +330,7 @@ describe("recipeRouter", () => {
 
       // Expect the result to throw an error
       await expect(result).rejects.toThrowError(
-        "You are not allowed to delete this recipe"
+        "You are not allowed to delete this recipe",
       );
     });
   });
@@ -365,7 +365,7 @@ describe("recipeRouter", () => {
 
       // Expect the result to throw an error
       await expect(result).rejects.toThrowError(
-        "You are not allowed to update this recipe"
+        "You are not allowed to update this recipe",
       );
     });
   });

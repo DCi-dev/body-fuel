@@ -20,7 +20,7 @@ const Signin = ({ csrfToken }: { csrfToken: string }) => {
         "Please sign in using the previous provider you signed up with.",
         {
           duration: 5000,
-        }
+        },
       );
     }
   }, [error]);

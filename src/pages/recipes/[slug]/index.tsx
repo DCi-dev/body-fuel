@@ -53,14 +53,14 @@ const RecipePage: NextPage<PageProps> = ({ slug }) => {
 
   // Calculate the nutrition facts for the selected servings
   const calories = Math.round(
-    (recipe?.calories / recipe?.servings) * selectedServings
+    (recipe?.calories / recipe?.servings) * selectedServings,
   );
   const protein = Math.round(
-    (recipe?.protein / recipe?.servings) * selectedServings
+    (recipe?.protein / recipe?.servings) * selectedServings,
   );
   const fat = Math.round((recipe?.fat / recipe?.servings) * selectedServings);
   const carbs = Math.round(
-    (recipe?.carbohydrates / recipe?.servings) * selectedServings
+    (recipe?.carbohydrates / recipe?.servings) * selectedServings,
   );
 
   // Calculate the average stars for the recipe reviews
@@ -129,7 +129,7 @@ import type { GetStaticPaths, GetStaticPropsContext, NextPage } from "next";
 import superjson from "superjson";
 
 export async function getStaticProps(
-  context: GetStaticPropsContext<{ slug: string }>
+  context: GetStaticPropsContext<{ slug: string }>,
 ) {
   const ssg = createServerSideHelpers({
     router: appRouter,

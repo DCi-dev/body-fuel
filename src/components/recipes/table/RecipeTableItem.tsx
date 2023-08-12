@@ -188,7 +188,7 @@ const RecipeTableItem = ({
                         active
                           ? "bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
                           : "text-zinc-700 dark:text-zinc-300",
-                        "group flex w-full items-center px-4 py-2 text-sm"
+                        "group flex w-full items-center px-4 py-2 text-sm",
                       )}
                     >
                       <PencilSquareIcon
@@ -209,7 +209,7 @@ const RecipeTableItem = ({
                         active
                           ? "bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
                           : "text-zinc-700 dark:text-zinc-300",
-                        "group  flex items-center px-4 py-2 text-sm"
+                        "group  flex items-center px-4 py-2 text-sm",
                       )}
                     >
                       <PencilSquareIcon
@@ -232,7 +232,7 @@ const RecipeTableItem = ({
                           active
                             ? "bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
                             : "text-zinc-700 dark:text-zinc-300",
-                          "group flex w-full items-center px-4 py-2 text-sm"
+                          "group flex w-full items-center px-4 py-2 text-sm",
                         )}
                       >
                         <ShareIcon
@@ -255,7 +255,7 @@ const RecipeTableItem = ({
                         active
                           ? "bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
                           : "text-zinc-700 dark:text-zinc-300",
-                        "group flex w-full items-center px-4 py-2 text-sm"
+                        "group flex w-full items-center px-4 py-2 text-sm",
                       )}
                     >
                       <HeartIcon
@@ -284,7 +284,7 @@ const RecipeTableItem = ({
                           active
                             ? "bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
                             : "text-zinc-700 dark:text-zinc-300",
-                          "group flex w-full items-center px-4 py-2 text-sm"
+                          "group flex w-full items-center px-4 py-2 text-sm",
                         )}
                       >
                         <TrashIcon

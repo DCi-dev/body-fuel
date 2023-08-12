@@ -64,7 +64,7 @@ export default function UserMenu({ userName, userImage }: UserMenuProps) {
                     active
                       ? "bg-zinc-100 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100"
                       : "text-zinc-700 dark:text-zinc-300",
-                    "block w-full px-4 py-2 text-left text-sm"
+                    "block w-full px-4 py-2 text-left text-sm",
                   )}
                 >
                   Sign out

@@ -31,16 +31,16 @@ export default function AddMealToJournal({ recipe, open, setOpen }: Props) {
             recipeId: recipe.id,
             servings: selectedServings,
             calories: Math.round(
-              (recipe?.calories / recipe?.servings) * selectedServings
+              (recipe?.calories / recipe?.servings) * selectedServings,
             ),
             protein: Math.round(
-              (recipe?.protein / recipe?.servings) * selectedServings
+              (recipe?.protein / recipe?.servings) * selectedServings,
             ),
             fat: Math.round(
-              (recipe?.fat / recipe?.servings) * selectedServings
+              (recipe?.fat / recipe?.servings) * selectedServings,
             ),
             carbs: Math.round(
-              (recipe?.carbohydrates / recipe?.servings) * selectedServings
+              (recipe?.carbohydrates / recipe?.servings) * selectedServings,
             ),
           },
         ],

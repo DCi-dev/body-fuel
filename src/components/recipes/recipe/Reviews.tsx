@@ -56,7 +56,7 @@ const Reviews = ({ reviews }: { reviews: Review[] }) => {
                             "h-5 w-5",
                             i < review.stars
                               ? "fill-yellow-500 stroke-none"
-                              : "stroke-current text-zinc-400"
+                              : "stroke-current text-zinc-400",
                           )}
                         />
                       ))}

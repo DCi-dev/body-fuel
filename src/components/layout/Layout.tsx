@@ -166,7 +166,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                               router.asPath === item.href
                                 ? "bg-zinc-100 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100"
                                 : "text-zinc-700 hover:bg-zinc-300 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-700 dark:hover:text-zinc-100",
-                              "group flex items-center rounded-md px-2 py-2 text-base font-medium"
+                              "group flex items-center rounded-md px-2 py-2 text-base font-medium",
                             )}
                           >
                             <item.icon
@@ -174,7 +174,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                                 router.asPath === item.href
                                   ? "text-zinc-700 dark:text-zinc-300"
                                   : "text-zinc-600 group-hover:text-zinc-700 dark:text-zinc-400 dark:group-hover:text-zinc-300",
-                                "mr-4 h-6 w-6 flex-shrink-0"
+                                "mr-4 h-6 w-6 flex-shrink-0",
                               )}
                               aria-hidden="true"
                             />
@@ -236,7 +236,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                         router.asPath === item.href
                           ? "bg-zinc-100 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100"
                           : "text-zinc-700 hover:bg-zinc-300 hover:text-zinc-900  dark:text-zinc-300 dark:hover:bg-zinc-700 dark:hover:text-zinc-100",
-                        "group flex items-center rounded-md px-2 py-2 text-sm font-medium"
+                        "group flex items-center rounded-md px-2 py-2 text-sm font-medium",
                       )}
                     >
                       <item.icon
@@ -244,7 +244,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                           router.asPath === item.href
                             ? "text-zinc-700 dark:text-zinc-300"
                             : "text-zinc-600 group-hover:text-zinc-700 dark:text-zinc-400 dark:group-hover:text-zinc-300",
-                          "mr-3 h-6 w-6 flex-shrink-0"
+                          "mr-3 h-6 w-6 flex-shrink-0",
                         )}
                         aria-hidden="true"
                       />

@@ -17,7 +17,7 @@ const RecipesPage: NextPage = () => {
     { limit: 9 },
     {
       getNextPageParam: (lastPage) => lastPage.nextCursor,
-    }
+    },
   );
 
   const handleFetchNextPage = async () => {

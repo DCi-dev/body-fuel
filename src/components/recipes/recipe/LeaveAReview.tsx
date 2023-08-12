@@ -131,7 +131,7 @@ export default function LeaveAReview({
                             "h-8 w-8",
                             star.value <= (selectedStar?.value as number)
                               ? "fill-yellow-500 stroke-none"
-                              : "stroke-current text-zinc-400"
+                              : "stroke-current text-zinc-400",
                           )}
                         />
                       </RadioGroup.Option>

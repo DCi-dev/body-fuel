@@ -21,28 +21,28 @@ export default function DailyStats({ mealJournal, date }: Props) {
   const dayCalories = mealJournal?.mealItems
     ? mealJournal.mealItems.reduce(
         (acc, mealItem) => acc + (mealItem.calories || 0),
-        0
+        0,
       )
     : 0;
 
   const dayProtein = mealJournal?.mealItems
     ? mealJournal.mealItems.reduce(
         (acc, mealItem) => acc + (mealItem.protein || 0),
-        0
+        0,
       )
     : 0;
 
   const dayCarbs = mealJournal?.mealItems
     ? mealJournal.mealItems.reduce(
         (acc, mealItem) => acc + (mealItem.carbs || 0),
-        0
+        0,
       )
     : 0;
 
   const dayFat = mealJournal?.mealItems
     ? mealJournal.mealItems.reduce(
         (acc, mealItem) => acc + (mealItem.fat || 0),
-        0
+        0,
       )
     : 0;
 
@@ -50,22 +50,22 @@ export default function DailyStats({ mealJournal, date }: Props) {
   const yesterdayCalories = getMealJournalYesterday.data?.mealItems?.reduce(
     (acc, mealItem) =>
       mealItem.calories !== null ? acc + mealItem?.calories : acc,
-    0
+    0,
   );
 
   const yesterdayProtein = getMealJournalYesterday.data?.mealItems?.reduce(
     (acc, mealItem) =>
       mealItem.protein !== null ? acc + mealItem?.protein : acc,
-    0
+    0,
   );
 
   const yesterdayCarbs = getMealJournalYesterday.data?.mealItems?.reduce(
     (acc, mealItem) => (mealItem.carbs !== null ? acc + mealItem.carbs : acc),
-    0
+    0,
   );
   const yesterdayFat = getMealJournalYesterday.data?.mealItems?.reduce(
     (acc, mealItem) => (mealItem.fat !== null ? acc + mealItem.fat : acc),
-    0
+    0,
   );
 
   // Calculate change
@@ -143,7 +143,7 @@ export default function DailyStats({ mealJournal, date }: Props) {
                     : item.changeType === "increase"
                     ? "bg-red-100 text-red-800"
                     : "bg-green-100 text-green-800",
-                  "inline-flex items-baseline rounded-full px-2.5 py-0.5 text-sm font-medium md:mt-2 lg:mt-0"
+                  "inline-flex items-baseline rounded-full px-2.5 py-0.5 text-sm font-medium md:mt-2 lg:mt-0",
                 )}
               >
                 {item.changeType === "increase" && item.name === "Protein" ? (
